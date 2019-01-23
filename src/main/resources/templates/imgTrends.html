@@ -8,13 +8,18 @@
 	<script type="text/javascript" src='/zht/js/jquery-1.7.2.min.js'></script>
 	<script type="text/javascript">
 	$(function(){
-		$('.nav_mini ul li').hover(function(){
-			$(this).find('div').show(100);
-		},function(){
-			$(this).find('div').hide(100);
-		})
+
 		getTitle();
 	})
+    function goodsJS(){
+        $(".nav_mini ul li").hover(function(){
+            $(this).find("div").show(100);
+        },function(){
+            $(this).find("div").hide(100);
+        })
+    }
+
+
 	function getTitle(){
 		$.ajax({
 			url:"/tit/getTitle",
@@ -176,11 +181,12 @@ $(function(){
           $.each(data,function(index,obj){
               tt += "<li>";
               tt += "<a  href='/toView?id="+obj.id+"'   onmouseover='shang("+obj.id+")'>"+obj.flmch1+"</a>";
-              tt += " <div class='nav_mini"+obj.id+" attr'>";
+              tt += " <div class='nav_two"+obj.id+" attr'>";
               tt += "</div>";
               tt += "</li>";
           });
       $("#success").html(tt);
+      goodsJS();
 	  },
 	  error:function(){
        alert("失败了")
@@ -195,9 +201,9 @@ $(function(){
 		success:function(data){
             var count = ""
             $.each(data,function(index,obj){
-                count += "<a href='/toView?id="+obj.id+"'>"+obj.flmch2+"</a>    ";
+                count += "<a href='/toView?id="+obj.id+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
             });
-            $('.nav_mini'+id+'').html(count);
+            $('.nav_two'+id+'').html(count);
 		},
 		error:function(){
 		 alert("失败了")
