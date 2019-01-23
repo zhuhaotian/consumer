@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/css.css">
+    <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
 <div class="top">
@@ -138,28 +139,9 @@
 
 <!--筛选阶段-->
 <div class="filter">
-    <h2>电脑、办公 </h2>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        电脑整机
-    </div>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        游戏本
-    </div>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        游戏本
-    </div>
-    <div class="filter_clear">
-        清空筛选
-    </div>
+   <div id="leixId"></div>    <!--  查询  商品名  类型  -->
 
 </div>
-
-
-
-
 
 <div class="Sscreen">
     <div class="title">
@@ -167,15 +149,7 @@
     </div>
     <div class="list">
         <span>品牌：</span>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
+      <div id="logoId"></div>               <!-- 品牌 -->
     </div>
     <div class="list">
         <span>价格：</span>
@@ -234,5 +208,60 @@
     <div class="top"></div>
     <div class="bottom"><img src="images/foot.jpg" alt=""></div>
 </div>
+
+<script type="text/javascript">
+ $(function(){
+     queryBrand()
+
+     queryThird();
+ })
+ //  查询  商品名
+ function queryThird(){
+     $.ajax({
+
+         url:"/jianShow/queryThird",
+         type:"post",
+         data:{id:8},
+
+         success:function(result){
+             console.log(result);
+             var arr="";
+             for(var i=0;i<result.length();i++){
+                 arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
+             }
+             $("#logoId").html(arr);      //往品牌div赋值
+         },
+         error:function(){
+
+             alert("出错了!!!!");
+         }
+     })
+
+ }
+
+ //查询品牌
+ function queryBrand(){
+
+     $.ajax({
+
+         url:"",
+         type:"post",
+         data:{id:id},
+
+          success:function(result){
+             console.log(result);
+            var arr="";
+            for(var i=0;i<result.length();i++){
+              arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
+            }
+             $("#logoId").html(arr);      //往品牌div赋值
+          },
+         error:function(){
+
+            alert("出错了!!!!");
+         }
+     })
+ }
+</script>
 </body>
 </html>
