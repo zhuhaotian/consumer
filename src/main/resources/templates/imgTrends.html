@@ -9,9 +9,9 @@
 	<script type="text/javascript">
 	$(function(){
 		$('.nav_mini ul li').hover(function(){
-			$(this).find('.two_nav').show(100);
+			$(this).find('div').show(100);
 		},function(){
-			$(this).find('.two_nav').hide(100);
+			$(this).find('div').hide(100);
 		})
 		getTitle();
 	})
@@ -117,8 +117,8 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini">
-						<ul>
-							<li>
+						<ul id="success">
+							<!--<li>
 								<a href="">家用电器</a>
 								<div class="two_nav">
 									<a href="">11111</a>
@@ -147,7 +147,7 @@
 							<li><a href="">营养保健</a></li>
 							<li><a href="">图书</a></li>
 							<li><a href="">彩票</a></li>
-							<li><a href="">理财</a></li>
+							<li><a href="">理财</a></li>-->
 						</ul>
 					</div>
 				</div>
@@ -161,6 +161,53 @@
 			<img src="/zht/images/banner.jpg" width="980" height="380" alt="">
 		</div>
 	</div>
-	
+
 </body>
+<script>
+$(function(){
+    good();
+})
+   function good(){
+    $.ajax({
+	  url:"/Searchtwo",
+	  type:"post",
+	  success:function(data){
+          var tt = ""
+          $.each(data,function(index,obj){
+              tt += "<li>";
+              tt += "<a  href='/toView?id="+obj.id+"'   onmouseover='shang("+obj.id+")'>"+obj.flmch1+"</a>";
+              tt += " <div class='nav_mini"+obj.id+" attr'>";
+              tt += "</div>";
+              tt += "</li>";
+          });
+      $("#success").html(tt);
+	  },
+	  error:function(){
+       alert("失败了")
+      }
+	})
+   }
+	function shang(id){
+	  $.ajax({
+		url:"/Searchthree",
+		type:"post",
+		data:{id:id},
+		success:function(data){
+            var count = ""
+            $.each(data,function(index,obj){
+                count += "<a href='/toView?id="+obj.id+"'>"+obj.flmch2+"</a>    ";
+            });
+            $('.nav_mini'+id+'').html(count);
+		},
+		error:function(){
+		 alert("失败了")
+		}
+	  })
+	}
+
+
+
+
+
+</script>
 </html>
