@@ -27,6 +27,7 @@
     </properties>
 
     <dependencies>
+
         <!--跳转视图-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -83,6 +84,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+
+
+
 
     <build>
         <plugins>

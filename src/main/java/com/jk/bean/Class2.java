@@ -2,10 +2,9 @@ package com.jk.bean;
 
 import lombok.Data;
 
-import java.io.Serializable;
 
 @Data
-public class Class2 implements Serializable {
+public class Class2{
 
     private Integer id;
 
