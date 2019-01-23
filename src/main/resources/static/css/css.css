@@ -153,7 +153,7 @@ a{text-decoration:none;color: #5A5A5A;font-family: '微软雅黑';font-size: 12p
 
 /*购物车显示*/
 .card{position: relative;}
-.cart_pro{position: absolute;top: 34px;right: -2px;width: 310px;border:1px solid #dfdfdf;background: white;z-index: 10;}		
+.cart_pro{position: absolute;top: 34px;right: -2px;width: 310px;border:1px solid #dfdfdf;background: white;z-index: 11;}
 .one{width: 300px;padding: 5px;height: 70px;}
 .one img{
 	float: left
