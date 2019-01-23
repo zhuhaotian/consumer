@@ -24,7 +24,6 @@ public class User implements Serializable {
 
     private Integer yhJb;
 
-
     public Integer getId() {
         return id;
     }
@@ -33,42 +32,36 @@ public class User implements Serializable {
         this.id = id;
     }
 
-
     public String getYhMch() {
         return yhMch;
     }
 
-
     public void setYhMch(String yhMch) {
-        this.yhMch = yhMch == null ? null : yhMch.trim();
+        this.yhMch = yhMch;
     }
-
 
     public String getYhNch() {
         return yhNch;
     }
 
-
     public void setYhNch(String yhNch) {
-        this.yhNch = yhNch == null ? null : yhNch.trim();
+        this.yhNch = yhNch;
     }
 
     public String getYhMm() {
         return yhMm;
     }
 
-
     public void setYhMm(String yhMm) {
-        this.yhMm = yhMm == null ? null : yhMm.trim();
+        this.yhMm = yhMm;
     }
-
 
     public String getYhXm() {
         return yhXm;
     }
 
     public void setYhXm(String yhXm) {
-        this.yhXm = yhXm == null ? null : yhXm.trim();
+        this.yhXm = yhXm;
     }
 
     public String getYhShjh() {
@@ -76,33 +69,28 @@ public class User implements Serializable {
     }
 
     public void setYhShjh(String yhShjh) {
-        this.yhShjh = yhShjh == null ? null : yhShjh.trim();
+        this.yhShjh = yhShjh;
     }
-
 
     public String getYhYx() {
         return yhYx;
     }
 
     public void setYhYx(String yhYx) {
-        this.yhYx = yhYx == null ? null : yhYx.trim();
+        this.yhYx = yhYx;
     }
-
 
     public String getYhTx() {
         return yhTx;
     }
 
-
     public void setYhTx(String yhTx) {
-        this.yhTx = yhTx == null ? null : yhTx.trim();
+        this.yhTx = yhTx;
     }
-
 
     public Integer getYhJb() {
         return yhJb;
     }
-
 
     public void setYhJb(Integer yhJb) {
         this.yhJb = yhJb;
