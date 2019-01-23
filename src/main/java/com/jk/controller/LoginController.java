@@ -10,6 +10,7 @@
  */
 package com.jk.controller;
 
+import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
