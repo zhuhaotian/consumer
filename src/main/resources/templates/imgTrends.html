@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="/zht/css/css.css">
+	
+	<script type="text/javascript" src='/zht/js/jquery-1.7.2.min.js'></script>
+	<script type="text/javascript">
+	$(function(){
+
+		getTitle();
+	})
+    function goodsJS(){
+        $(".nav_mini ul li").hover(function(){
+            $(this).find("div").show(100);
+        },function(){
+            $(this).find("div").hide(100);
+        })
+    }
+
+
+	function getTitle(){
+		$.ajax({
+			url:"/tit/getTitle",
+			type:"POST",
+			success:function(pageUtil){
+				var count=''
+				$.each(pageUtil,function (index,obj) {
+					count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+				})
+				$("#uu").append(count)
+			},
+			error:function(){
+				alert("失败了");
+			}
+		});
+	}
+	</script>
+</head>
+<body>
+	<div class="top">
+		<div class="top_text">
+			<a href="">用户登录</a>
+			<a href="">用户注册</a>
+			<a href="">供应商登录</a>
+			<a href="">供应商注册</a>
+		</div>
+	</div>
+	<div class="top_img">
+		<img src="./images/top_img.jpg" alt="">
+	</div>
+	<div class="search">
+		<div class="logo"><img src="./images/logo.jpg" alt=""></div>
+		<div class="search_on">
+			<div class="se">
+				<input type="text" name="search" class="lf">
+				<input type="submit" class="clik" value="搜索">
+			</div>
+			<div class="se">
+				<a href="">取暖神奇</a>
+				<a href="">1元秒杀</a>
+				<a href="">吹风机</a>
+				<a href="">玉兰油</a>
+			</div>
+		</div>
+		<div class="card">
+			<a href="">购物车<div class="num">0</div></a>
+			
+			<!--购物车商品-->
+			<div class="cart_pro">
+				<h6>最新加入的商品</h6>
+				<div class="one">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				
+				<div class="one border">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				<div class="one border">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				
+				
+				<div class="gobottom">
+					共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
+					共计￥<span>20000</span>
+					<button class="goprice">去购物车</button>
+				</div>
+				
+				
+			</div>
+		
+		</div>
+		
+		
+	</div>
+	<div class="menu">
+		<div class="nav">
+			<div class="navs">
+				<div class="left_nav">
+					全部商品分类
+					<div class="nav_mini">
+						<ul id="success">
+							<!--<li>
+								<a href="">家用电器</a>
+								<div class="two_nav">
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+									<a href="">11111</a>
+								</div>
+							</li>
+							<li><a href="">手机、数码、通信</a></li>
+							<li><a href="">电脑、办公</a></li>
+							<li><a href="">家具、家居、家装</a></li>
+							<li><a href="">男装、女装、内衣</a></li>
+							<li><a href="">个户化妆</a></li>
+							<li><a href="">鞋靴</a></li>
+							<li><a href="">户外运动</a></li>
+							<li><a href="">汽车</a></li>
+							<li><a href="">母婴</a></li>
+							<li><a href="">食品</a></li>
+							<li><a href="">营养保健</a></li>
+							<li><a href="">图书</a></li>
+							<li><a href="">彩票</a></li>
+							<li><a href="">理财</a></li>-->
+						</ul>
+					</div>
+				</div>
+				<ul id="uu">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="banner">
+		<div class="ban">
+			<img src="/zht/images/banner.jpg" width="980" height="380" alt="">
+		</div>
+	</div>
+
+</body>
+<script>
+$(function(){
+    good();
+})
+   function good(){
+    $.ajax({
+	  url:"/Searchtwo",
+	  type:"post",
+	  success:function(data){
+          var tt = ""
+          $.each(data,function(index,obj){
+              tt += "<li>";
+              tt += "<a  href='/toView?id="+obj.id+"'   onmouseover='shang("+obj.id+")'>"+obj.flmch1+"</a>";
+              tt += " <div class='nav_two"+obj.id+" attr'>";
+              tt += "</div>";
+              tt += "</li>";
+          });
+      $("#success").html(tt);
+      goodsJS();
+	  },
+	  error:function(){
+       alert("失败了")
+      }
+	})
+   }
+	function shang(id){
+	  $.ajax({
+		url:"/Searchthree",
+		type:"post",
+		data:{id:id},
+		success:function(data){
+            var count = ""
+            $.each(data,function(index,obj){
+                count += "<a href='/toView?id="+obj.id+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
+            });
+            $('.nav_two'+id+'').html(count);
+		},
+		error:function(){
+		 alert("失败了")
+		}
+	  })
+	}
+
+
+
+
+
+</script>
+</html>

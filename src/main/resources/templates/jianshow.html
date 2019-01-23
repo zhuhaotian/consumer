@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
 <div class="top">
@@ -121,16 +122,8 @@
                     </ul>
                 </div>
             </div>
-            <ul>
-                <li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+            <ul id="uu">
+
             </ul>
         </div>
     </div>
@@ -138,28 +131,9 @@
 
 <!--筛选阶段-->
 <div class="filter">
-    <h2>电脑、办公 </h2>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        电脑整机
-    </div>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        游戏本
-    </div>
-    <span class="gt">&gt</span>
-    <div class="filter_div">
-        游戏本
-    </div>
-    <div class="filter_clear">
-        清空筛选
-    </div>
+   <div id="leixId"></div>    <!--  查询  商品名  类型  -->
 
 </div>
-
-
-
-
 
 <div class="Sscreen">
     <div class="title">
@@ -167,15 +141,7 @@
     </div>
     <div class="list">
         <span>品牌：</span>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
-        <a href="">乐视TV(Letv)</a>
+      <div id="logoId"></div>               <!-- 品牌 -->
     </div>
     <div class="list">
         <span>价格：</span>
@@ -234,5 +200,77 @@
     <div class="top"></div>
     <div class="bottom"><img src="images/foot.jpg" alt=""></div>
 </div>
+
+<script type="text/javascript">
+ $(function(){
+     queryBrand()
+
+     queryThird();
+     getTitle();
+ })
+ function getTitle(){
+     $.ajax({
+         url:"/tit/getTitle",
+         type:"POST",
+         success:function(pageUtil){
+             var count=''
+             $.each(pageUtil,function (index,obj) {
+                 count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+             })
+             $("#uu").append(count)
+         },
+         error:function(){
+             alert("失败了");
+         }
+     });
+ }
+ //  查询  商品名
+ function queryThird(){
+     $.ajax({
+
+         url:"/jianShow/queryThird",
+         type:"post",
+         data:{id:8},
+
+         success:function(result){
+             console.log(result);
+             var arr="";
+             for(var i=0;i<result.length();i++){
+                 arr+="<a href='result[i].id'>"+result[i].flmch1+"</a>"+"  ";
+             }
+             $("#logoId").html(arr);      //往品牌div赋值
+         },
+         error:function(){
+
+             alert("出错了!!!!");
+         }
+     })
+
+ }
+
+ //查询品牌
+ function queryBrand(){
+
+     $.ajax({
+
+         url:"",
+         type:"post",
+         data:{id:8},
+
+          success:function(result){
+             console.log(result);
+            var arr="";
+            for(var i=0;i<result.length;i++){
+              arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
+            }
+            // $("#logoId").html(arr);      //往品牌div赋值
+          },
+         error:function(){
+
+            alert("出错了!!!!");
+         }
+     })
+ }
+</script>
 </body>
 </html>
