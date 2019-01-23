@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -32,9 +33,10 @@ public class SearchController {
     }
     @ResponseBody
     @RequestMapping("Searchthree")
-    public List Searchthree(@RequestParam("id") Integer id){
+    public List Searchthree(@RequestParam("id") Integer id, HttpSession session){
      List list =searchClient.Searchthree(id);
-        System.out.println(list);
+        System.err.println("00000"+id);
+        session.setAttribute("id",id);
      return list;
     }
 
@@ -42,6 +44,7 @@ public class SearchController {
     public String tojianshow(Integer id, ModelMap model){
         System.out.println(id);
         model.addAttribute("id",id);
+       // model.addAttribute("pid",pid);
      return "jianshow";
     }
 

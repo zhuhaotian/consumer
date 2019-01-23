@@ -7,6 +7,8 @@
     <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
+<input type="hidden" name="aaaId" th:value="${id}">
+<input type="text" name="pid" th:value="${pid}">
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -36,7 +38,7 @@
         <a href="">购物车<div class="num">0</div></a>
 
         <!--购物车商品-->
-        <div class="cart_pro">
+        <!--<div class="cart_pro">
             <h6>最新加入的商品</h6>
             <div class="one">
                 <img src="images/lec1.png"/>
@@ -78,7 +80,7 @@
             </div>
 
 
-        </div>
+        </div>-->
 
     </div>
 </div>
@@ -132,7 +134,6 @@
 <!--筛选阶段-->
 <div class="filter">
    <div id="leixId"></div>    <!--  查询  商品名  类型  -->
-
 </div>
 
 <div class="Sscreen">
@@ -145,15 +146,7 @@
     </div>
     <div class="list">
         <span>价格：</span>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
-        <a href="">0-1399</a>
+        <div id="priceId"></div>             <!--  查询 价格 -->
     </div>
     <div class="list">
         <span class="list_span" id="list_beas">销量</span>
@@ -164,36 +157,7 @@
 </div>
 
 <div class="Sbox">
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
-    <div class="list">
-        <div class="img"><img src="images/img_4.jpg" alt=""></div>
-        <div class="price">¥65.00</div>
-        <div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-    </div>
+
 </div>
 
 <div class="footer">
@@ -206,7 +170,9 @@
      queryBrand()
 
      queryThird();
-     getTitle();
+    // getTitle();
+
+     aaa();
  })
  function getTitle(){
      $.ajax({
@@ -230,15 +196,17 @@
 
          url:"/jianShow/queryThird",
          type:"post",
-         data:{id:8},
+         data:{id:$("[name='aaaId']").val()},
 
          success:function(result){
-             console.log(result);
+             console.log("------------"+result);
              var arr="";
-             for(var i=0;i<result.length();i++){
-                 arr+="<a href='result[i].id'>"+result[i].flmch1+"</a>"+"  ";
-             }
-             $("#logoId").html(arr);      //往品牌div赋值
+
+                 arr+="<font size='5px' color='red'>"+result.flmch1+"</font>"+"  ";
+
+                 arr+="<font size='3px'>"+result.flmch2+"</font>"+"  ";
+
+             $("#leixId").html(arr);      //往品牌div赋值
          },
          error:function(){
 
@@ -253,17 +221,17 @@
 
      $.ajax({
 
-         url:"",
+         url:"/jianShow/queryBrand",
          type:"post",
-         data:{id:8},
+         data:{id:$("[name='aaaId']").val()},
 
           success:function(result){
-             console.log(result);
+            console.log(result)
             var arr="";
             for(var i=0;i<result.length;i++){
               arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
             }
-            // $("#logoId").html(arr);      //往品牌div赋值
+             $("#logoId").html(arr);      //往品牌div赋值
           },
          error:function(){
 
@@ -271,6 +239,55 @@
          }
      })
  }
+ //查询品牌
+ function queryPrice(){
+
+     $.ajax({
+
+         url:"/jianShow/queryPrice",
+         type:"post",
+         data:{id:8},
+
+         success:function(result){
+             console.log(result)
+             var arr="";
+             for(var i=0;i<result.length;i++){
+                 arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
+             }
+             $("#priceId").html(arr);      //往品牌div赋值
+         },
+         error:function(){
+
+             alert("出错了!!!!");
+         }
+     })
+ }
+
+function aaa(){
+
+    $.ajax({
+
+        url:"/jianShow/aaa",
+        type:"post",
+        data:{id:$("[name='aaaId']").val()},
+
+        success:function(result){
+          console.log(result)
+            var logoIdData="";   ///logoId
+            for(var i=0;i<result.length;i++){
+                logoIdData+="<a>"+result[i].shp_mch+"</a>"+"  ";
+
+            }
+                $("#logoId").html(logoIdData)
+        },
+        error:function(){
+
+            alert("出错了!!!!");
+        }
+    })
+
+}
+
 </script>
 </body>
 </html>

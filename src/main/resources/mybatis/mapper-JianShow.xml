@@ -6,14 +6,29 @@
 
       select tmc1.flmch1 flmch1,tmc2.flmch2 flmch2 from t_mall_class_1 tmc1,t_mall_class_2 tmc2
 
- where tmc1.Id=tmc2.flbh1 and tmc2.Id=#{id}
+ where tmc1.Id=tmc2.flbh1 and tmc1.Id=#{id} group by tmc1.flmch1
 
   </select>
 
-<select id="queryThird" resultType="productCopy">
+    <select id="queryPrice" resultType="productCopy">
 
 
-</select>
+    </select>
+
+    <select id="aaa" resultType="productCopy">
+
+    SELECT sp.shp_mch shp_mch,sp.shp_tp shp_tp,kc.jg jg,kc.kcdz kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_msh,
+      kc.sku_xl kcxl
+    FROM
+    t_mall_product sp,
+    t_mall_sku kc,
+    t_mall_sku_attr_value sxg,
+    t_mall_attr sxm,
+    t_mall_value sxz
+    WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
+    AND sxg.shxzh_id=sxz.Id AND sp.flbh1=#{id} group by shp_mch
+
+   </select>
 
 
 </mapper>

@@ -1,11 +1,15 @@
 package com.jk.mapper;
 
-import com.jk.bean.productCopy;
+import com.jk.bean.ProductCopy;
 
 import java.util.List;
 
 public interface JianShowMapper {
 
     //根据 查询
-    List<productCopy> queryThird(Integer id);
+    ProductCopy queryThird(Integer id);
+
+    List<ProductCopy> aaa(Integer id);
+
+    List<ProductCopy> queryPrice(Integer id);
 }
