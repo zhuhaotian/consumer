@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
     <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
@@ -227,7 +227,7 @@
              console.log(result);
              var arr="";
              for(var i=0;i<result.length();i++){
-                 arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
+                 arr+="<a href='result[i].id'>"+result[i].flmch1+"</a>"+"  ";
              }
              $("#logoId").html(arr);      //往品牌div赋值
          },
@@ -246,15 +246,15 @@
 
          url:"",
          type:"post",
-         data:{id:id},
+         data:{id:8},
 
           success:function(result){
              console.log(result);
             var arr="";
-            for(var i=0;i<result.length();i++){
+            for(var i=0;i<result.length;i++){
               arr+="<a href='result[i].id'>"+result[i].ppmch+"</a>"+"  ";
             }
-             $("#logoId").html(arr);      //往品牌div赋值
+            // $("#logoId").html(arr);      //往品牌div赋值
           },
          error:function(){
 
