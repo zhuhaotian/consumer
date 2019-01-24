@@ -195,7 +195,7 @@
 		success:function(data){
             var count = ""
             $.each(data,function(index,obj){
-               count += "<a href='/toView?class2Id="+obj.id+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
+               count += "<a href='/toView?class2Id="+obj.id+"&class1Id="+obj.flbh1+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
             });
             $('.nav_two'+id+'').html(count);
 		},

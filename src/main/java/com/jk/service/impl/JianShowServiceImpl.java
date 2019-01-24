@@ -39,4 +39,14 @@ public class JianShowServiceImpl implements JianShowService {
     public List getMarkByIdClass2(Integer id) {
         return jianShowMapper.getMarkByIdClass2(id);
     }
+
+    @Override
+    public Search getFiltrate(Search search) {
+        return jianShowMapper.getFiltrate(search);
+    }
+
+    @Override
+    public Search getTopPp(Integer ppId) {
+        return jianShowMapper.getTopPp(ppId);
+    }
 }

@@ -45,4 +45,18 @@ public class RetrieveController {
         List markByIdClass2 = jianShowService.getMarkByIdClass2(id);
         return markByIdClass2;
     }
+
+    @ResponseBody
+    @RequestMapping("getFiltrate")
+    public Search getFiltrate(Search search){
+        Search filtrate = jianShowService.getFiltrate(search);
+        return filtrate;
+    }
+
+    @ResponseBody
+    @RequestMapping("getTopPp")
+    public Search getTopPp(Integer ppId){
+        Search topPp = jianShowService.getTopPp(ppId);
+        return topPp;
+    }
 }

@@ -9,6 +9,9 @@
  where tmc1.Id=tmc2.flbh1 and tmc1.Id=#{id} group by tmc1.flmch1
 
   </select>
+    <select id="getFiltrate" parameterType="com.jk.bean.Search" resultType="search">
+        SELECT c1.flmch1 class1Name,c2.flmch2 class2Name from t_mall_class_1 c1, t_mall_class_2 c2 where c1.Id =#{flbh1}  and c2.Id= #{flbh2}
+    </select>
 
     <select id="aaa" resultType="productCopy">
 
@@ -28,7 +31,7 @@
 
  <select id="search" parameterType="map" resultType="search">
 
-     SELECT sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg jg,kc.kcdz  kcdz, sxm.shxm_mch shxm_mch,sxz.shxzh shxzh,/*GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx,*/
+     SELECT sp.id ppId,sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg jg,kc.kcdz  kcdz, sxm.shxm_mch shxm_mch,sxz.shxzh shxzh,/*GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx,*/
      kc.sku_xl sku_xl
      FROM
      t_mall_product sp,
@@ -38,6 +41,9 @@
      t_mall_value sxz
      WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
      AND sxg.shxzh_id=sxz.Id
+     <if test="search.ppId !=null and search.ppId !=''">
+         AND sp.pp_id=#{search.ppId}
+     </if>
      <if test="search.flbh1 !=null and search.flbh1 !=''">
          AND sp.flbh1=#{search.flbh1}
      </if>
@@ -62,7 +68,8 @@
      </if>
  </select>
 
-    <select id="getMarkByIdClass2" parameterType="int" resultType="search">
+    <select id="getMarkByIdClass2" parameterType="int" resultType="tradeMark">
         select mtm.id , mtm.ppmch ppmch from t_mall_product mp ,t_mall_class_2 mc2 ,t_mall_trade_mark mtm where  mp.pp_id = mtm.id and mp.flbh2 = #{id} GROUP BY mtm.ppmch
     </select>
+
 </mapper>

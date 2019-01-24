@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.DetailsMapper">
+
+
+
+ <select id="querydetails" parameterType="Integer" resultType="info">
+     select si.sku_jg as sku_jg,pv.shp_bb as banben,ps.shp_fuwu as fuwu from t_mall_product_sku_info si,t_mall_product_serve ps,t_mall_product_version pv
+where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and si.sku_id = #{shpid}
+ </select>
+
+</mapper>
