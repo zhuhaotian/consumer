@@ -12,6 +12,7 @@ public class Search implements Serializable {
      */
     private Integer ppId;
     private Integer flbh1;
+    private Integer flbh2;
     private Double startPrice;
     private Double endPrice;
     /**
@@ -39,4 +40,8 @@ public class Search implements Serializable {
     private String sku_xl;
     private String shxzh;
     private String shxm_mch;
+    /**
+     * 品牌名称
+     */
+    private String ppmch;
 }

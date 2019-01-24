@@ -14,4 +14,6 @@ public interface JianShowService {
     List<ProductCopy> aaa(Integer id);
 
     List<Search> search(Search search);
+
+    List<Search> getMarkByIdClass2(Integer id);
 }

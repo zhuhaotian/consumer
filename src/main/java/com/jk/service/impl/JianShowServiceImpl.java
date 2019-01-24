@@ -34,4 +34,9 @@ public class JianShowServiceImpl implements JianShowService {
         hashMap.put("search",search);
         return jianShowMapper.search(hashMap);
     }
+
+    @Override
+    public List getMarkByIdClass2(Integer id) {
+        return jianShowMapper.getMarkByIdClass2(id);
+    }
 }

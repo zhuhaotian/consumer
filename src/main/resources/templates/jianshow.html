@@ -7,8 +7,8 @@
     <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
-<input type="hidden" name="aaaId" th:value="${id}">
-<input type="text" name="pid" th:value="${pid}">
+<input type="text" name="aaaId" th:value="${id}">
+<input type="text" name="bbbid" th:value="${class2Id}">
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -39,6 +39,23 @@
 <!--筛选阶段-->
 <div class="filter">
    <div id="leixId"></div>    <!--  查询  商品名  类型  -->
+</div>
+
+<div class="menu">
+    <div class="nav">
+        <div class="navs">
+            <div class="left_nav">
+                全部商品分类
+                <div class="nav_mini">
+                    <ul id="success">
+
+                    </ul>
+                </div>
+            </div>
+            <ul id="uu">
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="Sscreen">
@@ -80,12 +97,15 @@
 </body>
 <script type="text/javascript">
  $(function(){
-     search();
+
      //queryBrand()
      init();
      queryThird();
      getTitle();
+     search();
  })
+ var class1=$("[name='aaaId']").val();
+ var class2=$("[name='bbbid']").val();
  function getTitle(){
      $.ajax({
          url:"/tit/getTitle",
@@ -102,39 +122,17 @@
          }
      });
  }
- function search(){
+ function aaa(){
      $.ajax({
-         url:'/retrieve/search',
-         data:{"flbh1":$("[name='aaaId']").val()},
-         success:function (result) {
+         url:"/jianShow/aaa",
+         type:"post",
+         data:{id:$("[name='aaaId']").val()},
+         success:function(result){
              console.log(result)
              var html="";
              for (var i = 0; i < result.length; i++) {
                  html+="<div class='list'>"
-                 html+="<div class='img'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
-                 html+="<div class='price'>" + result[i].jg + "</div>"
-                 html+="<div >" + result[i].shp_mch + "</div>"
-                 html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
-                 html+="<div >" + result[i].kcdz + "</div>"
-                 html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
-                 html+="</div>"
-             }
-             $(".Sbox").html(html)
-
-         }
-     })
- }
- function getPrice(startPrice,endPrice){
-    /* var class1=[[${param.flbh1}]]
-     alert(class1)*/
-     $.ajax({
-         url:'/retrieve/search',
-         data:{startPrice:startPrice,endPrice:endPrice},
-         success:function (result) {
-             var html="";
-             for (var i = 0; i < result.length; i++) {
-                 html+="<div class='list'>"
-                 html+="<div class='img'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                 html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                  html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
                  html+="<div >" + result[i].shp_mch + "</div>"
                  html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -143,38 +141,6 @@
                  html+="</div>"
              }
              $(".Sbox").html(html)
-
-         }
-     })
- }
-
- function init(){
-     $.ajax({
-         url:'/retrieve/getMarkById',
-         data:{id:$("[name='aaaId']").val()},
-         success:function (result) {
-             var html="";
-             $.each(result,function(index,obj){
-                 html+='<a href="###" onclick="getSelect('+obj.id+')" value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
-             })
-             $("#a_span").html(html);
-         }
-     })
- }
- //  查询  商品名
- function queryThird(){
-     $.ajax({
-
-         url:"/jianShow/queryThird",
-         type:"post",
-         data:{id:8},
-
-         success:function(result){
-             var arr="";
-             for(var i=0;i<result.length;i++){
-                 arr+="<a href='result[i].id'>"+result[i].flmch1+"</a>"+"  ";
-             }
-             $("#logoId").html(arr);      //往品牌div赋值
          },
          error:function(){
 
@@ -182,6 +148,145 @@
          }
      })
 
+ }
+ function search(){
+     if (class1 !=null && class1 !="" ) {
+         alert(class1)
+         $.ajax({
+             url:'/retrieve/search',
+             data:{"flbh1":class1},
+             success:function (result) {
+                 console.log(result)
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }else if(class2 !=null && class2 !="" ){
+         alert(class2)
+         $.ajax({
+             url:'/retrieve/search',
+             data:{"flbh2":class2},
+             success:function (result) {
+                 console.log(result)
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }
+
+ }
+ function getPrice(startPrice,endPrice){
+     if (class1 !=null && class1 !="" ) {
+         $.ajax({
+             url:'/retrieve/search',
+             data:{startPrice:startPrice,endPrice:endPrice,flbh1:class1},
+             success:function (result) {
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }else if (class2 !=null && class2 !="" ) {
+         $.ajax({
+             url:'/retrieve/search',
+             data:{startPrice:startPrice,endPrice:endPrice,flbh2:class2},
+             success:function (result) {
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }
+
+ }
+
+ function init(){
+     if (class1 != null && class1 !="") {
+         $.ajax({
+             url:'/retrieve/getMarkById',
+             data:{id:class1},
+             success:function (result) {
+                 var html="";
+                 $.each(result,function(index,obj){
+                     html+='<a href="###"  value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
+                 })
+                 $("#a_span").html(html);
+             }
+         })
+     }else if (class2 != null && class2 !=""){
+         $.ajax({
+             url:'/retrieve/getMarkByIdClass2',
+             data:{id:class2},
+             success:function (result) {
+                 var html="";
+                 $.each(result,function(index,obj){
+                     html+='<a href="###"  value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
+                 })
+                 $("#a_span").html(html);
+             }
+         })
+     }
+ }
+ //  查询  商品名
+ function queryThird(){
+     $.ajax({
+         url:"/jianShow/queryThird",
+         type:"post",
+         data:{id:class1},
+         success:function(result){
+             console.log("------------"+result);
+             var arr="";
+             arr+="<font size='5px' color='red'>"+result.flmch1+"</font>"+"  ";
+             arr+="<font size='3px'>"+result.flmch2+"</font>"+"  ";
+             $("#leixId").html(arr);      //往品牌div赋值
+         },
+         error:function(){
+
+             alert("出错了!!!!");
+         }
+     })
  }
 
  //查询品牌
@@ -207,39 +312,17 @@
      })
  }
 
-function aaa(){
 
-    $.ajax({
-
-        url:"/jianShow/aaa",
-        type:"post",
-        data:{id:$("[name='aaaId']").val()},
-
-        success:function(result){
-            var logoIdData="";   ///logoId
-            for(var i=0;i<result.length;i++){
-                logoIdData+="<a>"+result[i].shp_mch+"</a>"+"  ";
-
-            }
-                $("#logoId").html(logoIdData)
-        },
-        error:function(){
-
-            alert("出错了!!!!");
-        }
-    })
-
-}
  function getSearch(param){
-     if (param ==1){
+     if (param ==1 && class1 != null && class1 !=''){
          $.ajax({
              url:'/retrieve/search',
-             data:{skuXl:param},
+             data:{skuXl:param,flbh1:class1},
              success:function (result) {
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -251,15 +334,15 @@ function aaa(){
 
              }
          })
-     }else if(param ==2){
+     }else  if (param ==1 && class2 != null && class2 !=''){
          $.ajax({
              url:'/retrieve/search',
-             data:{price:param},
+             data:{skuXl:param,flbh2:class2},
              success:function (result) {
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -271,15 +354,76 @@ function aaa(){
 
              }
          })
-     }else if(param ==3){
+     }else  if (param ==2 && class1 != null && class1 !=''){
          $.ajax({
              url:'/retrieve/search',
-             data:{creatTime:param},
+             data:{price:param,flbh1:class1},
              success:function (result) {
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }else  if (param ==2 && class2 != null && class2 !=''){
+         $.ajax({
+             url:'/retrieve/search',
+             data:{price:param,flbh2:class2},
+             success:function (result) {
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }else  if (param ==3 && class1 != null && class1 !=''){
+         $.ajax({
+             url:'/retrieve/search',
+             data:{creatTime:param,flbh1:class1},
+             success:function (result) {
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div >" + result[i].shp_mch + "</div>"
+                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                     html+="<div >" + result[i].kcdz + "</div>"
+                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                     html+="</div>"
+                 }
+                 $(".Sbox").html(html)
+
+             }
+         })
+     }
+     else  if (param ==3 && class2 != null && class2 !=''){
+         $.ajax({
+             url:'/retrieve/search',
+             data:{creatTime:param,flbh2:class2},
+             success:function (result) {
+                 var html="";
+                 for (var i = 0; i < result.length; i++) {
+                     html+="<div class='list'>"
+                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"

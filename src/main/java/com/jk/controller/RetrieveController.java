@@ -38,4 +38,11 @@ public class RetrieveController {
         System.out.println("输出="+search1);
         return search1;
     }
+
+    @ResponseBody
+    @RequestMapping("getMarkByIdClass2")
+    public List getMarkByIdClass2(Integer id){
+        List markByIdClass2 = jianShowService.getMarkByIdClass2(id);
+        return markByIdClass2;
+    }
 }

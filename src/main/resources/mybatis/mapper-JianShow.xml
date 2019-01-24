@@ -37,22 +37,32 @@
      t_mall_attr sxm,
      t_mall_value sxz
      WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
-     AND sxg.shxzh_id=sxz.Id AND sp.flbh1=#{search.flbh1} group by shp_mch
-    <if test="search.startPrice !=null and search.startPrice !=''">
-     AND kc.jg &gt; #{search.startPrice}
-    </if>
-    <if test="search.endPrice !=null and search.endPrice !=''">
-     AND kc.jg &lt; #{search.endPrice}
-    </if>
-   <if test="search.skuXl !=null and search.skuXl !=''">
-     order by  kc.sku_xl desc
-    </if>
-    <if test="search.creatTime !=null and search.creatTime !=''">
-     order by kc.chjshj desc
-    </if>
-    <if test="search.price !=null and search.price !=''">
-     order by kc.jg desc
-    </if>
+     AND sxg.shxzh_id=sxz.Id
+     <if test="search.flbh1 !=null and search.flbh1 !=''">
+         AND sp.flbh1=#{search.flbh1}
+     </if>
+     <if test="search.flbh2 !=null and search.flbh2 !=''">
+         AND sp.flbh2=#{search.flbh2}
+     </if>
+     <if test="search.startPrice !=null and search.startPrice !=''">
+         AND kc.jg &gt; #{search.startPrice}
+     </if>
+     <if test="search.endPrice !=null and search.endPrice !=''">
+         AND kc.jg &lt; #{search.endPrice}
+     </if>
+     group by shp_mch
+     <if test="search.skuXl !=null and search.skuXl !=''">
+         order by  kc.sku_xl desc
+     </if>
+     <if test="search.creatTime !=null and search.creatTime !=''">
+         order by kc.chjshj desc
+     </if>
+     <if test="search.price !=null and search.price !=''">
+         order by kc.jg desc
+     </if>
  </select>
 
+    <select id="getMarkByIdClass2" parameterType="int" resultType="search">
+        select mtm.id , mtm.ppmch ppmch from t_mall_product mp ,t_mall_class_2 mc2 ,t_mall_trade_mark mtm where  mp.pp_id = mtm.id and mp.flbh2 = #{id} GROUP BY mtm.ppmch
+    </select>
 </mapper>

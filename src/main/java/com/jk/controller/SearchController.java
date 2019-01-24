@@ -41,14 +41,13 @@ public class SearchController {
     }
 
     @RequestMapping("toView")
-    public String tojianshow(Integer id, ModelMap model){
-        System.out.println(id);
+    public String tojianshow(Integer id,Integer class2Id, ModelMap model){
         model.addAttribute("id",id);
-       // model.addAttribute("pid",pid);
+        model.addAttribute("class2Id",class2Id);
+        System.out.println("class1:"+id);
+        System.out.println("class2:"+class2Id);
+        // model.addAttribute("pid",pid);
      return "jianshow";
     }
-
-
-
 
 }

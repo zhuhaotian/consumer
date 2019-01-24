@@ -14,4 +14,6 @@ public interface JianShowMapper {
     List<ProductCopy> aaa(Integer id);
 
     List<Search> search(HashMap<String, Object> hashMap);
+
+    List getMarkByIdClass2(Integer id);
 }
