@@ -31,6 +31,6 @@ public class PageController {
 
     @RequestMapping("toindex")
     public String toindex(){
-        return "jianshow";
+        return "imgTrends";
     }
 }

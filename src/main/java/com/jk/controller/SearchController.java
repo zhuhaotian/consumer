@@ -35,7 +35,7 @@ public class SearchController {
     @RequestMapping("Searchthree")
     public List Searchthree(@RequestParam("id") Integer id, HttpSession session){
      List list =searchClient.Searchthree(id);
-        System.err.println("00000"+id);
+     //   System.err.println("00000"+id);
         session.setAttribute("id",id);
      return list;
     }
@@ -44,8 +44,8 @@ public class SearchController {
     public String tojianshow(Integer id,Integer class2Id, ModelMap model){
         model.addAttribute("id",id);
         model.addAttribute("class2Id",class2Id);
-        System.out.println("class1:"+id);
-        System.out.println("class2:"+class2Id);
+      //  System.out.println("class1:"+id);
+      //  System.out.println("class2:"+class2Id);
         // model.addAttribute("pid",pid);
      return "jianshow";
     }
