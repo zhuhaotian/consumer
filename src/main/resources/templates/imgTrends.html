@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"/>
 	<title>首页</title>
 	<link rel="stylesheet" type="text/css" href="/zht/css/css.css">
-	
-	<script type="text/javascript" src='/zht/js/jquery-1.7.2.min.js'></script>
-	<script type="text/javascript">
-	$(function(){
 
-		getTitle();
-	})
-    function goodsJS(){
-        $(".nav_mini ul li").hover(function(){
-            $(this).find("div").show(100);
-        },function(){
-            $(this).find("div").hide(100);
-        })
-    }
-
-
-	function getTitle(){
-		$.ajax({
-			url:"/tit/getTitle",
-			type:"POST",
-			success:function(pageUtil){
-				var count=''
-				$.each(pageUtil,function (index,obj) {
-					count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
-				})
-				$("#uu").append(count)
-			},
-			error:function(){
-				alert("失败了");
-			}
-		});
-	}
-	</script>
+	<script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
+	<link href="/zht5121/css/jquery.slideBox.css" rel="stylesheet" type="text/css"/>
+	<script src="/zht5121/js/jquery.slideBox.js" type="text/javascript"></script>
+	<script>
+        jQuery(function($){
+            $('#demo1').slideBox();
+            $('#demo2').slideBox({
+                direction : 'top',//left,top#方向
+                duration : 0.3,//滚动持续时间，单位：秒
+                easing : 'linear',//swing,linear//滚动特效
+                delay : 5,//滚动延迟时间，单位：秒
+                startIndex : 1//初始焦点顺序
+            });
+            $('#demo3').slideBox({
+                duration : 0.3,//滚动持续时间，单位：秒
+                easing : 'linear',//swing,linear//滚动特效
+                delay : 5,//滚动延迟时间，单位：秒
+                hideClickBar : false,//不自动隐藏点选按键
+                clickBarRadius : 10
+            });
+            $('#demo4').slideBox({
+                hideBottomBar : true//隐藏底栏
+            });
+        });
+</script>
 </head>
 <body>
 	<div class="top">
@@ -161,18 +154,53 @@
 			</div>
 		</div>
 	</div>
-	<div class="banner">
-		<div class="ban">
-			<img src="/zht/images/banner.jpg" width="980" height="380" alt="">
-		</div>
+
+
+
+
+	<div id="demo1" class="slideBox" style="margin-left: 500px">
+		<ul class="items">
+			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/1.jpg"></a></li>
+			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/2.jpg"></a></li>
+			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/3.jpg"></a></li>
+			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/4.jpg"></a></li>
+			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/5.jpg"></a></li>
+		</ul>
 	</div>
 
-</body>
 <script>
-$(function(){
-    good();
-})
-   function good(){
+
+    $(function(){
+        getgood();
+        getTitle();
+    })
+
+    function goodsJS(){
+        $(".nav_mini ul li").hover(function(){
+            $(this).find("div").show(100);
+        },function(){
+            $(this).find("div").hide(100);
+        })
+    }
+
+    function getTitle(){
+        $.ajax({
+            url:"/tit/getTitle",
+            type:"POST",
+            success:function(pageUtil){
+                var count=''
+                $.each(pageUtil,function (index,obj) {
+                    count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+                })
+                $("#uu").append(count)
+            },
+            error:function(){
+                alert("失败了");
+            }
+        });
+    }
+
+   function getgood(){
     $.ajax({
 	  url:"/Searchtwo",
 	  type:"post",
@@ -201,7 +229,7 @@ $(function(){
 		success:function(data){
             var count = ""
             $.each(data,function(index,obj){
-                count += "<a href='/toView?id="+obj.id+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
+               count += "<a href='/toView?id="+obj.flbh1+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
             });
             $('.nav_two'+id+'').html(count);
 		},
@@ -213,7 +241,6 @@ $(function(){
 
 
 
-
-
 </script>
+</body>
 </html>
