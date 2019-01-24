@@ -1,8 +1,11 @@
 package com.jk.bean;
 
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class User implements Serializable {
 
     private Integer id;
@@ -22,77 +25,9 @@ public class User implements Serializable {
 
     private String yhTx;
 
-    private Integer yhJb;
+    private Integer yhJb;  //
 
-    public Integer getId() {
-        return id;
-    }
+    private String rememberPwd;  //记住密码
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public String getYhMch() {
-        return yhMch;
-    }
-
-    public void setYhMch(String yhMch) {
-        this.yhMch = yhMch;
-    }
-
-    public String getYhNch() {
-        return yhNch;
-    }
-
-    public void setYhNch(String yhNch) {
-        this.yhNch = yhNch;
-    }
-
-    public String getYhMm() {
-        return yhMm;
-    }
-
-    public void setYhMm(String yhMm) {
-        this.yhMm = yhMm;
-    }
-
-    public String getYhXm() {
-        return yhXm;
-    }
-
-    public void setYhXm(String yhXm) {
-        this.yhXm = yhXm;
-    }
-
-    public String getYhShjh() {
-        return yhShjh;
-    }
-
-    public void setYhShjh(String yhShjh) {
-        this.yhShjh = yhShjh;
-    }
-
-    public String getYhYx() {
-        return yhYx;
-    }
-
-    public void setYhYx(String yhYx) {
-        this.yhYx = yhYx;
-    }
-
-    public String getYhTx() {
-        return yhTx;
-    }
-
-    public void setYhTx(String yhTx) {
-        this.yhTx = yhTx;
-    }
-
-    public Integer getYhJb() {
-        return yhJb;
-    }
-
-    public void setYhJb(Integer yhJb) {
-        this.yhJb = yhJb;
-    }
 }

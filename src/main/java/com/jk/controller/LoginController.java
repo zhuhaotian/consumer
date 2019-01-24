@@ -12,12 +12,17 @@ package com.jk.controller;
 
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
+import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -35,18 +40,41 @@ public class LoginController {
 
     @RequestMapping("queryloginuser")
     @ResponseBody
-    public String LoginUserByYhMchByYhMm(User user, HttpServletRequest request){
-        User user1 = client.queryloginuser(user);
-        request.getSession().setAttribute("login",user);
-        if (user1 != null) {
+    public String LoginUserByYhMchByYhMm(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+        User userData = client.queryloginuser(user);
+
+        if (userData == null) {
+
+            return "0";   //用户名  密码不正确
+        }else{
+
+            session.setAttribute("user111",userData);
+            Cookie cookie = new Cookie(Constant.remember_pwd,userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
+
+            cookie.setMaxAge(60*60*24*7);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
             return "1";
+
         }
-        return "0";
+
     }
 
     @RequestMapping("removeUser")
-    public String zhuxiao(HttpServletRequest request){
-        request.getSession().removeAttribute("login");
+    public String zhuxiao(HttpSession session){
+        session.removeAttribute("user111");
         return "login";
+    }
+
+    @RequestMapping("queryUserExist")
+    @ResponseBody
+    public String queryUserExist(HttpSession session){
+        User user = (User)session.getAttribute("user111");
+        if(user ==null){
+            return "0";
+        }else{
+            return "1";
+        }
     }
 }

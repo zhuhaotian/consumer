@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
 	<meta charset="UTF-8"/>
 	<title>首页</title>
@@ -38,7 +38,8 @@
 			<a href="">用户注册</a>
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
-			<a id="aass">请登录</a>
+			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
+			<a href="/removeUser">退出登录</a>
 		</g>
 	  </div>
 	</div>
@@ -96,40 +97,46 @@
 		</ul>
 	</div>
 
-<script>
+<script th:inline="javascript">
 
     $(function(){
         getgood();
         getTitle();
 
-		getSeValue();
+		//getSeValue();
+
+		queryUserExist();
     })
-	//获取session里的值			 aass
-	function getSeValue(){
-		$.ajax({
-			url:"/tit/getSeValue",
-			type:"post",
+	function queryUserExist(){
+    	$.ajax({
+			url:'/queryUserExist',
+			type:'post',
 
 			success:function(result){
-				var a="";
-
-				if(result==null){
-
-					a+=",xxx";
+				if(result==0){
+					$("#kk").html("xxx");
 				}else{
-
-					a+=result;
+					asd();
 				}
-				$("#aass").html(a);
 			},
-			error:function(){
-
-
-			}
-
 		})
-
 	}
+	//统一 存成一个cookie
+	function asd(){
+
+        if(document.cookie!=null){
+            //之前是在服务器操作cookie  现在在浏览器操作cookie
+            var str=document.cookie.split(";");
+            console.log(str);   //获去当前cookie的  cookie值
+            $.each(str,function (i,obj) {
+                var arr=obj.split("=");
+                if (arr[0].trim()=="remember_pwd") {
+					var a=arr[1].split("comjk1807");
+                    $("#kk").html(a[0]);
+                }
+            })
+        }
+	 }
 
     function goodsJS(){
         $(".nav_mini ul li").hover(function(){
