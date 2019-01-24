@@ -9,6 +9,7 @@ public class GoodController {
 
     @RequestMapping("toGoods")
     public String toGoods(){
+
         return "goodshow";
     }
 }
