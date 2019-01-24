@@ -46,17 +46,6 @@ public class JianShowController {
         return list;
     }
 
-    @RequestMapping("queryPrice")
-    @ResponseBody
-    public List<ProductCopy>queryPrice(Integer id){
-        List<ProductCopy>  list=jianShowService.queryPrice(id);
-        // System.err.println(list);
-        return list;
-
-    }
-
-
-
     @RequestMapping("aaa")
     @ResponseBody
     public List<ProductCopy> aaa(Integer id){

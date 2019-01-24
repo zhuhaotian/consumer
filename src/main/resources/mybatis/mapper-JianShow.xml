@@ -10,11 +10,6 @@
 
   </select>
 
-    <select id="queryPrice" resultType="productCopy">
-
-
-    </select>
-
     <select id="aaa" resultType="productCopy">
 
     SELECT sp.shp_mch shp_mch,sp.shp_tp shp_tp,kc.jg jg,kc.kcdz kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_msh,
@@ -30,5 +25,34 @@
 
    </select>
 
+
+ <select id="search" parameterType="map" resultType="search">
+
+     SELECT sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg jg,kc.kcdz  kcdz, sxm.shxm_mch shxm_mch,sxz.shxzh shxzh,/*GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx,*/
+     kc.sku_xl sku_xl
+     FROM
+     t_mall_product sp,
+     t_mall_sku kc,
+     t_mall_sku_attr_value sxg,
+     t_mall_attr sxm,
+     t_mall_value sxz
+     WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
+     AND sxg.shxzh_id=sxz.Id AND sp.flbh1=#{search.flbh1} group by shp_mch
+    <if test="search.startPrice !=null and search.startPrice !=''">
+     AND kc.jg &gt; #{search.startPrice}
+    </if>
+    <if test="search.endPrice !=null and search.endPrice !=''">
+     AND kc.jg &lt; #{search.endPrice}
+    </if>
+   <if test="search.skuXl !=null and search.skuXl !=''">
+     order by  kc.sku_xl desc
+    </if>
+    <if test="search.creatTime !=null and search.creatTime !=''">
+     order by kc.chjshj desc
+    </if>
+    <if test="search.price !=null and search.price !=''">
+     order by kc.jg desc
+    </if>
+ </select>
 
 </mapper>

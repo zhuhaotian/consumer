@@ -1,7 +1,9 @@
 package com.jk.mapper;
 
 import com.jk.bean.ProductCopy;
+import com.jk.bean.Search;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface JianShowMapper {
@@ -11,5 +13,5 @@ public interface JianShowMapper {
 
     List<ProductCopy> aaa(Integer id);
 
-    List<ProductCopy> queryPrice(Integer id);
+    List<Search> search(HashMap<String, Object> hashMap);
 }

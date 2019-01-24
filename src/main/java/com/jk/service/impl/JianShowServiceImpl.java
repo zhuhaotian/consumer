@@ -1,17 +1,19 @@
 package com.jk.service.impl;
 
 import com.jk.bean.ProductCopy;
+import com.jk.bean.Search;
 import com.jk.mapper.JianShowMapper;
 import com.jk.service.JianShowService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class JianShowServiceImpl implements JianShowService {
 
-    @Autowired
+    @Resource
     JianShowMapper jianShowMapper;
 
     @Override
@@ -27,8 +29,9 @@ public class JianShowServiceImpl implements JianShowService {
     }
 
     @Override
-    public List<ProductCopy> queryPrice(Integer id) {
-
-        return jianShowMapper.queryPrice(id);
+    public List<Search> search(Search search) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("search",search);
+        return jianShowMapper.search(hashMap);
     }
 }
