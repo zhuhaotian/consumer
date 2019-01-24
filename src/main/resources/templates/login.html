@@ -79,15 +79,17 @@
         if(document.cookie != null){
             //之前是在服务器操作cookie  现在在浏览器操作cookie
             var str=document.cookie.split(";");
-            console.log(str);   //获去当前cookie的  cookie值
+            //console.log(str);   //获去当前cookie的  cookie值
             $.each(str,function (i,obj) {
                 var arr=obj.split("=");
                 if (arr[0].trim()=="remember_pwd") {
                     var a=arr[1].split("comjk1807");
-                    $("[name='yhMch']").val(a[0])
-                    $("[name='yhMm']").val(a[1])
-                    if($("[name='yhMm']").val()!=null){
-                        $("[name='rememberPwd']").prop("checked",true);
+                    if(a[0]!=null &&a[1]!=null){
+                        $("[name='yhMch']").val(a[0])
+                        $("[name='yhMm']").val(a[1])
+                        if($("[name='yhMm']").val()!=null){
+                            $("[name='rememberPwd']").prop("checked",true);
+                        }
                     }
                 }
             })

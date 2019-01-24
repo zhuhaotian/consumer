@@ -12,6 +12,7 @@ package com.jk.controller;
 
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
+
 import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,7 @@ public class LoginController {
             cookie.setPath("/");
             response.addCookie(cookie);
 
+
             return "1";
 
         }
@@ -72,7 +74,7 @@ public class LoginController {
     public String queryUserExist(HttpSession session){
         User user = (User)session.getAttribute("user111");
         if(user ==null){
-            return "0";
+            return "0";  //为空
         }else{
             return "1";
         }

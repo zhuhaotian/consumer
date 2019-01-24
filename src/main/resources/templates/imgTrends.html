@@ -64,8 +64,7 @@
 			<a href="">购物车<div class="num">0</div></a>
 		
 		</div>
-		
-		
+
 	</div>
 	<div class="menu">
 		<div class="nav">
@@ -83,9 +82,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 
 	<div id="demo1" class="slideBox" style="margin-left: 500px">
 		<ul class="items">
@@ -106,17 +102,24 @@
 		//getSeValue();
 
 		queryUserExist();
-    })
+
+		wwwq();
+    })    //queryUserExist
+
+	//查询有没有 用户登录
 	function queryUserExist(){
     	$.ajax({
 			url:'/queryUserExist',
 			type:'post',
 
 			success:function(result){
-				if(result==0){
-					$("#kk").html("xxx");
+				if(result==0){   //用户未登录   为空
+					var a=document.cookie.split("=");
+					$("#kk").html(a[0]);
+					$("[msg='qwew']").html('登录')
 				}else{
 					asd();
+					$("[msg='qwew']").html('退出登录')
 				}
 			},
 		})
@@ -130,10 +133,10 @@
             console.log(str);   //获去当前cookie的  cookie值
             $.each(str,function (i,obj) {
                 var arr=obj.split("=");
-                if (arr[0].trim()=="remember_pwd") {
+				if (arr[0].trim()=="remember_pwd" &&arr[0] !=null) {
 					var a=arr[1].split("comjk1807");
-                    $("#kk").html(a[0]);
-                }
+					$("#kk").html(a[0]);
+				}
             })
         }
 	 }
