@@ -3,8 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-    <script src="/js/layer/layer.js"></script>
+
     <link rel="stylesheet" href="/js/loginAngRegister/css/base.css"/>
     <link rel="stylesheet" href="/js/loginAngRegister/css/login.css"/>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css"/>
@@ -62,7 +61,7 @@
     <div id="footer">
     </div>
 </div>
-<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/header.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/layer/layer.js"></script>
@@ -71,8 +70,17 @@
     $(function(){
 
         asd();
-
+        autoMaster();
     })
+    //自动登录
+    function autoMaster(){
+
+        if($("[name='yhMch']").val()!=null && $("[name='yhMm']").val()!=null ){
+
+            submitForm();   //登录
+        }
+
+    }
     //统一 存成一个cookie
      function asd(){
 

@@ -16,6 +16,7 @@ import com.jk.client.LoginClient;
 import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -64,8 +65,9 @@ public class LoginController {
     }
 
     @RequestMapping("removeUser")
-    public String zhuxiao(HttpSession session){
+    public String zhuxiao(HttpSession session, ModelMap modelMap){
         session.removeAttribute("user111");
+        modelMap.addAttribute("user",session.getAttribute("user111"));
         return "login";
     }
 
