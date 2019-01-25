@@ -17,6 +17,7 @@ private Integer shp_id;  //(商品id) 
 private String  shp_mch; //(商品名称)
 private Integer dd_id;   //(订单id)
 private String  kcdz;
-private String  url;
+private String  img;
 private String  yh_mch;
+
 }
