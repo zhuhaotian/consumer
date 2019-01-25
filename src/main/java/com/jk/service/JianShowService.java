@@ -16,4 +16,8 @@ public interface JianShowService {
     List<Search> search(Search search);
 
     List<Search> getMarkByIdClass2(Integer id);
+
+    Search getFiltrate(Search search);
+
+    Search getTopPp(Integer ppId);
 }

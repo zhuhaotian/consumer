@@ -63,19 +63,24 @@
         平板电视 商品筛选 共1205个商品
     </div>
     <div class="list">
-        <span>品牌：</span>
-        <span id="a_span">
-        </span>
+        <div id="skt">
+            <span>品牌：</span>
+            <span id="a_span">
+            </span>
+        </div>
     </div>
     <div class="list">
-        <span>价格：</span>
-        <a href="###" onclick="getPrice(0,999)">0-999</a>
-        <a href="###" onclick="getPrice(1000,1999)">1000-1999</a>
-        <a href="###" onclick="getPrice(2000,2999)">2000-2999</a>
-        <a href="###" onclick="getPrice(3000,3999)">3000-3999</a>
-        <a href="###" onclick="getPrice(4000,4999)">4000-4999</a>
-        <a href="###" onclick="getPrice(5000,6999)">5000-6999</a>
-        <a href="###" onclick="getPrice(7000,20000)">7000--20000</a>
+        <div id="jiangeshow">
+            <span>价格：</span>
+            <a href="###" onclick="getPrice(0,999,1)">0-999</a>
+            <a href="###" onclick="getPrice(1000,1999,2)">1000-1999</a>
+            <a href="###" onclick="getPrice(2000,2999,3)">2000-2999</a>
+            <a href="###" onclick="getPrice(3000,3999,4)">3000-3999</a>
+            <a href="###" onclick="getPrice(4000,4999,5)">4000-4999</a>
+            <a href="###" onclick="getPrice(5000,5999,6)">5000-5999</a>
+            <a href="###" onclick="getPrice(6000,6999,7)">6000-6999</a>
+            <a href="###" onclick="getPrice(7000,20000,8)">7000--20000</a>
+        </div>
     </div>
     <div class="list">
         <!--id="list_beas"-->
@@ -94,59 +99,16 @@
     <div class="top"></div>
     <div class="bottom"><img src="/images/foot.jpg" alt=""></div>
 </div>
-
-
-<a href="">购物车<div class="num">0</div></a>
-<!--购物车商品-->
-<!--<div class="cart_pro">
-    <h6>最新加入的商品</h6>
-    <div class="one">
-        <img src="/images/lec1.png">
-        <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-        <span class="one_prece">
-						<b>￥20000</b><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-    </div>
-    <div class="one border">
-        <img src="/images/lec1.png">
-        <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-        <span class="one_prece">
-						<b>￥20000</b><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-    </div>
-    <div class="one border">
-        <img src="/images/lec1.png">
-        <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-        <span class="one_prece">
-						<b>￥20000</b><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-    </div>
-    <div class="gobottom">
-        共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
-        共计￥<span>20000</span>
-        <button class="goprice">去购物车</button>
-    </div>
-</div>-->
-
-
 </body>
 <script type="text/javascript">
  $(function(){
 
      //queryBrand()
      init();
-     queryThird();
+     //queryThird();
      getTitle();
      search();
+     getFiltrate();
  })
  var class1=$("[name='aaaId']").val();
  var class2=$("[name='bbbid']").val();
@@ -172,11 +134,10 @@
          type:"post",
          data:{id:$("[name='aaaId']").val()},
          success:function(result){
-             console.log(result)
              var html="";
              for (var i = 0; i < result.length; i++) {
                  html+="<div class='list'>"
-                 html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                  html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
                  html+="<div >" + result[i].shp_mch + "</div>"
                  html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -193,18 +154,20 @@
      })
 
  }
+
+ /**
+  *查询
+  */
  function search(){
      if (class1 !=null && class1 !="" ) {
-        // alert(class1)
          $.ajax({
              url:'/retrieve/search',
              data:{"flbh1":class1},
              success:function (result) {
-                 console.log(result)
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -213,20 +176,17 @@
                      html+="</div>"
                  }
                  $(".Sbox").html(html)
-
              }
          })
      }else if(class2 !=null && class2 !="" ){
-        // alert(class2)
          $.ajax({
              url:'/retrieve/search',
              data:{"flbh2":class2},
              success:function (result) {
-                 console.log(result)
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -241,49 +201,77 @@
      }
 
  }
- function getPrice(startPrice,endPrice){
-     if (class1 !=null && class1 !="" ) {
-         $.ajax({
-             url:'/retrieve/search',
-             data:{startPrice:startPrice,endPrice:endPrice,flbh1:class1},
-             success:function (result) {
-                 var html="";
-                 for (var i = 0; i < result.length; i++) {
-                     html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
-                     html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
-                     html+="<div >" + result[i].shp_mch + "</div>"
-                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
-                     html+="<div >" + result[i].kcdz + "</div>"
-                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
-                     html+="</div>"
-                 }
-                 $(".Sbox").html(html)
-
+ function getPrice(startPrice,endPrice,msg){
+     $.ajax({
+         url:'/retrieve/search',
+         data:{startPrice:startPrice,endPrice:endPrice,flbh2:class2},
+         success:function (result) {
+             var html="";
+             for (var i = 0; i < result.length; i++) {
+                 html+="<div class='list'>"
+                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                 html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
+                 html+="<div >" + result[i].shp_mch + "</div>"
+                 html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                 html+="<div >" + result[i].kcdz + "</div>"
+                 html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                 html+="</div>"
              }
-         })
-     }else if (class2 !=null && class2 !="" ) {
-         $.ajax({
-             url:'/retrieve/search',
-             data:{startPrice:startPrice,endPrice:endPrice,flbh2:class2},
-             success:function (result) {
-                 var html="";
-                 for (var i = 0; i < result.length; i++) {
-                     html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
-                     html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
-                     html+="<div >" + result[i].shp_mch + "</div>"
-                     html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
-                     html+="<div >" + result[i].kcdz + "</div>"
-                     html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
-                     html+="</div>"
-                 }
-                 $(".Sbox").html(html)
-
-             }
-         })
+             $(".Sbox").html(html)
+         }
+     })
+     if (msg ==1) {
+         $(".filter").append(" > "+"0-999");
+     }else if(msg ==2){
+         $(".filter").append(" > "+"1000-1999");
+     }else if(msg ==3){
+         $(".filter").append(" > "+"2000-2999");
+     }else if(msg ==4){
+         $(".filter").append(" > "+"3000-3999");
+     }else if(msg ==5){
+         $(".filter").append(" > "+"4000-4999");
+     }else if(msg ==6){
+         $(".filter").append(" > "+"5000-5999");
+     }else if(msg ==7){
+         $(".filter").append(" > "+"6000-6999");
+     }else if(msg ==8){
+         $(".filter").append(" > "+"7000-20000");
      }
+    $("#jiangeshow").remove();
 
+ }
+//品牌筛选
+ function getTopPp(id){
+     $.ajax({
+         url:'/retrieve/getTopPp',
+         data:{ppId:id},
+         success:function (result) {
+             var html="<span id='+result.id+'>"+result.ppmch+"</span>";
+             $(".filter").append(" > "+html)
+             if (result != null){
+                 $("#skt").remove();
+             }
+         }
+     })
+     $.ajax({
+         url:'/retrieve/search',
+         data:{"flbh2":class2,ppId:id},
+         success:function (result) {
+             var html="";
+             for (var i = 0; i < result.length; i++) {
+                 html+="<div class='list'>"
+                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                 html+="<div class='price'>" + result[i].jg + "</div>"
+                 html+="<div >" + result[i].shp_mch + "</div>"
+                 html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
+                 html+="<div >" + result[i].kcdz + "</div>"
+                 html+="<div >"+"月销量:" + result[i].sku_xl + "</div>"
+                 html+="</div>"
+             }
+             $(".Sbox").html(html)
+
+         }
+     })
  }
 
  function init(){
@@ -294,7 +282,7 @@
              success:function (result) {
                  var html="";
                  $.each(result,function(index,obj){
-                     html+='<a href="###"  value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
+                     html+='<a href="###" onclick="getTopPp('+obj.id+')"  value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
                  })
                  $("#a_span").html(html);
              }
@@ -306,7 +294,7 @@
              success:function (result) {
                  var html="";
                  $.each(result,function(index,obj){
-                     html+='<a href="###"  value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
+                     html+='<a href="###" onclick="getTopPp('+obj.id+')" value="'+obj.id+'">'+obj.ppmch+'</a>'+'   ';
                  })
                  $("#a_span").html(html);
              }
@@ -323,11 +311,26 @@
              console.log("------------"+result);
              var arr="";
              arr+="<font size='5px' color='red'>"+result.flmch1+"</font>"+"  ";
-             arr+="<font size='3px'>"+result.flmch2+"</font>"+"  ";
              $("#leixId").html(arr);      //往品牌div赋值
          },
          error:function(){
 
+             alert("出错了!!!!");
+         }
+     })
+ }
+ function getFiltrate(){
+     var aId=[[${param.class1Id}]]
+     var bId=[[${param.class2Id}]]
+     $.ajax({
+         url:"/retrieve/getFiltrate",
+         type:"post",
+         data:{flbh1:aId,flbh2:bId},
+         success:function(result){
+             var span = "<span>" + result.class1Name + "  >  " + result.class2Name + "</span>"
+             $(".filter").html(span)
+         },
+         error:function(){
              alert("出错了!!!!");
          }
      })
@@ -355,8 +358,10 @@
          }
      })
  }
-
-
+ /* ------------------------------*/
+function getDetails(id){
+    location.href="/detailsByCpId?shpid="+id;
+}
  function getSearch(param){
      if (param ==1 && class1 != null && class1 !=''){
          $.ajax({
@@ -366,7 +371,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -386,7 +391,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -395,7 +400,6 @@
                      html+="</div>"
                  }
                  $(".Sbox").html(html)
-
              }
          })
      }else  if (param ==2 && class1 != null && class1 !=''){
@@ -406,7 +410,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -426,7 +430,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -446,7 +450,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -467,7 +471,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"

@@ -44,4 +44,12 @@ public class Search implements Serializable {
      * 品牌名称
      */
     private String ppmch;
+    /**
+     * class1naem
+     */
+    private String class1Name;
+    /**
+     * class2naem
+     */
+    private String class2Name;
 }
