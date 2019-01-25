@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>评论页</title>
+    <script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="Dbox1">
+    <div class="boxbottom">
+        <div class="top">
+            <span>商品评论</span>
+            <span onclick="pinlun()" data-toggle="modal" data-target="#myModal">评价</span>
+        </div>
+        <div class="btm">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">评论一番吧</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+                <div>服务如何：</div>
+                <form>
+
+                <input type="hidden" value="8" name="shp_id">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="checkbox" name="hpjb" value="1">🌞
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="checkbox" name="hpjb" value="2">🌞
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="checkbox" name="hpjb" value="3">🌞
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="checkbox" name="hpjb" value="4">🌞
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="checkbox" name="hpjb" value="5">🌞
+                    </label>
+                    <div>评论评论吧：</div>
+                    <textarea  name="plnr">
+
+                    </textarea>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                <button class="btn btn-primary" onclick="add()" type="button">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+<script type="text/javascript">
+    $(function(){
+        good();
+    })
+    function good(){
+     $.ajax({
+       url:"/comment",
+       type:"post",
+       data:{id:8},
+       success:function(result){
+           //alert(result.plnr);
+        $.each(result,function(index,obj){
+            //alert(obj);
+            function formatDate(now) {
+                var year=now.getFullYear();
+                var month=now.getMonth()+1;
+                var date=now.getDate();
+                var hour=now.getHours();
+                var minute=now.getMinutes();
+                var second=now.getSeconds();
+                return +year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+            }
+            var d=new Date(obj.plshj);
+            var tt =  formatDate(d)
+            $(".btm").append("<img src="+obj.url+" width='66'>")
+            $(".btm").append(obj.yh_mch)
+            $(".btm").append("<br/>"+obj.plnr+"<br/>")
+            $(".btm").append("<font color='red'>"+tt+"     "+obj.shp_mch+"</font><br/>")
+            //Date date = new Date(obj.plshj);
+            //$(".btm").append(obj.sku_mch)
+            //$(".btm").append(obj.kcdz)
+            //$(".btm").append(""+obj.shp_mch+"")
+        })
+       },
+       error:function(){
+        alert("失败了");
+       }
+     })
+    }
+  //新增评论
+  function add(){
+    $.ajax({
+    url:"/rules",
+    type:"post",
+    data:$("form").serialize(),
+    success:function(){
+      alert("成功了");
+    },
+    error:function(){
+      alert("失败了");
+    },
+    })
+  }
+
+
+
+</script>
+</body>
+
+</html>
+
+
+

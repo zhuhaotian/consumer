@@ -13,7 +13,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @SpringBootApplication
 @MapperScan("com.jk.mapper")
 public class ConsumerApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ConsumerApplication.class, args);
     }

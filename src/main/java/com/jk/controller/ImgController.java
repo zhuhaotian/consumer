@@ -18,7 +18,7 @@ public class ImgController {
     @RequestMapping("img")
     public String img(){
 
-        return "imgTrends";
+        return "discuss";
     }
     @RequestMapping("Imon")
     @ResponseBody
