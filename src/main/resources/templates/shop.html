@@ -16,6 +16,25 @@
     td{vertical-align: middle !important;}
     .form-group{padding: 5px 0;}
 </style>
+<script type="text/javascript">
+    $(function () {
+       getShop(); 
+    })
+    function getShop() {
+        $.ajax({
+            url:"/rules",
+            type:"post",
+            data:$("form").serialize(),
+            success:function(){
+                alert("成功了");
+            },
+            error:function(){
+                alert("失败了");
+            },
+        })
+    }
+    
+</script>
 <body>
 <div class="top">
     <div class="top_text">
