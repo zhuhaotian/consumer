@@ -29,4 +29,6 @@ public class ShopCar {
 
    private String kcdz;
 
+   private Integer jg;  //价格
+
 }

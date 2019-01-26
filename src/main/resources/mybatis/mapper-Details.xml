@@ -13,4 +13,27 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
 
  </select>
 
+ <!--从购物车 中查询 出全部的商品信息  根据 用户 id-->
+ <select id="queryGoodsByUser" resultType="ShopCar">
+
+  select * from t_mall_shoppingcar tms where tms.yh_id=#{id}
+ </select>
+  <!--  修改 商品  数量-->
+ <update id="updateTjshlBy">
+
+  update t_mall_shoppingcar tms set tms.tjshl=#{tjshl} where tms.yh_id=#{yh_id}
+
+ </update>
+
+ <insert id="addShopGoods">
+  insert into t_mall_shoppingcar tms (sku_mch,tjshl,hj,yh_id,shp_id,chjshj,sku_id,shp_tp,shfxz)
+ VALUES(#{sku_mch},#{tjshl},#{hj},#{yh_id},#{shp_id},#{chjshj},#{sku_id},#{shp_tp},#{shfxz})
+
+ </insert>
+
+
+
+ <select id="queryimgdetails" parameterType="Integer" resultType="info">
+  select pi.url as shp_tp_url from t_mall_product_sku_info si, t_mall_product_image pi where si.shp_img = pi.shp_id and si.sku_id = #{shpid}
+ </select>
 </mapper>
