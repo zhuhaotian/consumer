@@ -32,6 +32,6 @@ public class ShopCar implements Serializable {
 
    private String kcdz;
 
-   private Double jg;  //价格
+
 
 }
