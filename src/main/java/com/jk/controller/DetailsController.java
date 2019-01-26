@@ -11,7 +11,6 @@
 package com.jk.controller;
 
 import com.jk.bean.Info;
-import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -54,6 +53,15 @@ public class DetailsController {
         List list = detailsService.querydetails(shpid);
         return list;
     }
+
+    @RequestMapping("queryimgdetails")
+    @ResponseBody
+    public List queryimgdetails(Integer shpid){
+        List list = detailsService.queryimgdetails(shpid);
+        System.out.println(list);
+        return list;
+    }
+
 
     @RequestMapping("insertGoods")
     @ResponseBody

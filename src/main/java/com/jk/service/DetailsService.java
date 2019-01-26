@@ -14,4 +14,5 @@ public interface DetailsService {
     List<Info> insertGoods(Info info, HttpServletRequest request, HttpSession session);
 
 
+    List queryimgdetails(Integer shpid);
 }

@@ -13,4 +13,8 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
 
  </select>
 
+
+ <select id="queryimgdetails" parameterType="Integer" resultType="info">
+  select pi.url as shp_tp_url from t_mall_product_sku_info si, t_mall_product_image pi where si.shp_img = pi.shp_id and si.sku_id = #{shpid}
+ </select>
 </mapper>

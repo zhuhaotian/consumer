@@ -52,6 +52,10 @@ public class DetailsServiceImpl implements DetailsService {
         return null;
     }
 
+    @Override
+    public List queryimgdetails(Integer shpid) {
+        return detailsMapper.queryimgdetails(shpid);
+    }
 
 
 }
