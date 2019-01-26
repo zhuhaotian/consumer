@@ -21,7 +21,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +42,7 @@ public class DetailsController {
     @Autowired
     private RedisTemplate<String, String>redisTemplate;
 
-    @Autowired
+    @Resource
     private DetailsService detailsService;
 
     @RequestMapping("detailsByCpId")
@@ -56,12 +58,21 @@ public class DetailsController {
         return list;
     }
 
+    @RequestMapping("queryimgdetails")
+    @ResponseBody
+    public List queryimgdetails(Integer shpid){
+        List list = detailsService.queryimgdetails(shpid);
+        System.out.println(list);
+        return list;
+    }
+
+
     @RequestMapping("insertGoods")
     @ResponseBody
-    public List<Info> insertGoods(Info info, HttpServletRequest request,HttpSession session){
+    public List<Info> insertGoods(ShopCar shopCar, HttpServletResponse response,HttpServletRequest request, HttpSession session){
 
-        List<Info>list= detailsService.insertGoods(info,request,session);
-        return list;
+         detailsService.insertGoods(shopCar,response,request,session);
+        return null;
     }
 
     //测试  Redis 工具类
