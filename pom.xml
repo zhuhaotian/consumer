@@ -28,6 +28,13 @@
 
     <dependencies>
 
+        <!-- Redis缓存整合开始 -->
+          <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+           </dependency>
+                <!-- Redis缓存整合结束 -->
+
         <!--SpringBoot的热部署 除此之外还要更改idea设置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

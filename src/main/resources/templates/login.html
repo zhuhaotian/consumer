@@ -28,6 +28,11 @@
                 </div>
                 <div class="submit">
                     <div class="notice">
+                    <div class="box_01_both_1">
+                        <input type="checkbox" class="box_01_box" id="loginCheckedId" onchange="autoMaster()">
+                        自动登录</div>
+                    </div>
+                    <div class="notice">
                         <div class="box_01_both_1">
                          <input type="checkbox" class="box_01_box" name="rememberPwd" th:checked="${userPwd}==null?'false':'checked'">
                             记住密码</div>
@@ -70,15 +75,22 @@
     $(function(){
 
         asd();
-        autoMaster();
+      //  autoMaster();
     })
+
     //自动登录
     function autoMaster(){
 
-        if($("[name='yhMch']").val()!=null && $("[name='yhMm']").val()!=null ){
+        if($("#loginCheckedId").prop("checked")==true){
+            setTimeout(function () {
+                if ($("[name='yhMch']").val() != null && $("[name='yhMm']").val() != null) {
 
-            submitForm();   //登录
+                    submitForm();   //登录
+                }
+            }, 1050);
+
         }
+
 
     }
     //统一 存成一个cookie

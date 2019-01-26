@@ -35,7 +35,7 @@ public class Info implements Serializable {
      */
     private Integer shp_fw;
 
-
+    private Integer tjshl;    //数量
 /**
  * 业务字段
  */
@@ -45,6 +45,8 @@ public class Info implements Serializable {
         private Integer sku_jg;
         //服务
         private String fuwu;
+
+        private String shp_tp;  //图片
 
 
 }

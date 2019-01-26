@@ -360,7 +360,7 @@
  }
  /* ------------------------------*/
 function getDetails(id){
-    location.href="/detailsByCpId?shpid="+id;
+    location.href="/details/detailsByCpId?shpid="+id;
 }
  function getSearch(param){
      if (param ==1 && class1 != null && class1 !=''){
@@ -368,8 +368,10 @@ function getDetails(id){
              url:'/retrieve/search',
              data:{skuXl:param,flbh1:class1},
              success:function (result) {
+
                  var html="";
                  for (var i = 0; i < result.length; i++) {
+
                      html+="<div class='list'>"
                      html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"

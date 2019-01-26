@@ -19,6 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Controller
+@RequestMapping("details")
 public class DetailsController {
 
     @Autowired
@@ -47,4 +50,15 @@ public class DetailsController {
         List list = detailsService.querydetails(shpid);
         return list;
     }
+
+    @RequestMapping("insertGoods")
+    @ResponseBody
+    public List<Info> insertGoods(Info info, HttpServletRequest request,HttpSession session){
+
+        List<Info>list= detailsService.insertGoods(info,request,session);
+        return list;
+    }
+
+
+
 }
