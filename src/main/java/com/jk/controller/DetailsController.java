@@ -12,6 +12,7 @@ package com.jk.controller;
 
 import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
+import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,12 @@ public class DetailsController {
         return list;
     }
 
+    @RequestMapping("querySkuById")
+    @ResponseBody
+    public Sku querySkuById(Integer skuId){
+        Sku sku = detailsService.querySkuById(skuId);
+        return sku;
+    }
 
     @RequestMapping("insertGoods")
     @ResponseBody

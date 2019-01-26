@@ -2,6 +2,7 @@ package com.jk.mapper;
 
 import com.jk.bean.ShopCar;
 import com.jk.bean.User;
+import com.jk.bean.Sku;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface DetailsMapper {
 
     //新增 mysql  数据库
     void addShopGoods(ShopCar next1);
+
+    Sku querySkuById(Integer skuId);
 }

@@ -13,6 +13,10 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
 
  </select>
 
+ <select id="querySkuById" parameterType="int" resultType="sku">
+  select * from t_mall_sku where id = #{skuId}
+ </select>
+
  <!--从购物车 中查询 出全部的商品信息  根据 用户 id-->
  <select id="queryGoodsByUser" resultType="ShopCar">
 

@@ -168,7 +168,7 @@
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
                      html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
-                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div class='price'>"+"￥" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
                      html+="<div >" + result[i].kcdz + "</div>"
@@ -183,11 +183,12 @@
              url:'/retrieve/search',
              data:{"flbh2":class2},
              success:function (result) {
+                 console.log(result);
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
-                     html+="<div class='price'>" + result[i].jg + "</div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+","+result[i].sku_id+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src='/images/" + result[i].sh_tp + "' ></div>"
+                     html+="<div class='price'>"+"￥" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
                      html+="<div >" + result[i].kcdz + "</div>"
@@ -359,8 +360,8 @@
      })
  }
  /* ------------------------------*/
-function getDetails(id){
-    location.href="/details/detailsByCpId?shpid="+id;
+function getDetails(id,sku_id){
+    location.href="/details/detailsByCpId?shpid="+id+"&&skuId="+sku_id;
 }
  function getSearch(param){
      if (param ==1 && class1 != null && class1 !=''){

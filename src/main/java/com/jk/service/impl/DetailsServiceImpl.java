@@ -2,6 +2,7 @@ package com.jk.service.impl;
 
 import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
+import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.mapper.DetailsMapper;
 import com.jk.service.DetailsService;
@@ -51,7 +52,7 @@ public class DetailsServiceImpl implements DetailsService {
 
         Cookie[] cookies = request.getCookies();
 
-        if (userName.getYhMch() == null) {   // 1.没有登录    以游客身份储存   2.没有登录  但是已经储存 了
+        if (userName == null) {   // 1.没有登录    以游客身份储存   2.没有登录  但是已经储存 了
 
             setCookie(response, 3000, Constant.tourist_key + Constant.uuid);
 
@@ -155,5 +156,9 @@ public class DetailsServiceImpl implements DetailsService {
         return detailsMapper.queryimgdetails(shpid);
     }
 
+    @Override
+    public Sku querySkuById(Integer skuId) {
+        return detailsMapper.querySkuById(skuId);
+    }
 
 }
