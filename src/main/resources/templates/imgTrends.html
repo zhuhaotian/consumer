@@ -39,7 +39,7 @@
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
 			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
-			<a href="/removeUser">退出登录</a>
+			<a href="/removeUser"><p th:text="${param.user==null?'登录':'退出登录'}"></p></a>
 		</g>
 	  </div>
 	</div>
@@ -130,10 +130,10 @@
         if(document.cookie!=null){
             //之前是在服务器操作cookie  现在在浏览器操作cookie
             var str=document.cookie.split(";");
-            console.log(str);   //获去当前cookie的  cookie值
+          //  console.log(str);   //获去当前cookie的  cookie值
             $.each(str,function (i,obj) {
                 var arr=obj.split("=");
-				if (arr[0].trim()=="remember_pwd" &&arr[0] !=null) {
+				if (arr[0].trim()=="remember_pwd" && arr[0] !=null) {
 					var a=arr[1].split("comjk1807");
 					$("#kk").html(a[0]);
 				}
@@ -193,7 +193,7 @@
 		type:"post",
 		data:{id:id},
 		success:function(data){
-            var count = ""
+            var count = "";
             $.each(data,function(index,obj){
                count += "<a href='/toView?class2Id="+obj.id+"&class1Id="+obj.flbh1+"'> <font size='3px' color='blue'>"+obj.flmch2+"<font></a>    ";
             });

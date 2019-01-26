@@ -46,22 +46,15 @@ public class LoginController {
         User userData = client.queryloginuser(user);
 
         if (userData == null) {
-
             return "0";   //用户名  密码不正确
         }else{
-
             session.setAttribute("user111",userData);
             Cookie cookie = new Cookie(Constant.remember_pwd,userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
-
             cookie.setMaxAge(60*60*24*7);
             cookie.setPath("/");
             response.addCookie(cookie);
-
-
             return "1";
-
         }
-
     }
 
     @RequestMapping("removeUser")
