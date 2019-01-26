@@ -15,7 +15,9 @@ import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
+import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -40,8 +44,8 @@ import java.util.concurrent.TimeUnit;
 @Controller
 @RequestMapping("details")
 public class DetailsController {
-    @Autowired
-    private RedisTemplate<String, String>redisTemplate;
+    @Resource
+    private RedisTemplate<String, List<ShopCar>> redisTemplate;
 
     @Resource
     private DetailsService detailsService;
@@ -83,20 +87,24 @@ public class DetailsController {
     }
 
     //测试  Redis 工具类
-    @RequestMapping("mm")
-    @ResponseBody
-    public String mm(){
+   // @RequestMapping("mm")
+   // @ResponseBody
+   // public String mm(){
 
-        redisTemplate.opsForValue().set("aaa","hello word",40, TimeUnit.MINUTES);
-        return "success";
-    }
+    //    redisTemplate.opsForValue().set("aaa","hello word",40, TimeUnit.MINUTES);
+      //  return "success";
+  //  }
 
     //查询redis
     @ResponseBody
     @RequestMapping("getShop")
-    public String getShop(){
-        String aaa = redisTemplate.opsForValue().get("aaa");
-        return aaa;
+    public List<ShopCar> getShop(HttpServletRequest request){
+        List<ShopCar> list =null;
+       if(redisTemplate.hasKey(Constant.tourist_key + Constant.uuid)){
+        list = redisTemplate.opsForValue().get(Constant.tourist_key + Constant.uuid);
+       }
+       System.out.println(list);
+        return list;
     }
 
 }
