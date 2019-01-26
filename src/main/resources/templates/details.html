@@ -37,6 +37,51 @@
 		<div class="card">
 			<a href="">购物车<div class="num">0</div></a>
 			
+			<!--购物车商品-->
+			<div class="cart_pro">
+				<h6>最新加入的商品</h6>
+				<div class="one">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				
+				<div class="one border">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				<div class="one border">
+					<img src="images/lec1.png"/>
+					<span class="one_name">
+						商品名称商品名称商品名称商品名称
+					</span>
+					<span class="one_prece">
+						<b>￥20000</b><br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+					</span>
+				</div>
+				
+				
+				<div class="gobottom">
+					共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
+					共计￥<span>20000</span>
+					<button class="goprice">去购物车</button>
+				</div>
+				
+				
+			</div>
+			
 		</div>
 	</div>
 	<div class="menu">
@@ -45,7 +90,7 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini" style="display:none">
-						<ul>
+						<!--<ul>
 							<li>
 								<a href="">家用电器</a>
 								<div class="two_nav">
@@ -76,48 +121,39 @@
 							<li><a href="">图书</a></li>
 							<li><a href="">彩票</a></li>
 							<li><a href="">理财</a></li>
-						</ul>
+						</ul>-->
 					</div>
 				</div>
-				<ul>
-					<li><a href="">服装城</a></li>
-					<li><a href="">美妆馆</a></li>
-					<li><a href="">超市</a></li>
-					<li><a href="">全球购</a></li>
-					<li><a href="">闪购</a></li>
-					<li><a href="">团购</a></li>
-					<li><a href="">拍卖</a></li>
-					<li><a href="">金融</a></li>
-					<li><a href="">智能</a></li>
+				<ul id="uu">
 				</ul>
 			</div>
 		</div>
-
+	</div>
 	
 	<div class="Dbox">
 		<div class="box">
-			<!--<div class="left">
-				<div class="timg"><img style="width: 300px;height: 300px;" src="/images/timg.jpg" alt=""></div>
+			<div class="left">
+				<div class="timg"><img src="sdad.jpg" alt=""></div>
 				<div class="timg2">
-					<div class="lf" id="imgId"></div>
+					<div class="lf"><img src="sdadasd.jpg" alt=""></div>
 					<div class="center">
-						<span><img src="/images/timg.jpg" style="width: 50px;height: 50px;" alt=""></span>
-
+						<span><img src="asdasd.jpg" alt=""></span>
 					</div>
+					<div class="rg"><img src="sdasdasd.jpg" alt=""></div>
 				</div>
-			</div>-->
-			<div class="left" id="left"></div>
-			<div>
+				<div class="goods"><img src="asdsadsadsads.jpg" alt=""></div>
+			</div>
+			<div class="center">
 				<div class="detailsShp">
 				</div>
 			</div>
-
-	</div>
-	</div>
+		</div>
 	</div>
 
 
 
+<!-- 回显当前商品详细信息 -->
+	<!-------------------------------------->
 	<div class="Dbox1">
 		<div class="boxbottom">
 			<div class="top">
@@ -182,6 +218,7 @@
         details(shpid);
         good();
         imgdetails(shpid);
+        getTitle()
     })
     var shpid=$("[name='shpid']").val();
 	function imgdetails(shpid){
@@ -206,7 +243,22 @@
             }
 		})
 	}
-
+    function getTitle(){
+        $.ajax({
+            url:"/tit/getTitle",
+            type:"POST",
+            success:function(pageUtil){
+                var count=''
+                $.each(pageUtil,function (index,obj) {
+                    count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+                })
+                $("#uu").append(count)
+            },
+            error:function(){
+                alert("失败了");
+            }
+        });
+    }
 	function details(shpid) {
 		$.ajax({
 			url:'/details/querydetails?shpid='+shpid,
@@ -254,10 +306,9 @@
             }
 		})
     }
-
 	//添加商品
 	function insertGoods(){
-
+      alert(11111)
 		$.ajax({
 			url:'/details/insertGoods',
 			type:'post',
@@ -320,13 +371,10 @@
                 alert("成功了");
             },
             error:function(){
-
                 alert("失败了");
             },
         })
-	}
-
-
+    }
 
 
 
