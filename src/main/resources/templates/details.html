@@ -3,9 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/css.css"/>
 	<script th:src="@{~/common/myJs.jsp}"></script>
-	<script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
 <!--	<link rel="stylesheet" type="text/css" href="css/css.css">
 	<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
 	<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -39,10 +38,10 @@
 			</div>
 		</div>-->
 		<div class="card">
-			<a href="">购物车<div class="num">0</div></a>
+			<a href=""   onmouseover="ShowShoppingCart()">购物车<div class="num">0</div></a>
 			
 			<!--购物车商品-->
-			<div class="cart_pro">
+			<div class="cart_pro"  onmouseleave="HideShoppingCart()">
 				<h6>最新加入的商品</h6>
 				<div class="one">
 					<img src="images/lec1.png"/>
@@ -221,7 +220,8 @@
     $(function(){
         details(shpid);
         good();
-		getTitle()
+		getTitle();
+        HideShoppingCart();
     })
 	function getTitle(){
 		$.ajax({
@@ -356,7 +356,24 @@
             },
         })
     }
+    //查询购物车
+    function ShowShoppingCart() {
+        $(".cart_pro").show();
+		$.ajax({
+		 url:"/shoppingcart",
+		 type:"post",
+		 success:function(result){
+          alert(result);
+         },
+		 error:function(){
+		  alert("失败了");
+		 }
+		})
+    }
 
+    function HideShoppingCart() {
+        $(".cart_pro").hide();
+    }
 
 
 </script>
