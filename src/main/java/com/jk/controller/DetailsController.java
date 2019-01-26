@@ -14,12 +14,16 @@ import com.jk.bean.Info;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -30,7 +34,10 @@ import java.util.List;
  * @since 1.0.0
  */
 @Controller
+@RequestMapping("details")
 public class DetailsController {
+    @Autowired
+    private RedisTemplate<String, String>redisTemplate;
 
     @Autowired
     private DetailsService detailsService;
@@ -47,4 +54,23 @@ public class DetailsController {
         List list = detailsService.querydetails(shpid);
         return list;
     }
+
+    @RequestMapping("insertGoods")
+    @ResponseBody
+    public List<Info> insertGoods(Info info, HttpServletRequest request,HttpSession session){
+
+        List<Info>list= detailsService.insertGoods(info,request,session);
+        return list;
+    }
+
+    //测试  Redis 工具类
+    @RequestMapping("mm")
+    @ResponseBody
+    public String mm(){
+
+        redisTemplate.opsForValue().set("aaa","hello word",40, TimeUnit.MINUTES);
+        return "success";
+    }
+
+
 }

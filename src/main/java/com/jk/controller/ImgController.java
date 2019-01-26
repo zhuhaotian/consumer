@@ -18,13 +18,13 @@ public class ImgController {
     @RequestMapping("img")
     public String img(){
 
-        return "imgTrends";
+        return "discuss";
     }
     @RequestMapping("Imon")
     @ResponseBody
     public List<ImgBean> Imon(ImgBean imgBean){
         List<ImgBean> list = imgService.Imon(imgBean);
-        System.out.println(list);
+       // System.out.println(list);
         return list;
     }
 }

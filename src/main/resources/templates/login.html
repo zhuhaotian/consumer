@@ -3,8 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-    <script src="/js/layer/layer.js"></script>
+
     <link rel="stylesheet" href="/js/loginAngRegister/css/base.css"/>
     <link rel="stylesheet" href="/js/loginAngRegister/css/login.css"/>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css"/>
@@ -28,6 +27,11 @@
                     <input id="upwd" name="yhMm" data-form="upwd" type="password" placeholder="密码"/>
                 </div>
                 <div class="submit">
+                    <div class="notice">
+                    <div class="box_01_both_1">
+                        <input type="checkbox" class="box_01_box" id="loginCheckedId" onchange="autoMaster()">
+                        自动登录</div>
+                    </div>
                     <div class="notice">
                         <div class="box_01_both_1">
                          <input type="checkbox" class="box_01_box" name="rememberPwd" th:checked="${userPwd}==null?'false':'checked'">
@@ -62,7 +66,7 @@
     <div id="footer">
     </div>
 </div>
-<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/header.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/layer/layer.js"></script>
@@ -71,8 +75,24 @@
     $(function(){
 
         asd();
-
+      //  autoMaster();
     })
+
+    //自动登录
+    function autoMaster(){
+
+        if($("#loginCheckedId").prop("checked")==true){
+            setTimeout(function () {
+                if ($("[name='yhMch']").val() != null && $("[name='yhMm']").val() != null) {
+
+                    submitForm();   //登录
+                }
+            }, 1050);
+
+        }
+
+
+    }
     //统一 存成一个cookie
      function asd(){
 

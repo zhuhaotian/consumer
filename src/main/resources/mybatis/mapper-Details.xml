@@ -5,8 +5,12 @@
 
 
  <select id="querydetails" parameterType="Integer" resultType="info">
-     select si.sku_jg as sku_jg,pv.shp_bb as banben,ps.shp_fuwu as fuwu from t_mall_product_sku_info si,t_mall_product_serve ps,t_mall_product_version pv
-where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and si.sku_id = #{shpid}
+  select si.sku_id,si.sku_jg as sku_jg,pv.shp_bb as banben,ps.shp_fuwu as fuwu,tmp.shp_tp
+
+from t_mall_product_sku_info si,t_mall_product_serve ps,t_mall_product_version pv,t_mall_product tmp
+
+where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and si.sku_id = #{shpid}
+
  </select>
 
 </mapper>

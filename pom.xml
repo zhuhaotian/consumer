@@ -28,6 +28,19 @@
 
     <dependencies>
 
+        <!--redis依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+    <!-- Redis缓存整合结束 -->
+
         <!--SpringBoot的热部署 除此之外还要更改idea设置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,6 +53,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -78,6 +92,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>1.5.19.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -91,11 +110,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
-
-
-
 
     <build>
         <plugins>

@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/css.css"/>
 	<script th:src="@{~/common/myJs.jsp}"></script>
+
 	<input type="hidden" name="shpid" th:value="${shpid}"/>
 </head>
 <body>
@@ -89,7 +90,7 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini" style="display:none">
-						<ul>
+						<!--<ul>
 							<li>
 								<a href="">家用电器</a>
 								<div class="two_nav">
@@ -120,19 +121,10 @@
 							<li><a href="">图书</a></li>
 							<li><a href="">彩票</a></li>
 							<li><a href="">理财</a></li>
-						</ul>
+						</ul>-->
 					</div>
 				</div>
-				<ul>
-					<li><a href="">服装城</a></li>
-					<li><a href="">美妆馆</a></li>
-					<li><a href="">超市</a></li>
-					<li><a href="">全球购</a></li>
-					<li><a href="">闪购</a></li>
-					<li><a href="">团购</a></li>
-					<li><a href="">拍卖</a></li>
-					<li><a href="">金融</a></li>
-					<li><a href="">智能</a></li>
+				<ul id="uu">
 				</ul>
 			</div>
 		</div>
@@ -161,73 +153,207 @@
 
 
 <!-- 回显当前商品详细信息 -->
-
-
+	<!-------------------------------------->
 	<div class="Dbox1">
 		<div class="boxbottom">
 			<div class="top">
-				<span>商品详情</span>
-				<span>评价</span>
+				<span>商品评论</span>
+				<span onclick="pinlun()" data-toggle="modal" data-target="#myModal">评价</span>
 			</div>
 			<div class="btm">
-				我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我
+
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="top"></div>
-		<div class="bottom"><img src="images/foot.jpg" alt=""></div>
+
+	<!--评论 列表 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title">评论一番吧</h4>
+				</div>
+				<div class="modal-body">
+					<p></p>
+					<div>服务如何：</div>
+					<form>
+
+						<input type="hidden"  name="shp_id" th:value="${shpid}">
+						<div class="btn-group" data-toggle="buttons">
+							<label class="btn btn-default active">
+								<input type="checkbox" name="hpjb" value="1">🌞
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="hpjb" value="2">🌞
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="hpjb" value="3">🌞
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="hpjb" value="4">🌞
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="hpjb" value="5">🌞
+							</label>
+							<div>评论评论吧：</div>
+							<textarea  name="plnr">
+
+                    </textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+					<button class="btn btn-primary" onclick="add()" type="button">提交</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
 	</div>
+
 </body>
 <script type="text/javascript">
 
     $(function(){
         details(shpid);
+        good();
+		getTitle()
     })
+	function getTitle(){
+		$.ajax({
+			url:"/tit/getTitle",
+			type:"POST",
+			success:function(pageUtil){
+				var count=''
+				$.each(pageUtil,function (index,obj) {
+					count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+				})
+				$("#uu").append(count)
+			},
+			error:function(){
+				alert("失败了");
+			}
+		});
+	}
     var shpid=$("[name='shpid']").val();
 	function details(shpid) {
 		$.ajax({
-			url:'/querydetails?shpid='+shpid,
+			url:'/details/querydetails?shpid='+shpid,
 			type:'post',
 			success:function (result) {
                 console.log(result)
 				var html = "";
-                for (var i = 0; i < result.length; i++) {
-                    html+="<div class='cent'>"
-						html+="<div class='title'></div>"
-                    html+="<div class='bg'>\n" +
-                        "\t\t\t\t\t<p>市场价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
-                        "\t\t\t\t\t<p>促销价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear'>\n" +
-                        "\t\t\t\t\t<div class='min_t'>选择版本：</div>\n" +
-                        "\t\t\t\t\t<div class='min_mx' onclick=func($(this),'0')>"+ result[i].banben +"</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear'>\n" +
-                        "\t\t\t\t\t<div class='min_t' onclick=func($(this),'1')>服务：</div>\n" +
-                        "\t\t\t\t\t<div class='min_mx' onclick=func($(this),'1')>"+ result[i].fuwu +"</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear' style=\"margin-top:20px;\">\n" +
-                        "\t\t\t\t\t<div class=\"min_t\" style=\"line-height:36px\">数量：</div>\n" +
-                        "\t\t\t\t\t<div class=\"num_box\">\n" +
-                        "\t\t\t\t\t\t<input type=\"text\" name=\"num\" value=\"1\" style=\"width:40px;height:32px;text-align:center;float:left\">\n" +
-                        "\t\t\t\t\t\t<div class=\"rg\">\n" +
-                        "\t\t\t\t\t\t\t<img src=\"images/jia.jpg\" id='jia' alt=\"\">\n" +
-                        "\t\t\t\t\t\t\t<img src=\"images/jian.jpg\" id='jian' alt=\"\">\n" +
-                        "\t\t\t\t\t\t</div>\n" +
-                        "\t\t\t\t\t</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class=\"clear\" style=\"margin-top:20px;\">\n" +
-                        "\t\t\t\t\t<img src=\"images/mai.jpg\" alt=\"\">\n" +
-                        "\t\t\t\t\t<img src=\"images/shop.jpg\" alt=\"\">\n" +
-                        "\t\t\t\t</div>"
-                    html+="</div>"
-                }
-                $(".detailsShp").html(html)
+                var cc="";
+				for (var i = 0; i < result.length; i++) {
+					html+="<div class='cent'>"
+					html+="<input type='hidden' id='shuIdValue' value='"+result[i].sku_id+"'>"
+					html+="<div class='title' ></div>"
+					html+="<div class='bg'>\n" +
+							"\t\t\t\t\t<p id='markId'>市场价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
+							"\t\t\t\t\t<p>促销价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
+							"\t\t\t\t</div>"   //shp_tp
+					cc+="<img src=/'"+result[i].shp_tp+"' id='imgOneId'>"
+					html+="<div class='clear'>\n" +
+							"\t\t\t\t\t<div class='min_t'>选择版本：</div>\n" +
+							"\t\t\t\t\t<div class='min_mx' onclick=func($(this),'0')>"+ result[i].banben +"</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear'>\n" +
+							"\t\t\t\t\t<div class='min_t' onclick=func($(this),'1')>服务：</div>\n" +
+							"\t\t\t\t\t<div class='min_mx' onclick=func($(this),'1')>"+ result[i].fuwu +"</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear' style='margin-top:20px;'>\n" +
+							"\t\t\t\t\t<div class='min_t' style='line-height:36px'>数量：</div>\n" +
+							"\t\t\t\t\t<div class='num_box'>\n" +
+							"\t\t\t\t\t\t<input type='text' name='num' value='1' style='width:40px;height:32px;text-align:center;float:left'>\n" +
+							"\t\t\t\t\t\t<div class='rg'>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jia.jpg' id='jia' alt=''>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jian.jpg' id='jian' alt=''>\n" +
+							"\t\t\t\t\t\t</div>\n" +
+							"\t\t\t\t\t</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear' style='margin-top:20px;'>\n" +
+							"\t\t\t\t\t<img src='/images/mai.jpg' alt=''>\n" +
+							"\t\t\t\t\t<img src='/images/shop.jpg' alt='' onclick='insertGoods()'>\n" +
+							"\t\t\t\t</div>"
+					html+="</div>"
+				}
+				$("#imgId").html(cc)
+				$(".detailsShp").html(html)
 
             }
 		})
     }
+	//添加商品
+	function insertGoods(){
+      alert(11111)
+		$.ajax({
+			url:'/details/insertGoods',
+			type:'post',
+			data:{
+				sku_id:$("#shuIdValue").html(),  //商品 id
+				sku_jg:$("#markId").html(),  //添加价格
+				tjshl:$(".min_t").html(),      //数量
+				shpid:$("#shpid").html(),     //商品id
+				shp_tp:$("#imgOneId").html()
+			},
+
+			success:function(){
+
+			},error:function () {
+
+			}
+
+		})
+	}
+
+    function good(){
+        var shpid=$("[name='shpid']").val();
+        $.ajax({
+            url:"/comment",
+            type:"post",
+            data:{id:shpid},
+            success:function(result){
+                //alert(result.plnr);
+                $.each(result,function(index,obj){
+                    //alert(obj);
+                    function formatDate(now) {
+                        var year=now.getFullYear();
+                        var month=now.getMonth()+1;
+                        var date=now.getDate();
+                        var hour=now.getHours();
+                        var minute=now.getMinutes();
+                        var second=now.getSeconds();
+                        return +year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+                    }
+                    var d=new Date(obj.plshj);
+                    var tt =  formatDate(d)
+                    $(".btm").append("<img src="+obj.img+" width='66'>")
+                    $(".btm").append(obj.yh_mch)
+                    $(".btm").append("<br/>"+obj.plnr+"<br/>")
+                    $(".btm").append("<font color='red'>"+tt+"     "+obj.shp_mch+"</font><br/>")
+                })
+            },
+            error:function(){
+                alert("失败了");
+            }
+        })
+    }
+    //新增评论
+    function add(){
+        $.ajax({
+            url:"/rules",
+            type:"post",
+            data:$("form").serialize(),
+            success:function(){
+                alert("成功了");
+            },
+            error:function(){
+                alert("失败了");
+            },
+        })
+    }
+
+
 
 </script>
 </html>
