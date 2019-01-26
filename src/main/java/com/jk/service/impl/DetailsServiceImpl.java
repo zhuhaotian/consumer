@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,22 +28,19 @@ public class DetailsServiceImpl implements DetailsService {
         return detailsMapper.querydetails(shpid);
     }
 
-    @Override
+    @Override   //id   ,数量   skuid  ,
     public List<Info> insertGoods(Info info, HttpServletRequest request, HttpSession session) {
         User userName = (User)session.getAttribute("user111");
 
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies){
-            System.err.println("------------"+cookie.getValue());
 
-            /*if(){
-                String loginInfo = cookie.getValue();
-                String username = loginInfo.split(",")[0];
-                String password = loginInfo.split(",")[1];
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-            }*/
-        }
+            if(userName.getYhMch()==null){   // 没有登录    以游客身份储存
+
+                SimpleDateFormat simp = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+                String date = simp.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+            }
+
         // if(userName !=null){
 
         // }
