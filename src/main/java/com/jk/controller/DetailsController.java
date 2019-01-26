@@ -11,6 +11,7 @@
 package com.jk.controller;
 
 import com.jk.bean.Info;
+import com.jk.bean.ShopCar;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,12 @@ public class DetailsController {
         return "success";
     }
 
+    //查询redis
+    @ResponseBody
+    @RequestMapping("getShop")
+    public String getShop(){
+        String aaa = redisTemplate.opsForValue().get("aaa");
+        return aaa;
+    }
 
 }
