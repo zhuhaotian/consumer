@@ -3,13 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/css.css"/>
 	<script th:src="@{~/common/myJs.jsp}"></script>
-	<script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
-<!--	<link rel="stylesheet" type="text/css" href="css/css.css">
-	<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
-	<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
-	<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>-->
+
 	<input type="hidden" name="shpid" th:value="${shpid}"/>
 </head>
 <body>
@@ -289,7 +285,7 @@
     }
 	//添加商品
 	function insertGoods(){
-
+      alert(11111)
 		$.ajax({
 			url:'/details/insertGoods',
 			type:'post',
