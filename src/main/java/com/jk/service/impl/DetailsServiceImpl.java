@@ -4,8 +4,8 @@ import com.jk.bean.Info;
 import com.jk.bean.User;
 import com.jk.mapper.DetailsMapper;
 import com.jk.service.DetailsService;
-import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -21,6 +20,9 @@ public class DetailsServiceImpl implements DetailsService {
 
     @Autowired
     private DetailsMapper detailsMapper;
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public List querydetails(Integer shpid) {
