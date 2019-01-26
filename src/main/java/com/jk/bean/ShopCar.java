@@ -2,10 +2,11 @@ package com.jk.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
-
+//购物车表
 @Data
-public class ShopCar {
+public class ShopCar implements Serializable {
 
    private Integer Id;
 
@@ -14,6 +15,8 @@ public class ShopCar {
    private Integer tjshl;   //添加数量
 
    private Integer  hj;   //合计
+
+   private double  jg;      //价格
 
    private Integer yh_id;    //用户id
 

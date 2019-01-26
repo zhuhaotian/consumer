@@ -84,5 +84,12 @@ public class DetailsController {
         return "success";
     }
 
+    //查询redis
+    @ResponseBody
+    @RequestMapping("getShop")
+    public String getShop(){
+        String aaa = redisTemplate.opsForValue().get("aaa");
+        return aaa;
+    }
 
 }
