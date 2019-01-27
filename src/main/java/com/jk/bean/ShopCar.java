@@ -2,10 +2,11 @@ package com.jk.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class ShopCar {
+public class ShopCar implements Serializable{
 
    private Integer Id;
 

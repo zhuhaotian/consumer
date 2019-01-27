@@ -1,6 +1,8 @@
 package com.jk.service.impl;
 
 import com.jk.bean.Comment;
+import com.jk.bean.Product;
+import com.jk.bean.ShopCar;
 import com.jk.mapper.SearchMapper;
 import com.jk.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +24,11 @@ public class SearchServiceImpl implements SearchService {
         SearchMapper.rules(comment);
 
     }
+    public List<ShopCar>  shoppingcart(){
+        List<ShopCar> list =  SearchMapper.shoppingcart();
+      return list;
+    }
+
+
+
 }

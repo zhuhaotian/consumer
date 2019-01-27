@@ -37,13 +37,13 @@
 				<a href="">玉兰油</a>
 			</div>
 		</div>-->
-		<div class="card">
-			<a href=""   onmouseover="ShowShoppingCart()">购物车<div class="num">0</div></a>
+		<div class="card" onmouseover="onshowtwo()">
+			<a href="">购物车<div class="num">0</div></a>
 			
 			<!--购物车商品-->
-			<div class="cart_pro"  onmouseleave="HideShoppingCart()">
+			<div class="cart_pro" onmouseout="onhidetwo()">
 				<h6>最新加入的商品</h6>
-				<div class="one">
+				<div class="one" >
 					<img src="images/lec1.png"/>
 					<span class="one_name">
 						商品名称商品名称商品名称商品名称
@@ -51,7 +51,7 @@
 					<span class="one_prece">
 						<b>￥20000</b><br />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
+					</span>-->
 				</div>
 				
 				<div class="one border">
@@ -93,38 +93,7 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini" style="display:none">
-						<!--<ul>
-							<li>
-								<a href="">家用电器</a>
-								<div class="two_nav">
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-								</div>
-							</li>
-							<li><a href="">手机、数码、通信</a></li>
-							<li><a href="">电脑、办公</a></li>
-							<li><a href="">家具、家居、家装</a></li>
-							<li><a href="">男装、女装、内衣</a></li>
-							<li><a href="">个户化妆</a></li>
-							<li><a href="">鞋靴</a></li>
-							<li><a href="">户外运动</a></li>
-							<li><a href="">汽车</a></li>
-							<li><a href="">母婴</a></li>
-							<li><a href="">食品</a></li>
-							<li><a href="">营养保健</a></li>
-							<li><a href="">图书</a></li>
-							<li><a href="">彩票</a></li>
-							<li><a href="">理财</a></li>
-						</ul>-->
+
 					</div>
 				</div>
 				<ul id="uu">
@@ -221,7 +190,7 @@
         details(shpid);
         good();
 		getTitle();
-        HideShoppingCart();
+        onhidetwo();
     })
 	function getTitle(){
 		$.ajax({
@@ -356,24 +325,32 @@
             },
         })
     }
-    //查询购物车
-    function ShowShoppingCart() {
+    function onshowtwo(){
         $(".cart_pro").show();
-		$.ajax({
-		 url:"/shoppingcart",
-		 type:"post",
-		 success:function(result){
-          alert(result);
-         },
-		 error:function(){
-		  alert("失败了");
-		 }
-		})
+        $.ajax({
+            url:"/shoppingcart",
+            type:"post",
+            success:function(result){
+                //  data.shp_tp.substring()
+                var count = "";
+                $.each(result   ,function(index,data){
+               count+="<div class=\"one\" >";
+               count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+               count+="<span>"+data.sku_mch+"</span><br/>";
+               count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+               count+="</div>";
+           })
+          $(".cart_pro").html(count)
+          },
+          error:function(){
+           alert("失败了");
+          }
+        })
     }
-
-    function HideShoppingCart() {
+    function onhidetwo(){
         $(".cart_pro").hide();
     }
+
 
 
 </script>

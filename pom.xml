@@ -28,12 +28,21 @@
 
     <dependencies>
 
-        <!-- Redis缓存整合开始 -->
-          <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-           </dependency>
-                <!-- Redis缓存整合结束 -->
+        <!--redis依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+
+
+
+    <!-- Redis缓存整合结束 -->
 
         <dependency>
             <groupId>com.aliyun.oss</groupId>
@@ -53,6 +62,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

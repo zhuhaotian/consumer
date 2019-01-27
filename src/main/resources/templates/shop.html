@@ -46,26 +46,14 @@
         <a href="">购物车<div class="num">0</div></a>
 
         <!--购物车商品-->
-        <div class="cart_pro">
+        <div class="cart_pro"  onmouseover="onshowthree()">
             <h6>最新加入的商品</h6>
-            <!--<div class="one" type="hidden">
-                <img src="/images/lec1.png"/>
-                <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-                <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-            </div>-->
 
-            <div class="gobottom">
+            <div class="gobottom"  onmouseout="onhidethree()">
                 共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
                 共计￥<span>20000</span>
                 <button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
             </div>
-
-
         </div>
 
     </div>
@@ -167,6 +155,38 @@
         </div>
     </div>
 </div>
+<script>
+    function onshowthree(){
+        $(".cart_pro").show();
+        $.ajax({
+            url:"/shoppingcart",
+            type:"post",
+            success:function(result){
+                //  data.shp_tp.substring()
+                var count = "";
+                $.each(result   ,function(index,data){
+                    count+="<div class=\"one\" >";
+                    count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+                    count+="<span>"+data.sku_mch+"</span><br/>";
+                    count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+                    count+="</div>";
+                })
+                $(".cart_pro").html(count)
+            },
+            error:function(){
+                alert("失败了");
+            }
+        })
+    }
+    function onhidethree(){
+        $(".cart_pro").hide();
+    }
 
+
+
+
+
+
+</script>
 </body>
 </html>
