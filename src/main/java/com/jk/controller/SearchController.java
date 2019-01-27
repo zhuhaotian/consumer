@@ -2,9 +2,13 @@ package com.jk.controller;
 
 import com.jk.bean.Class2;
 import com.jk.bean.Comment;
+import com.jk.bean.Product;
+import com.jk.bean.ShopCar;
 import com.jk.client.SearchClient;
 import com.jk.service.SearchService;
+import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,17 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
 public class SearchController {
-    private static final String UUID = "";
+
     @Autowired
     private SearchClient searchClient;
     @Autowired
     private SearchService SearchService;
+    //redis
+
+    @Resource
+    private RedisTemplate<String, List<ShopCar>> redisTemplate;
 
     @RequestMapping("Search")
     public String Search(){
@@ -82,7 +93,21 @@ public class SearchController {
         SearchService.rules(comment);
      return "1";
     }
-
+    //查询购物车
+    @ResponseBody
+    @RequestMapping("shoppingcart")
+    public List shoppingcart(){
+        List<ShopCar> list =null;
+        if(redisTemplate.hasKey(Constant.cart)){
+            list= redisTemplate.opsForValue().get(Constant.cart);
+            System.out.println("在redis中查询");
+        }else{
+            list =SearchService.shoppingcart();
+            redisTemplate.opsForValue().set(Constant.cart,list);
+            System.out.println("在数据库中查询");
+        }
+      return list;
+    }
 
 
 

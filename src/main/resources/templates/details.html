@@ -37,13 +37,13 @@
 				<a href="">玉兰油</a>
 			</div>
 		</div>-->
-		<div class="card">
+		<div class="card" onmouseover="onshowtwo()">
 			<a href="">购物车<div class="num">0</div></a>
 			
 			<!--购物车商品-->
-			<div class="cart_pro">
+			<div class="cart_pro" onmouseout="onhidetwo()">
 				<h6>最新加入的商品</h6>
-				<div class="one">
+				<div class="one" >
 					<img src="images/lec1.png"/>
 					<span class="one_name">
 						商品名称商品名称商品名称商品名称
@@ -51,7 +51,7 @@
 					<span class="one_prece">
 						<b>￥20000</b><br />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
+					</span>-->
 				</div>
 				
 				<div class="one border">
@@ -93,38 +93,7 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini" style="display:none">
-						<!--<ul>
-							<li>
-								<a href="">家用电器</a>
-								<div class="two_nav">
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-								</div>
-							</li>
-							<li><a href="">手机、数码、通信</a></li>
-							<li><a href="">电脑、办公</a></li>
-							<li><a href="">家具、家居、家装</a></li>
-							<li><a href="">男装、女装、内衣</a></li>
-							<li><a href="">个户化妆</a></li>
-							<li><a href="">鞋靴</a></li>
-							<li><a href="">户外运动</a></li>
-							<li><a href="">汽车</a></li>
-							<li><a href="">母婴</a></li>
-							<li><a href="">食品</a></li>
-							<li><a href="">营养保健</a></li>
-							<li><a href="">图书</a></li>
-							<li><a href="">彩票</a></li>
-							<li><a href="">理财</a></li>
-						</ul>-->
+
 					</div>
 				</div>
 				<ul id="uu">
@@ -136,15 +105,15 @@
 	<div class="Dbox">
 		<div class="box">
 			<div class="left">
-				<div class="timg"><img src="sdad.jpg" alt=""></div>
+				<div class="timg"><img src="" alt=""></div>
 				<div class="timg2">
-					<div class="lf"><img src="sdadasd.jpg" alt=""></div>
+					<div class="lf"><img src="" alt=""></div>
 					<div class="center">
-						<span><img src="asdasd.jpg" alt=""></span>
+						<span><img src="" alt=""></span>
 					</div>
-					<div class="rg"><img src="sdasdasd.jpg" alt=""></div>
+					<div class="rg"><img src="" alt=""></div>
 				</div>
-				<div class="goods"><img src="asdsadsadsads.jpg" alt=""></div>
+				<div class="goods"><img src="" alt=""></div>
 			</div>
 			<div class="center">
 				<div class="detailsShp">
@@ -220,48 +189,26 @@
     $(function(){
         details(shpid);
         good();
-        imgdetails(shpid);
-        getTitle()
+		getTitle();
+        onhidetwo();
     })
-    var shpid=$("[name='shpid']").val();
-	function imgdetails(shpid){
-        $.ajax({
-			url:'/details/queryimgdetails?shpid='+shpid,
-			type:'post',
-			success:function (result) {
-			    console.log(result)
-				var html = "";
-                for (var i = 0; i < result.length; i++) {
-                    html+="<div class='left'>"
-						html+=" <div class=\"timg\"><img style=\"width: 300px;height: 300px;\" src="+result[i].shp_tp_url+" alt=\"\"></div>"
-                       	html+="<div class=\"timg2\">"
-						html+="<div class=\"lf\" id=\"imgId\"></div>"
-                        html+="<div class=\"center\">"
-                        html+="<span><img src="+result[i].shp_tp_url+" style=\"width: 50px;height: 50px;\" alt=\"\"></span>"
-                        html+="</div>"
-						html+="</div>"
-                    html+="</div>"
-                }
-                $("#left").html(html)
-            }
-		})
+	function getTitle(){
+		$.ajax({
+			url:"/tit/getTitle",
+			type:"POST",
+			success:function(pageUtil){
+				var count=''
+				$.each(pageUtil,function (index,obj) {
+					count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+				})
+				$("#uu").append(count)
+			},
+			error:function(){
+				alert("失败了");
+			}
+		});
 	}
-    function getTitle(){
-        $.ajax({
-            url:"/tit/getTitle",
-            type:"POST",
-            success:function(pageUtil){
-                var count=''
-                $.each(pageUtil,function (index,obj) {
-                    count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
-                })
-                $("#uu").append(count)
-            },
-            error:function(){
-                alert("失败了");
-            }
-        });
-    }
+    var shpid=$("[name='shpid']").val();
 	function details(shpid) {
 		$.ajax({
 			url:'/details/querydetails?shpid='+shpid,
@@ -311,34 +258,22 @@
     }
 	//添加商品
 	function insertGoods(){
-        var skuId=[[${param.skuId}]]
+
 		$.ajax({
-			url:'/details/querySkuById',
+			url:'/details/insertGoods',
 			type:'post',
-			data:{skuId:skuId},
-			success:function(result){
-			    if (result){
-                    $.ajax({
-                        url:'/details/insertGoods',
-                        type:'post',
-                        data:{
-                            sku_mch:result.sku_mch,
-                            tjshl:$("[name='num']").val(),
-                            shp_id:result.shp_id,
-                            sku_id:skuId,
-                            shp_tp:result.shp_tp,
-                            kcdz:result.kcdz,
-							jg:result.jg
-                        },
-                        success:function(result){
-                            console.log(result)
-                        },error:function () {
-                            alert("失败了")
-                        }
-                    })
-                }
+			data:{
+				sku_id:$("#shuIdValue").html(),  //商品 id
+				sku_jg:$("#markId").html(),  //添加价格
+				tjshl:$(".min_t").html(),      //数量
+				shpid:$("#shpid").html(),     //商品id
+				shp_tp:$("#imgOneId").html()
+			},
+
+			success:function(){
+
 			},error:function () {
-				alert("失败了")
+
 			}
 
 		})
@@ -389,6 +324,31 @@
                 alert("失败了");
             },
         })
+    }
+    function onshowtwo(){
+        $(".cart_pro").show();
+        $.ajax({
+            url:"/shoppingcart",
+            type:"post",
+            success:function(result){
+                //  data.shp_tp.substring()
+                var count = "";
+                $.each(result   ,function(index,data){
+               count+="<div class=\"one\" >";
+               count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+               count+="<span>"+data.sku_mch+"</span><br/>";
+               count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+               count+="</div>";
+           })
+          $(".cart_pro").html(count)
+          },
+          error:function(){
+           alert("失败了");
+          }
+        })
+    }
+    function onhidetwo(){
+        $(".cart_pro").hide();
     }
 
 

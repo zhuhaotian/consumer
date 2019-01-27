@@ -4,9 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-//购物车表
+
 @Data
-public class ShopCar implements Serializable {
+public class ShopCar implements Serializable{
 
    private Integer Id;
 
@@ -29,7 +29,5 @@ public class ShopCar implements Serializable {
    private String shfxz;
 
    private String kcdz;
-
-
 
 }

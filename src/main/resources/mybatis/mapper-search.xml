@@ -21,4 +21,11 @@
    <insert id="rules">
        insert into t_mall_product_comment  (yh_id,plnr,plshj,hpjb,shp_id) values (#{yh_id},#{plnr},now(),#{hpjb},#{shp_id})
    </insert>
+
+   <!--查询购物车-->
+   <select id="shoppingcart" resultType="ShopCar">
+       select  * from  t_mall_shoppingcar
+   </select>
+
+
 </mapper>
