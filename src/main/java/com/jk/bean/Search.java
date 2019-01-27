@@ -34,6 +34,7 @@ public class Search implements Serializable {
      */
     private String shp_mch;
     private String sh_tp;
+    private Integer sku_id;
     private Double jg;
     private String kcdz;
     //private String shp_sx;

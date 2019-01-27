@@ -16,6 +16,72 @@
     td{vertical-align: middle !important;}
     .form-group{padding: 5px 0;}
 </style>
+<script type="text/javascript">
+    $(function () {
+       getShop();
+        getAllPrice();
+    })
+    function getShop() {
+        $.ajax({
+            url:"/details/getShop",
+            type:"post",
+            success:function(data){
+                var count='';
+               if(data==null){
+                   alert("空空如也,快去购物")
+               }
+               $.each(data,function (index,obj) {
+                   count +="<tr>";
+                   count +="<td><img src='/"+obj.shp_tp+"' alt=''></td>";
+                   count +="<td>sku_mch</td>";
+                   count +="<td>" +
+                       "                颜色：<span style='color:#ccc'>白色</span><br>" +
+                       "                尺码：<span style='color:#ccc'>L</span>" +
+                       "            </td>";
+                   count +="<td>"+obj.jg+"</td>";
+                   count +="<td>" +
+                       "                <button class='minus' onclick='addCount()'>-</button>" +
+                         "                <input id='text_box' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
+                         "                <button class='plus' onclick='addCount()'>+</button>'" +
+                       "    </td>";
+                   count +="<td class='totalPrice'></td>"
+                   count +="<td>删除 </br>" +
+                       "                <a href='javascript:void(0)'>移动到我的关注</a>" +
+                       "            </td>"
+                   count +="</tr>"
+               })
+            },
+            error:function(){
+                alert("失败了");
+            },
+        })
+    }
+    function addCount(){
+        var nun=$("#text_box").val();
+        $(".plus").click(function(){
+            nun++;
+            $("#text_box").val(nun);
+            $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
+
+        })
+          $(".minus").click(function(){
+              nun--;
+              $("#text_box").val(nun);
+              if($("#text_box").val()<=0){
+                  $("#text_box").val(0);
+              }
+              $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
+
+          })
+        getAllPrice();
+      }
+     function getAllPrice() {
+        var aa= $(".totalPrice").html();
+        $(".allPPrice").html(aa)
+     }
+
+
+</script>
 <body>
 <div class="top">
     <div class="top_text">
@@ -53,6 +119,8 @@
                 共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
                 共计￥<span>20000</span>
                 <button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
+
+
             </div>
         </div>
 
@@ -68,10 +136,11 @@
             <th>商品属性</th>
             <th>商品价格</th>
             <th>商品数量</th>
+            <th>实际价格</th>
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
 
         <tr>
             <td><img src="/images/icon_2.jpg" alt=""></td>
@@ -80,20 +149,27 @@
                 颜色：<span style='color:#ccc'>白色</span><br>
                 尺码：<span style='color:#ccc'>L</span>
             </td>
-            <td>199.00</td>
-            <td> <a href="javascript:void(0)" class="easyui-linkbutton" onClick="addCount(0)">-</a>
-                <input type="text" name="min" value="1" style="width:50px;text-align:center">
-                <a href="javascript:void(0)" class="easyui-linkbutton" onClick="addCount(1)">+</a></td>
+            <td class="price">199.00</td>
+            <td>
+                <button class="minus" onclick="addCount()">-</button>
+                <!--<a href="javascript:void(0)" class="easyui-linkbutton" class="minus">-</a>-->
+                <input id="text_box" type="text" name="min" value="1" style="width:50px;text-align:center">
+               <!-- <a href="javascript:void(0)" class="easyui-linkbutton"  class="plus">+</a>-->
+                <button class="plus" onclick="addCount()">+</button>
+            </td>
+            <td class="totalPrice"></td>
             <td>删除 </br>
                 <a href="javascript:void(0)">移动到我的关注</a>
             </td>
 
         </tr>
+
         </tbody>
     </table>
 </div>
 <div class="Cprice">
-    <div class="price">总价：199.00</div>
+    <div class="y3 fl">总价:</div>
+    <div class="allPPrice">199.00</div>
     <div class="jiesuan">结算</div>
 </div>
 
