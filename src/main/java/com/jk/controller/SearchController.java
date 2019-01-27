@@ -34,7 +34,7 @@ public class SearchController {
     @RequestMapping("Searchtwo")
     public List Searchtwo(){
         List list =searchClient.Searchtwo();
-        System.out.println(list);
+      //  System.out.println(list);
      return list;
     }
     @ResponseBody
@@ -66,7 +66,7 @@ public class SearchController {
            comment.setShp_mch("这个游客啥也没买还评论");
            comment.setImg("http://md-bucket.oss-cn-beijing.aliyuncs.com/LoLimg/5b12e5bddf2b173b953971e786c5d57b.jpg?Expires=1548389412&OSSAccessKeyId=TMP.AQG5pHe9QWSWHAeDeJKxMbyJ3yep6sDPSBmThrcV7ImlA43VhTrChF9mf0Z7ADAtAhUAjZwQ3utc10LjFkBxnvAq9wLR8f4CFAb_A8z6XZptTtFAIPbYgbj17Uko&Signature=MTBG7ME7jTUrvm0DKIiGt6prePY%3D");
              String img = comment.getImg();
-             System.out.println(img);
+             //System.out.println(img);
          }
         }
         //System.out.println(list);

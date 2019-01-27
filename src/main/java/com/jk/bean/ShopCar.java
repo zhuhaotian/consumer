@@ -16,8 +16,6 @@ public class ShopCar implements Serializable {
 
    private Integer  hj;   //合计
 
-   private double  jg;      //价格
-
    private Integer yh_id;    //用户id
 
    private Integer  shp_id;   //商品id

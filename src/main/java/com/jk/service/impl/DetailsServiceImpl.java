@@ -52,7 +52,7 @@ public class DetailsServiceImpl implements DetailsService {
 
         Cookie[] cookies = request.getCookies();
 
-        if (userName == null) {   // 1.没有登录    以游客身份储存   2.没有登录  但是已经储存 了
+        if (userName == null) {       // 1.没有登录    以游客身份储存   2.没有登录  但是已经储存 了
 
             setCookie(response, 3000, Constant.tourist_key + Constant.uuid);
 

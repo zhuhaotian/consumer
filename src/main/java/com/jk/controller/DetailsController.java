@@ -67,7 +67,7 @@ public class DetailsController {
     @ResponseBody
     public List queryimgdetails(Integer shpid){
         List list = detailsService.queryimgdetails(shpid);
-        System.out.println(list);
+       // System.out.println(list);
         return list;
     }
 
@@ -100,7 +100,7 @@ public class DetailsController {
     @RequestMapping("getShop")
     public List<ShopCar> getShop(HttpServletRequest request){
         List<ShopCar> list =null;
-       if(redisTemplate.hasKey(Constant.tourist_key + Constant.uuid)){
+       if(redisTemplate.hasKey(Constant.tourist_key + Constant.uuid)){  //UUID_392ebe9e-8445-46a8-baa7-f76f9080d0fb
         list = redisTemplate.opsForValue().get(Constant.tourist_key + Constant.uuid);
        }
        System.out.println(list);
