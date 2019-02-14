@@ -29,5 +29,5 @@ public class User implements Serializable {
 
     private String rememberPwd;  //记住密码
 
-
+    private String  to;
 }

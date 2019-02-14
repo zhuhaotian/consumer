@@ -13,6 +13,8 @@ package com.jk.controller;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
 
+import com.jk.service.LoginService;
+import com.jk.service.impl.email;
 import com.jk.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +42,14 @@ public class LoginController {
 
     @Autowired
     private LoginClient client;
+
+    @Resource
+    private LoginService loginService;
+
+    @Autowired
+    private email mailService;
+
+    private String title="你好，邮箱发送成功";
 
     @RequestMapping("queryloginuser")
     @ResponseBody
@@ -73,5 +84,22 @@ public class LoginController {
         }else{
             return "1";
         }
+    }
+
+    @RequestMapping("register")
+    public String register(){
+
+
+        return "register";
+    }
+
+
+    //注册
+    @ResponseBody
+    @RequestMapping("registertwo")
+    public String registertwo(User user){
+        mailService.sendSimple(user.getTo(),title,title);
+        loginService.registertwo(user);
+        return "1";
     }
 }
