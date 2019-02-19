@@ -101,12 +101,6 @@ public class LoginController {
         }
     }
 
-    //去注册
-    @RequestMapping("toRegister")
-    public String toRegister(){
-        return "register1";
-    }
-
     /**
      * 短信验证接口
      */
@@ -193,7 +187,6 @@ public class LoginController {
 
     @RequestMapping("register")
     public String register(){
-
 
         return "register";
     }
