@@ -34,7 +34,7 @@ public class SearchController {
     @RequestMapping("Searchtwo")
     public List Searchtwo(){
         List list =searchClient.Searchtwo();
-        System.out.println(list);
+       // System.out.println(list);
      return list;
     }
     @ResponseBody
@@ -66,7 +66,7 @@ public class SearchController {
            comment.setYh_mch("游客登陆");
          }
         }
-        System.out.println(list);
+      //  System.out.println(list);
       return list;
     }
     //新增评论

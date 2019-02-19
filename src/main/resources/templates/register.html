@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>商城用户注册</title>
+
+    <link rel="stylesheet" href="/js/loginAngRegister/css/base.css">
+    <link rel="stylesheet" href="/js/loginAngRegister/css/register.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+        </div>
+        <div class="container">
+            <div class="bgPic"><img src="/js/loginAngRegister/img/register/b2_1.jpg" class="img-responsive" alt=""/></div>
+            <div class="register">
+                <div class="title">
+                    <span>注册</span>
+                    <a href="index.html">去登录</a>
+                </div>
+                <form autocomplete="off" id="form">
+                    <div class="default">
+                        <p>用户名由3~10个数字和英文字符组成</p>
+                        <input id="uname" name="userName" data-form="uname" type="text" placeholder="用户名"/>
+                    </div>
+                    <div class="default">
+                        <p>密码由8~10个数字和英文字符组成</p>
+                        <input id="upwd" name="userPwd" data-form="upwd" type="password" placeholder="密码"/>
+                    </div>
+                   <div class="default">
+                        <p>请确认两次输入密码一致</p>
+                        <input id="upwd_2" data-form="upwd_2" type="password" placeholder="确认密码"/>
+                    </div>
+                    <div class="default">
+                        <p>请输入中国大陆手机号码</p>
+                        <input id="phone" name="phone" data-form="phone" type="text" placeholder="手机"/>
+                    </div>
+                    <div class="submit">
+                        <span class="notice">点击"注册"代表您同意遵守
+                            <a href="#">用户协议</a>
+                            和
+                            <a href="#">隐私条款</a>
+                        </span>
+                        <button class="s_hover" data-form="submit" onclick="submitForm()">注册</button>
+                    </div>
+                </form>
+                <div class="other_login">
+                    <div class="log">
+                        <span>社交账号登录</span>
+                    </div>
+                    <div class="icon">
+                        <ul>
+                            <li data-log="icon" class="i_hover">
+                                <img data-icon="wx" src="/js/loginAngRegister/img/register/wx.png" alt=""/>
+                                <span class="prompt" >微信登录</span>
+                            </li>
+                            <li data-log="icon" class="i_hover">
+                                <img data-icon="qq" src="/js/loginAngRegister/img/register/qq.png" alt=""/>
+                                <span class="prompt" >QQ登录</span>
+                            </li>
+                            <li data-log="icon" class="i_hover">
+                                <img data-icon="wb" src="/js/loginAngRegister/img/register/wb.png" alt=""/>
+                                <span class="prompt" >微博登录</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/header.js"></script>
+    <script src="/js/register.js"></script>
+    <script src="/js/layer/layer.js"></script>
+<script type="application/javascript">
+    /*function submitForm() {
+        $.ajax({
+            url:"/user/submitForm",
+            type:"post",
+            data:$("#form").serialize(),
+            success:function(result){
+                if(result==1){
+                   layer.msg(" 注册成功!!!");
+                   location.reload();
+                }else{
+                    layer.msg("注册失败!!!!");
+                }
+            }
+        })
+    }
+    function sendEmile() {
+        $.ajax({
+            url:"/emile/sendEmile",
+            type:"get",
+            data:{uEmile:$("[name='uEmile']").val()},
+            success:function(result){
+                if(result==1){
+                    layer.msg("发送成功!!!!")
+                }
+            }
+        })
+    }*/
+</script>
+</body>
+</html>

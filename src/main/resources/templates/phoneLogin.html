@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+</head>
+<body>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab"> 手机号码登录</a></li>
+    <li><a href="#ios" data-toggle="tab">iOS</a></li>
+    <li class="dropdown"><a href="#" id="myTabDrop1"
+                            class="dropdown-toggle" data-toggle="dropdown">Java <b
+            class="caret"></b>
+    </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">jmeter</a></li>
+            <li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
+        </ul></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <form class="navbar-form navbar-left" role="search" id="codeform">
+        <div class="form-group">
+            <table >
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" placeholder="填写手机号" name="phone_no"></td>
+                    <td><button type="button" id="getRandomCode" class="btn btn-default" onclick="getRandomData()">发送验证码</button></td>
+                </tr>
+
+                <tr>
+                    <td><input  type="text" class="form-control" placeholder="填写验证码" name="verify_code"></td>
+                    <td> <button type="button" onclick="btnSubmit()" class="btn btn-default">确定</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <div class="tab-pane fade" id="ios"></div>
+    <div class="tab-pane fade" id="jmeter"></div>
+    <div class="tab-pane fade" id="ejb"></div>
+</div>
+<script type="text/javascript">
+    function getRandomData(){
+        $.ajax({
+            url:"/getRandomCode",
+            data :$("form").serialize(),
+            type:"post",
+            success : function(result) {
+                if(result.code==2){
+                    layer.msg("以获取验证码,请查看手机!!!");
+                    $("#getRandomCode").prop('disabled', true);
+                }
+                if(result.code==1){
+                    setTime = setInterval("getInterval()", 1000);
+
+                    $("#getRandomCode").prop('disabled', true);
+                }
+                if(result.code==0){
+                    layer.msg("手机号在黑名单,请联系客服申诉!!!");
+                }
+            },
+            error : function() {
+
+                layer.msg("请查看控制台!!!!")
+            },
+        })
+
+    }
+    var time = 60;
+    var setTime="";
+    function getInterval() {
+
+        time--;
+        var htmlData = $("#getRandomCode").html("还剩" + time + "秒!!!");
+
+        if (time <= 0) {
+            time=45;
+
+            $("#getRandomCode").html("重新发送!!!");
+
+            clearInterval(setTime);
+        }
+    }
+    function btnSubmit(){
+
+        $.ajax({
+            url:"/checkCode",
+            data:$("form").serialize(),
+            success:function(result){
+                if(result==1){
+                    layer.msg("校验成功!!!!")
+                    location.href="/toindex";
+                }else{
+
+                    layer.msg("校验失败");
+                }
+            },
+            error:function(){
+
+            }
+        })
+    }
+</script>
+</body>
+</html>
