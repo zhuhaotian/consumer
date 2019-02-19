@@ -3,9 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/css.css"/>
 	<script th:src="@{~/common/myJs.jsp}"></script>
-	<script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
 <!--	<link rel="stylesheet" type="text/css" href="css/css.css">
 	<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
 	<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -38,13 +37,13 @@
 				<a href="">玉兰油</a>
 			</div>
 		</div>-->
-		<div class="card">
+		<div class="card" onmouseover="onshowtwo()">
 			<a href="">购物车<div class="num">0</div></a>
 			
 			<!--购物车商品-->
-			<div class="cart_pro">
+			<div class="cart_pro" onmouseout="onhidetwo()">
 				<h6>最新加入的商品</h6>
-				<div class="one">
+				<div class="one" >
 					<img src="images/lec1.png"/>
 					<span class="one_name">
 						商品名称商品名称商品名称商品名称
@@ -52,7 +51,7 @@
 					<span class="one_prece">
 						<b>￥20000</b><br />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
+					</span>-->
 				</div>
 				
 				<div class="one border">
@@ -94,50 +93,10 @@
 				<div class="left_nav">
 					全部商品分类
 					<div class="nav_mini" style="display:none">
-						<ul>
-							<li>
-								<a href="">家用电器</a>
-								<div class="two_nav">
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-									<a href="">11111</a>
-								</div>
-							</li>
-							<li><a href="">手机、数码、通信</a></li>
-							<li><a href="">电脑、办公</a></li>
-							<li><a href="">家具、家居、家装</a></li>
-							<li><a href="">男装、女装、内衣</a></li>
-							<li><a href="">个户化妆</a></li>
-							<li><a href="">鞋靴</a></li>
-							<li><a href="">户外运动</a></li>
-							<li><a href="">汽车</a></li>
-							<li><a href="">母婴</a></li>
-							<li><a href="">食品</a></li>
-							<li><a href="">营养保健</a></li>
-							<li><a href="">图书</a></li>
-							<li><a href="">彩票</a></li>
-							<li><a href="">理财</a></li>
-						</ul>
+
 					</div>
 				</div>
-				<ul>
-					<li><a href="">服装城</a></li>
-					<li><a href="">美妆馆</a></li>
-					<li><a href="">超市</a></li>
-					<li><a href="">全球购</a></li>
-					<li><a href="">闪购</a></li>
-					<li><a href="">团购</a></li>
-					<li><a href="">拍卖</a></li>
-					<li><a href="">金融</a></li>
-					<li><a href="">智能</a></li>
+				<ul id="uu">
 				</ul>
 			</div>
 		</div>
@@ -179,6 +138,7 @@
 		</div>
 	</div>
 
+	<!--评论 列表 -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -229,52 +189,95 @@
     $(function(){
         details(shpid);
         good();
+		getTitle();
+        onhidetwo();
     })
+	function getTitle(){
+		$.ajax({
+			url:"/tit/getTitle",
+			type:"POST",
+			success:function(pageUtil){
+				var count=''
+				$.each(pageUtil,function (index,obj) {
+					count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+				})
+				$("#uu").append(count)
+			},
+			error:function(){
+				alert("失败了");
+			}
+		});
+	}
     var shpid=$("[name='shpid']").val();
 	function details(shpid) {
 		$.ajax({
-			url:'/querydetails?shpid='+shpid,
+			url:'/details/querydetails?shpid='+shpid,
 			type:'post',
 			success:function (result) {
                 console.log(result)
 				var html = "";
-                for (var i = 0; i < result.length; i++) {
-                    html+="<div class='cent'>"
-						html+="<div class='title'></div>"
-                    html+="<div class='bg'>\n" +
-                        "\t\t\t\t\t<p>市场价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
-                        "\t\t\t\t\t<p>促销价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear'>\n" +
-                        "\t\t\t\t\t<div class='min_t'>选择版本：</div>\n" +
-                        "\t\t\t\t\t<div class='min_mx' onclick=func($(this),'0')>"+ result[i].banben +"</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear'>\n" +
-                        "\t\t\t\t\t<div class='min_t' onclick=func($(this),'1')>服务：</div>\n" +
-                        "\t\t\t\t\t<div class='min_mx' onclick=func($(this),'1')>"+ result[i].fuwu +"</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class='clear' style=\"margin-top:20px;\">\n" +
-                        "\t\t\t\t\t<div class=\"min_t\" style=\"line-height:36px\">数量：</div>\n" +
-                        "\t\t\t\t\t<div class=\"num_box\">\n" +
-                        "\t\t\t\t\t\t<input type=\"text\" name=\"num\" value=\"1\" style=\"width:40px;height:32px;text-align:center;float:left\">\n" +
-                        "\t\t\t\t\t\t<div class=\"rg\">\n" +
-                        "\t\t\t\t\t\t\t<img src=\"images/jia.jpg\" id='jia' alt=\"\">\n" +
-                        "\t\t\t\t\t\t\t<img src=\"images/jian.jpg\" id='jian' alt=\"\">\n" +
-                        "\t\t\t\t\t\t</div>\n" +
-                        "\t\t\t\t\t</div>\n" +
-                        "\t\t\t\t</div>"
-                    html+="<div class=\"clear\" style=\"margin-top:20px;\">\n" +
-                        "\t\t\t\t\t<img src=\"images/mai.jpg\" alt=\"\">\n" +
-                        "\t\t\t\t\t<img src=\"images/shop.jpg\" alt=\"\">\n" +
-                        "\t\t\t\t</div>"
-                    html+="</div>"
-                }
-                $(".detailsShp").html(html)
+                var cc="";
+				for (var i = 0; i < result.length; i++) {
+					html+="<div class='cent'>"
+					html+="<input type='hidden' id='shuIdValue' value='"+result[i].sku_id+"'>"
+					html+="<div class='title' ></div>"
+					html+="<div class='bg'>\n" +
+							"\t\t\t\t\t<p id='markId'>市场价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
+							"\t\t\t\t\t<p>促销价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
+							"\t\t\t\t</div>"   //shp_tp
+					cc+="<img src=/'"+result[i].shp_tp+"' id='imgOneId'>"
+					html+="<div class='clear'>\n" +
+							"\t\t\t\t\t<div class='min_t'>选择版本：</div>\n" +
+							"\t\t\t\t\t<div class='min_mx' onclick=func($(this),'0')>"+ result[i].banben +"</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear'>\n" +
+							"\t\t\t\t\t<div class='min_t' onclick=func($(this),'1')>服务：</div>\n" +
+							"\t\t\t\t\t<div class='min_mx' onclick=func($(this),'1')>"+ result[i].fuwu +"</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear' style='margin-top:20px;'>\n" +
+							"\t\t\t\t\t<div class='min_t' style='line-height:36px'>数量：</div>\n" +
+							"\t\t\t\t\t<div class='num_box'>\n" +
+							"\t\t\t\t\t\t<input type='text' name='num' value='1' style='width:40px;height:32px;text-align:center;float:left'>\n" +
+							"\t\t\t\t\t\t<div class='rg'>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jia.jpg' id='jia' alt=''>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jian.jpg' id='jian' alt=''>\n" +
+							"\t\t\t\t\t\t</div>\n" +
+							"\t\t\t\t\t</div>\n" +
+							"\t\t\t\t</div>"
+					html+="<div class='clear' style='margin-top:20px;'>\n" +
+							"\t\t\t\t\t<img src='/images/mai.jpg' alt=''>\n" +
+							"\t\t\t\t\t<img src='/images/shop.jpg' alt='' onclick='insertGoods()'>\n" +
+							"\t\t\t\t</div>"
+					html+="</div>"
+				}
+				$("#imgId").html(cc)
+				$(".detailsShp").html(html)
 
             }
 		})
     }
+	//添加商品
+	function insertGoods(){
 
+		$.ajax({
+			url:'/details/insertGoods',
+			type:'post',
+			data:{
+				sku_id:$("#shuIdValue").html(),  //商品 id
+				sku_jg:$("#markId").html(),  //添加价格
+				tjshl:$(".min_t").html(),      //数量
+				shpid:$("#shpid").html(),     //商品id
+				shp_tp:$("#imgOneId").html()
+			},
+
+			success:function(){
+
+			},error:function () {
+
+			}
+
+		})
+	}
 
     function good(){
         var shpid=$("[name='shpid']").val();
@@ -297,14 +300,10 @@
                     }
                     var d=new Date(obj.plshj);
                     var tt =  formatDate(d)
-                    $(".btm").append("<img src="+obj.url+" width='66'>")
+                    $(".btm").append("<img src="+obj.img+" width='66'>")
                     $(".btm").append(obj.yh_mch)
                     $(".btm").append("<br/>"+obj.plnr+"<br/>")
                     $(".btm").append("<font color='red'>"+tt+"     "+obj.shp_mch+"</font><br/>")
-                    //Date date = new Date(obj.plshj);
-                    //$(".btm").append(obj.sku_mch)
-                    //$(".btm").append(obj.kcdz)
-                    //$(".btm").append(""+obj.shp_mch+"")
                 })
             },
             error:function(){
@@ -325,6 +324,31 @@
                 alert("失败了");
             },
         })
+    }
+    function onshowtwo(){
+        $(".cart_pro").show();
+        $.ajax({
+            url:"/shoppingcart",
+            type:"post",
+            success:function(result){
+                //  data.shp_tp.substring()
+                var count = "";
+                $.each(result   ,function(index,data){
+               count+="<div class=\"one\" >";
+               count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+               count+="<span>"+data.sku_mch+"</span><br/>";
+               count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+               count+="</div>";
+           })
+          $(".cart_pro").html(count)
+          },
+          error:function(){
+           alert("失败了");
+          }
+        })
+    }
+    function onhidetwo(){
+        $(".cart_pro").hide();
     }
 
 

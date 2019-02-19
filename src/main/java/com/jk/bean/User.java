@@ -29,4 +29,5 @@ public class User implements Serializable {
     private String rememberPwd;  //记住密码
 
     private Integer state;   //是否在黑名单
+    private String  to;
 }

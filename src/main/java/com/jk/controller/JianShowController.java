@@ -42,7 +42,7 @@ public class JianShowController {
     public ProductCopy queryThird(Integer id){
 
         ProductCopy list=jianShowService.queryThird(id);
-        System.err.println(list);
+
         return list;
     }
 

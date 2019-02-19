@@ -107,4 +107,38 @@
     }*/
 </script>
 </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+<form id="ff">
+    <center>
+    <div>
+        账号：<input type="text" name="yhMch">
+        密码：<input type="text" name="yhMm">
+        邮箱：<input type="text" name="to">
+        <input type="button"  value="发送" onclick="register()">
+    </div>
+    </center>
+
+</form>
+</body>
+    <script>
+        function register(){
+          $.ajax({
+          url:"/registertwo",
+          type:"post",
+          data:$("#ff").serialize(),
+          success:function(){
+           alert("成功了")
+          },
+          error:function () {
+           alert("失败了")
+          }
+          })
+        }
+    </script>
 </html>

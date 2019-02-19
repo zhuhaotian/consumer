@@ -14,6 +14,8 @@ import com.jk.bean.User;
 import com.jk.client.LoginClient;
 
 import com.jk.service.TitleService;
+import com.jk.service.LoginService;
+import com.jk.service.impl.email;
 import com.jk.utils.Constant;
 import com.jk.utils.HttpClient;
 import com.jk.utils.QueryParam;
@@ -57,27 +59,28 @@ public class LoginController {
     @Resource
     private RedisTemplate<String,String> redisTemplate;
 
+    @Resource
+    private LoginService loginService;
+
+    @Autowired
+    private email mailService;
+
+    private String title="你好，邮箱发送成功";
+
     @RequestMapping("queryloginuser")
     @ResponseBody
     public String LoginUserByYhMchByYhMm(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         User userData = client.queryloginuser(user);
         if (userData == null) {
-
             return "0";   //用户名  密码不正确
         }else{
-
             session.setAttribute("user111",userData);
-            Cookie cookie = new Cookie(Constant.remember_pwd,userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
-
+            Cookie cookie = new Cookie(Constant.remember_pwd+userData.getId(),userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
             cookie.setMaxAge(60*60*24*7);
             cookie.setPath("/");
             response.addCookie(cookie);
-
-
             return "1";
-
         }
-
     }
 
     @RequestMapping("removeUser")
@@ -101,7 +104,7 @@ public class LoginController {
     //去注册
     @RequestMapping("toRegister")
     public String toRegister(){
-        return "register";
+        return "register1";
     }
 
     /**
@@ -187,4 +190,21 @@ public class LoginController {
     }
 
 
+
+    @RequestMapping("register")
+    public String register(){
+
+
+        return "register";
+    }
+
+
+    //注册
+    @ResponseBody
+    @RequestMapping("registertwo")
+    public String registertwo(User user){
+        mailService.sendSimple(user.getTo(),title,title);
+        loginService.registertwo(user);
+        return "1";
+    }
 }

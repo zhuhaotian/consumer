@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.LoginMapper">
+
+<!--注册-->
+<insert id="registertwo">
+   INSERT into t_mall_user_account(Id,yh_mch,yh_mm) VALUES(#{id},#{yhMch},#{yhMm})
+</insert>
+</mapper>
