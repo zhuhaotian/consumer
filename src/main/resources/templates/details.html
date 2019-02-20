@@ -256,28 +256,40 @@
             }
 		})
     }
-	//添加商品
-	function insertGoods(){
+    //添加商品
+    function insertGoods(){
+        var skuId=[[${param.skuId}]]
+        $.ajax({
+            url:'/details/querySkuById',
+            type:'post',
+            data:{skuId:skuId},
+            success:function(result){
+                if (result){
+                    $.ajax({
+                        url:'/details/insertGoods',
+                        type:'post',
+                        data:{
+                            sku_mch:result.sku_mch,
+                            tjshl:$("[name='num']").val(),
+                            shp_id:result.shp_id,
+                            sku_id:skuId,
+                            shp_tp:result.shp_tp,
+                            kcdz:result.kcdz,
+                            jg:result.jg
+                        },
+                        success:function(result){
+                            console.log(result)
+                        },error:function () {
+                            alert("失败了")
+                        }
+                    })
+                }
+            },error:function () {
+                alert("失败了")
+            }
 
-		$.ajax({
-			url:'/details/insertGoods',
-			type:'post',
-			data:{
-				sku_id:$("#shuIdValue").html(),  //商品 id
-				sku_jg:$("#markId").html(),  //添加价格
-				tjshl:$(".min_t").html(),      //数量
-				shpid:$("#shpid").html(),     //商品id
-				shp_tp:$("#imgOneId").html()
-			},
-
-			success:function(){
-
-			},error:function () {
-
-			}
-
-		})
-	}
+        })
+    }
 
     function good(){
         var shpid=$("[name='shpid']").val();
