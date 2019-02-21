@@ -192,6 +192,18 @@ public class DetailsServiceImpl implements DetailsService {
         return car;
     }
 
+    @Override
+    public void addCount(Integer id, Integer tjshl, Double skuJg) {
+        Double hj=tjshl*skuJg;
+        detailsMapper.addCount(id,hj,tjshl);
+    }
+
+    @Override
+    public void jianCount(Integer id, Integer tjshl, Double skuJg) {
+        Double hj=tjshl*skuJg;
+        detailsMapper.addCount(id,hj,tjshl);
+    }
+
 
     @Override
     public void insertGoods(ShopCar shopCar, HttpServletResponse response, HttpServletRequest request, HttpSession session) {

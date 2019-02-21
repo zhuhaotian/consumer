@@ -28,50 +28,75 @@
             success:function(data){
                 console.log(data)
                 var count='';
+                var countMoney=0;
                if(data==null){
                    alert("空空如也,快去购物")
                }
                $.each(data,function (index,obj) {
                    count +="<tr>";
-                   count +="<td><img src='/images"+obj.shp_tp+"' alt=''></td>";
+                   count += "<td  class='col1'><input type='checkbox' value='"+obj.id+"' name='checkAll' onclick='jieSuanCheck()'><a href=''><img  src='"+obj.shp_tp+"' width='70' alt='图片维护中' /></a></td>"
                    count +="<td>"+obj.sku_mch+"</td>";
                    count +="<td>"+obj.skuJg+"</td>";
                    count +="<td>" +
-                       "                <button class='minus' onclick='jianCount()'>-</button>" +
+                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.skuJg+")'>-</button>" +
                          "                <input id='text_box' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
-                         "                <button class='plus' onclick='addCount()'>+</button>" +
+                         "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+")'>+</button>" +
                        "    </td>";
                    count +="<td class='totalPrice'>"+obj.hj+"</td>"
                    count +="<td>删除 </br>" +
                        "                <a href='javascript:void(0)'>移动到我的关注</a>" +
                        "            </td>"
                    count +="</tr>"
+                   countMoney += parseInt(obj.hj);
                })
                 $("#tbody").html(count);
+                $(".allPPrice").html(countMoney);
             },
             error:function(){
                 alert("失败了");
             },
         })
     }
-    function addCount(){
+    //减数量
+    function jianCount(id,skuJg){
+        var nun=$("#text_box").val();
+        $(".minus").click(function(){
+            nun--;
+
+            $("#text_box").val(nun);
+            $.ajax({
+                url:"/details/jianCount",
+                type:"POST",
+                data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
+                success:function(result){
+                    window.location.reload(true);
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            })
+
+        })
+    }
+    //加数量
+    function addCount(id,skuJg){
         var nun=$("#text_box").val();
         $(".plus").click(function(){
             nun++;
             $("#text_box").val(nun);
-            $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
+            $.ajax({
+                url:"/details/addCount",
+                type:"POST",
+                data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
+                success:function(result){
+                    window.location.reload(true);
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            })
 
         })
-          $(".minus").click(function(){
-              nun--;
-              $("#text_box").val(nun);
-              if($("#text_box").val()<=0){
-                  $("#text_box").val(0);
-              }
-              $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
-
-          })
-        getAllPrice();
       }
      function getAllPrice() {
         var aa= $(".totalPrice").html();

@@ -30,4 +30,9 @@ public interface DetailsService {
     ShopCar getShop(ShopCar sh);
 
     Sku querySkuById(Integer skuId);
+
+    void addCount(Integer id, Integer tjshl, Double skuJg);
+
+
+    void jianCount(Integer id, Integer tjshl, Double skuJg);
 }

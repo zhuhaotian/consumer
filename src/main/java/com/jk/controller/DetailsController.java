@@ -84,9 +84,6 @@ public class DetailsController {
     @ResponseBody
     public void insertGoods(ShopCar shopCar, HttpServletResponse response,HttpServletRequest request, HttpSession session){
 
-
-
-
         List<ShopCar> list = new ArrayList<>();
         User  user= (User)session.getAttribute("user111");
         ShopCar shopCar1 =null;
@@ -291,6 +288,19 @@ public class DetailsController {
         }
         System.out.println(list);
         return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("addCount")
+    public String addCount(Integer id,Integer tjshl,Double skuJg){
+        detailsService.addCount(id,tjshl,skuJg);
+        return "1";
+    }
+    @ResponseBody
+    @RequestMapping("jianCount")
+    public String jianCount(Integer id,Integer tjshl,Double skuJg){
+        detailsService.jianCount(id,tjshl,skuJg);
+        return "1";
     }
 
 }

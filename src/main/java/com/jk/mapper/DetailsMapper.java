@@ -42,4 +42,7 @@ public interface DetailsMapper {
 
     @Select("select * from t_mall_sku where id =#{skuId}")
     Sku getSkuById(@Param("skuId") Integer skuId);
+
+    @Update("update t_mall_shoppingcar set hj=#{hj},tjshl=#{tjshl} where id = #{id}")
+    void addCount(@Param("id") Integer id,@Param("hj") Double hj ,@Param("tjshl") Integer tjshl);
 }
