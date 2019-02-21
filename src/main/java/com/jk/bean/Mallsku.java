@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Sku implements Serializable {
-
+public class Mallsku {
     private Integer id;
     private Integer shp_id;  //名称id
     private Integer kc;   //库存
@@ -20,6 +18,9 @@ public class Sku implements Serializable {
     private String sku_mch;   //sku名字
     private Integer sku_xl;   //销量
     private String kcdz;  //库存地址
-    private String skuimg; //图片
-}
 
+    private String statusdate;
+    private String enddate;
+
+
+}

@@ -108,8 +108,8 @@
 				<div class="timg"><img src="" alt=""></div>
 				<div class="timg2">
 					<div class="lf"><img src="" alt=""></div>
-					<div class="center">
-						<span><img src="" alt=""></span>
+					<div class="center" id="cen">
+
 					</div>
 					<div class="rg"><img src="" alt=""></div>
 				</div>
@@ -214,13 +214,15 @@
 			url:'/details/querydetails?shpid='+shpid,
 			type:'post',
 			success:function (result) {
-                console.log(result)
 				var html = "";
                 var cc="";
 				for (var i = 0; i < result.length; i++) {
+				    var a = "<span><img src="+result[i].shp_tp+" alt=\"\"></span>";
+				    $("#cen").html(a);
+
 					html+="<div class='cent'>"
 					html+="<input type='hidden' id='shuIdValue' value='"+result[i].sku_id+"'>"
-					html+="<div class='title' ></div>"
+					html+="<div class='title' id='tt'><strong>"+result[i].shp_mch+"</strong></div>"
 					html+="<div class='bg'>\n" +
 							"\t\t\t\t\t<p id='markId'>市场价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
 							"\t\t\t\t\t<p>促销价：<strong>￥"+ result[i].sku_jg +"</strong></p>\n" +
@@ -258,7 +260,6 @@
     }
     //添加商品
     function insertGoods(){
-        var skuId=[[${param.skuId}]]
         $.ajax({
             url:'/details/querySkuById',
             type:'post',

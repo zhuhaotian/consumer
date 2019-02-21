@@ -35,33 +35,33 @@
 	<div class="top">
 		<g class="top_text">
 
-		<a href="">用户注册</a>
-		<a href="">供应商登录</a>
-		<a href="">供应商注册</a>
-		<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
-		<a href="/removeUser"><p th:text="${param.user==null?'登录':'退出登录'}"></p></a>
-	</g>
-</div>
-</div>
-<div class="top_img">
-	<img src="./images/top_img.jpg" alt="">
-</div>
-<div class="search">
-	<div class="logo"><img style="width:100px" src="/images/33.gif" alt=""></div>
-	<div class="search_on">
-		<div class="se">
-			<input type="text" name="search" class="lf">
-			<input type="submit" class="clik" value="搜索">
-		</div>
-		<div class="se">
-			<a href="">取暖神奇</a>
-			<a href="">1元秒杀</a>
-			<a href="">吹风机</a>
-			<a href="">玉兰油</a>
-		</div>
+			<a href="">用户注册</a>
+			<a href="">供应商登录</a>
+			<a href="">供应商注册</a>
+			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
+			<a href="/removeUser"><p th:text="${param.user==null?'登录':'退出登录'}"></p></a>
+		</g>
+	  </div>
 	</div>
-	<div class="card">
-		<a href="/goods/toGoods">购物车<div class="num">0</div></a>
+	<div class="top_img">
+		<img src="./images/top_img.jpg" alt="">
+	</div>
+	<div class="search">
+		<div class="logo"><img style="width:100px" src="./images/33.gif" alt=""></div>
+		<div class="search_on">
+			<div class="se">
+				<input type="text"  id="sku_mch" class="lf">
+				<input type="button" class="clik" onclick="sou()" value="搜索">
+			</div>
+			<div class="se">
+				<a href="">取暖神奇</a>
+				<a href="">1元秒杀</a>
+				<a href="">吹风机</a>
+				<a href="">玉兰油</a>
+			</div>
+		</div>
+		<div class="card">
+			<a href="/goods/toGoods">购物车<div class="num">0</div></a>
 
 			<div class="gobottom">
 				共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
@@ -134,12 +134,9 @@
           //  console.log(str);   //获去当前cookie的  cookie值
             $.each(str,function (i,obj) {
                 var arr=obj.split("=");
-				if (arr[0].trim()=="remember_pwd" &&arr[0] !=null) {
+				if (arr[0].trim()=="remember_pwd" && arr[0] !=null) {
 					var a=arr[1].split("comjk1807");
 					$("#kk").html(a[0]);
-				}
-				if(arr[1].trim()!=null){
-					$("#kk").html("xxx");
 				}
             })
         }
@@ -235,7 +232,11 @@
     function onhideone(){
         $(".one").hide();
     }
-
+    //搜索
+	function  sou(){
+      var a = $("#sku_mch").val();
+      location.href="/es/esClient?sku_mch="+a;
+    }
 
 
 
