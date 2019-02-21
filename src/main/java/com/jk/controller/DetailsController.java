@@ -242,7 +242,7 @@ public class DetailsController {
     @RequestMapping("getShop")
     public List<ShopCar> getShop(HttpServletRequest request,HttpSession session){
         List<ShopCar> list =null;
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user111");
         //获取所有的KEY
         Cookie[] cookies = request.getCookies();
         //判断用户是否登录
@@ -289,6 +289,7 @@ public class DetailsController {
                 car.setHj(car.getTjshl()*car.getSkuJg());
             }
         }
+        System.out.println(list);
         return list;
     }
 

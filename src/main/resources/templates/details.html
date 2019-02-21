@@ -241,8 +241,8 @@
 							"\t\t\t\t\t<div class='num_box'>\n" +
 							"\t\t\t\t\t\t<input type='text' name='num' value='1' style='width:40px;height:32px;text-align:center;float:left'>\n" +
 							"\t\t\t\t\t\t<div class='rg'>\n" +
-							"\t\t\t\t\t\t\t<img src='/images/jia.jpg' id='jia' alt=''>\n" +
-							"\t\t\t\t\t\t\t<img src='/images/jian.jpg' id='jian' alt=''>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jia.jpg' id='jia' alt=''>\n" +
+							"\t\t\t\t\t\t\t<img src='images/jian.jpg' id='jian' alt=''>\n" +
 							"\t\t\t\t\t\t</div>\n" +
 							"\t\t\t\t\t</div>\n" +
 							"\t\t\t\t</div>"
@@ -251,15 +251,16 @@
 							"\t\t\t\t\t<img src='/images/shop.jpg' alt='' onclick='insertGoods()'>\n" +
 							"\t\t\t\t</div>"
 					html+="</div>"
+
 				}
 				$("#imgId").html(cc)
 				$(".detailsShp").html(html)
-
             }
 		})
     }
     //添加商品
     function insertGoods(){
+
         $.ajax({
             url:'/details/querySkuById',
             type:'post',

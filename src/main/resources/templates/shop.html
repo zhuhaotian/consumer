@@ -26,30 +26,28 @@
             url:"/details/getShop",
             type:"post",
             success:function(data){
+                console.log(data)
                 var count='';
                if(data==null){
                    alert("空空如也,快去购物")
                }
                $.each(data,function (index,obj) {
                    count +="<tr>";
-                   count +="<td><img src='/"+obj.shp_tp+"' alt=''></td>";
-                   count +="<td>sku_mch</td>";
+                   count +="<td><img src='/images"+obj.shp_tp+"' alt=''></td>";
+                   count +="<td>"+obj.sku_mch+"</td>";
+                   count +="<td>"+obj.skuJg+"</td>";
                    count +="<td>" +
-                       "                颜色：<span style='color:#ccc'>白色</span><br>" +
-                       "                尺码：<span style='color:#ccc'>L</span>" +
-                       "            </td>";
-                   count +="<td>"+obj.jg+"</td>";
-                   count +="<td>" +
-                       "                <button class='minus' onclick='addCount()'>-</button>" +
+                       "                <button class='minus' onclick='jianCount()'>-</button>" +
                          "                <input id='text_box' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
-                         "                <button class='plus' onclick='addCount()'>+</button>'" +
+                         "                <button class='plus' onclick='addCount()'>+</button>" +
                        "    </td>";
-                   count +="<td class='totalPrice'></td>"
+                   count +="<td class='totalPrice'>"+obj.hj+"</td>"
                    count +="<td>删除 </br>" +
                        "                <a href='javascript:void(0)'>移动到我的关注</a>" +
                        "            </td>"
                    count +="</tr>"
                })
+                $("#tbody").html(count);
             },
             error:function(){
                 alert("失败了");
@@ -133,7 +131,6 @@
         <tr>
             <th>商品图片</th>
             <th>商品名称</th>
-            <th>商品属性</th>
             <th>商品价格</th>
             <th>商品数量</th>
             <th>实际价格</th>
@@ -142,27 +139,6 @@
         </thead>
         <tbody id="tbody">
 
-        <tr>
-            <td><img src="/images/icon_2.jpg" alt=""></td>
-            <td>商品名称</td>
-            <td>
-                颜色：<span style='color:#ccc'>白色</span><br>
-                尺码：<span style='color:#ccc'>L</span>
-            </td>
-            <td class="price">199.00</td>
-            <td>
-                <button class="minus" onclick="addCount()">-</button>
-                <!--<a href="javascript:void(0)" class="easyui-linkbutton" class="minus">-</a>-->
-                <input id="text_box" type="text" name="min" value="1" style="width:50px;text-align:center">
-               <!-- <a href="javascript:void(0)" class="easyui-linkbutton"  class="plus">+</a>-->
-                <button class="plus" onclick="addCount()">+</button>
-            </td>
-            <td class="totalPrice"></td>
-            <td>删除 </br>
-                <a href="javascript:void(0)">移动到我的关注</a>
-            </td>
-
-        </tr>
 
         </tbody>
     </table>
