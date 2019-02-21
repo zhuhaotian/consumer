@@ -11,10 +11,10 @@ public class ShopCar implements Serializable{
    private Integer Id;
 
    private String sku_mch;   //sku名称
-
+   private Double skuJg;//(sku价格)   decimal
    private Integer tjshl;   //添加数量
 
-   private Integer  hj;   //合计
+   private Double  hj;   //合计
 
    private Integer yh_id;    //用户id
 

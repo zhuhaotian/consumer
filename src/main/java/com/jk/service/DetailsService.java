@@ -3,6 +3,7 @@ package com.jk.service;
 import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
+import com.jk.bean.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,20 @@ public interface DetailsService {
 
     List querydetails(Integer shpid);
 
-    Sku querySkuById(Integer skuId);
+    
      //添加购物车
      void insertGoods(ShopCar shopCar, HttpServletResponse response, HttpServletRequest request, HttpSession session);
 
 
     List queryimgdetails(Integer shpid);
+
+    List<ShopCar> getShopCar(User user);
+
+    void updateShopCar(ShopCar next);
+
+    void addShopCar(ShopCar next);
+
+    ShopCar getShop(ShopCar sh);
+
+    Sku querySkuById(Integer skuId);
 }
