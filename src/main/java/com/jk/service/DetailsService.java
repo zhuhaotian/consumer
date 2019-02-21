@@ -35,4 +35,6 @@ public interface DetailsService {
 
 
     void jianCount(Integer id, Integer tjshl, Double skuJg);
+
+    Double jieSuanCheckPrice(String ids);
 }

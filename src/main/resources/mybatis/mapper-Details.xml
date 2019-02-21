@@ -122,4 +122,22 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
   </if>
  </select>
 
+ <!--Double jieSuanCheckPrice(@Param("ids")String ids);  结算 -->
+ <select id="jieSuanCheckPrice" resultType="Double">
+
+             SELECT
+                  SUM(ms.hj) price
+            FROM
+                t_mall_shoppingcar ms,
+                t_mall_product mp,
+                t_mall_sku sk
+            WHERE
+                ms.shp_id = mp.id
+            AND ms.sku_id = sk.id
+            AND ms.shfxz &gt; 0
+            and
+            ms.id in (${ids})
+ </select>
+
+
 </mapper>

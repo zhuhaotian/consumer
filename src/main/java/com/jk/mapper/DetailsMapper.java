@@ -45,4 +45,6 @@ public interface DetailsMapper {
 
     @Update("update t_mall_shoppingcar set hj=#{hj},tjshl=#{tjshl} where id = #{id}")
     void addCount(@Param("id") Integer id,@Param("hj") Double hj ,@Param("tjshl") Integer tjshl);
+
+    Double jieSuanCheckPrice(@Param("ids")String ids);
 }

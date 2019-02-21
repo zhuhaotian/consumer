@@ -210,4 +210,11 @@ public class DetailsServiceImpl implements DetailsService {
 
     }
 
+    //结算
+    @Override
+    public Double jieSuanCheckPrice(String ids) {
+        Double price = detailsMapper.jieSuanCheckPrice(ids);
+        return price;
+    }
+
 }

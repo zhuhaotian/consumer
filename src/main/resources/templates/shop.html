@@ -1,15 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="/zht/css/css.css">
-    <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
-    <script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
+    <script th:src="@{~/common/myJs.jsp}"></script>
     <link href="/zht5121/css/jquery.slideBox.css" rel="stylesheet" type="text/css"/>
     <script src="/zht5121/js/jquery.slideBox.js" type="text/javascript"></script>
-    <script src="/js/bootstrap3/js/bootstrap.js"></script>
 
 </head>
 <style type="text/css">
@@ -40,12 +38,12 @@
                    count +="<td>"+obj.sku_mch+"</td>";
                    count +="<td>"+obj.skuJg+"</td>";
                    count +="<td>" +
-                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.skuJg+")'>-</button>" +
-                         "                <input id='text_box' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
+                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.skuJg+","+obj.tjshl+")'>-</button>" +
+                         "                <input id='text_box' min='' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
                          "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+")'>+</button>" +
                        "    </td>";
                    count +="<td class='totalPrice'>"+obj.hj+"</td>"
-                   count +="<td>删除 </br>" +
+                   count +="<td> <input type='button' class='btn btn-danger' onclick='deleteGoodss("+index+")' value='删除'> </br>" +
                        "                <a href='javascript:void(0)'>移动到我的关注</a>" +
                        "            </td>"
                    count +="</tr>";
@@ -63,26 +61,46 @@
             },
         })
     }
-    //减数量
-    function jianCount(id,skuJg){
-        var nun=$("#text_box").val();
-        $(".minus").click(function(){
-            nun--;
 
-            $("#text_box").val(nun);
-            $.ajax({
-                url:"/details/jianCount",
-                type:"POST",
-                data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
-                success:function(result){
-                    window.location.reload(true);
-                },
-                error:function(){
-                    alert("失败了");
-                }
-            })
+    //删除
+   /* function deleteGoodss(index){
+
+        $.ajax({
+            url:'/good/deleteGoodss',
+            type:'post',
+            data:{indexs:index},
+
+            success:function () {
+                layer.msg("删除成功!!!")
+            },error(){
+                layer.msg("代码错误,请查看控制台!!!")
+            }
 
         })
+
+    }*/
+    //减数量
+    function jianCount(id,skuJg,shuLiang){
+       if(shuLiang>0){
+           var nun=$("#text_box").val();
+           $(".minus").click(function(){
+               nun--;
+
+               $("#text_box").val(nun);
+               $.ajax({
+                   url:"/details/jianCount",
+                   type:"POST",
+                   data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
+                   success:function(result){
+                       window.location.reload(true);
+                   },
+                   error:function(){
+                       alert("失败了");
+                   }
+               })
+
+           })
+       }
     }
 
 
@@ -110,6 +128,37 @@
         var aa= $(".totalPrice").html();
         $(".allPPrice").html(aa)
      }
+
+     //结算
+    function jieSuanCheck(){
+        var arr=document.getElementsByName("checkAll");
+        var ids="";
+        alert(arr)
+        var count=0;
+        for (var i = 0; i <arr.length ; i++) {
+
+            if(arr[i].checked){
+                ids += ","+arr[i].value;
+                count++;
+            }
+        }
+        if(count>0){
+            $.ajax({
+                url:"/details/jieSuanCheckPrice",
+                type:"POST",
+                data:{ids:ids.substring(1)},
+                success:function(price){
+                    $(".anPrice").html(price);
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            })
+        }else{
+            $(".anPrice").html(0);
+        }
+    }
+
 
 
 </script>

@@ -303,4 +303,12 @@ public class DetailsController {
         return "1";
     }
 
+    //结算
+    @ResponseBody
+    @RequestMapping("jieSuanCheckPrice")
+    public Double jieSuanCheckPrice(String ids){
+
+        return detailsService.jieSuanCheckPrice(ids);
+    }
+
 }
