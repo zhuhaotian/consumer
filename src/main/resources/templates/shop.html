@@ -38,9 +38,9 @@
                    count +="<td>"+obj.sku_mch+"</td>";
                    count +="<td>"+obj.skuJg+"</td>";
                    count +="<td>" +
-                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.skuJg+","+obj.tjshl+")'>-</button>" +
+                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.tjshl+","+obj.skuJg+")'>-</button>" +
                          "                <input id='text_box' min='' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
-                         "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+")'>+</button>" +
+                         "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+","+obj.tjshl+")'>+</button>" +
                        "    </td>";
                    count +="<td class='totalPrice'>"+obj.hj+"</td>"
                    count +="<td> <input type='button' class='btn btn-danger' onclick='deleteGoodss("+index+")' value='删除'> </br>" +
@@ -80,40 +80,37 @@
 
     }*/
     //减数量
-    function jianCount(id,skuJg,shuLiang){
-       if(shuLiang>0){
-           var nun=$("#text_box").val();
-           $(".minus").click(function(){
-               nun--;
-
-               $("#text_box").val(nun);
-               $.ajax({
-                   url:"/details/jianCount",
-                   type:"POST",
-                   data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
-                   success:function(result){
-                       window.location.reload(true);
-                   },
-                   error:function(){
-                       alert("失败了");
-                   }
-               })
-
-           })
-       }
+    function jianCount(id,tjshl,skuJg) {
+        if(tjshl>1){
+            $(".minus").click(function () {
+                tjshl--;
+                $("#text_box").val(tjshl);
+                $.ajax({
+                    url: "/details/jianCount",
+                    type: "POST",
+                    data: {tjshl: tjshl, id: id, skuJg: skuJg},
+                    success: function (result) {
+                        window.location.reload(true);
+                    },
+                    error: function () {
+                        alert("失败了");
+                    }
+                })
+            })
+        }else{
+            layer.msg("已到下线,请勿再次操作!!!")
+        }
     }
 
+    function addCount(id,tjshl,skuJg){
 
-    //加数量
-    function addCount(id,skuJg){
-        var nun=$("#text_box").val();
         $(".plus").click(function(){
-            nun++;
-            $("#text_box").val(nun);
+            tjshl++;
+            $("#text_box").val(tjshl);
             $.ajax({
                 url:"/details/addCount",
                 type:"POST",
-                data:{tjshl:$("#text_box").val(),id:id,skuJg:skuJg},
+                data:{tjshl:tjshl,id:id,skuJg:skuJg},
                 success:function(result){
                     window.location.reload(true);
                 },
@@ -123,8 +120,9 @@
             })
 
         })
-      }
-     function getAllPrice() {
+    }
+
+    function getAllPrice() {
         var aa= $(".totalPrice").html();
         $(".allPPrice").html(aa)
      }
