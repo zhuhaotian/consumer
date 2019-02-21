@@ -29,7 +29,7 @@
                 var countMoney=0;
                 var shulaing=0;
                if(data==null){
-                   alert("空空如也,快去购物")
+                   layer.msg("空空如也,快去购物")
                }
                $.each(data,function (index,obj) {
 
@@ -131,7 +131,7 @@
     function jieSuanCheck(){
         var arr=document.getElementsByName("checkAll");
         var ids="";
-        alert(arr)
+      //  alert(arr)
         var count=0;
         for (var i = 0; i <arr.length ; i++) {
 
@@ -149,7 +149,7 @@
                     $(".anPrice").html(price);
                 },
                 error:function(){
-                    alert("失败了");
+                    layer.msg("失败了");
                 }
             })
         }else{
@@ -214,7 +214,9 @@
     <div class="y3 fl">总价:</div>
     <!--结算 价格  -->
     <div class="allPPrice"></div>
-    <div class="jiesuan" onclick="settleAcount()">结算</div>
+    <div class="y3 f2">结算价格:</div>
+    <div class="anPrice"></div>
+    <div class="jiesuan">结算</div>
 </div>
 
 <div class="footer">
@@ -295,12 +297,13 @@ $(function () {
                         count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
                         count+="<span>"+data.sku_mch+"</span><br/>";
                         count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+
                         count+="</div>";
                     })
                     $(".cart_pro").html(count)
                 },
                 error:function(){
-                    alert("失败了");
+                    layer.msg("失败了");
                 }
             })
         })

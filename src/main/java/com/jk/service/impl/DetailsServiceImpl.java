@@ -177,6 +177,7 @@ public class DetailsServiceImpl implements DetailsService {
             next.setTjshl(car.getTjshl()+next.getTjshl());
             detailsMapper.updateTjshl(next);
         }else{
+            next.setHj(next.getSkuJg()*next.getTjshl());
             detailsMapper.addShopCar(next);
         }
     }
