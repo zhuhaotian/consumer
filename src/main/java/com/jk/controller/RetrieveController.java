@@ -35,7 +35,7 @@ public class RetrieveController {
     @RequestMapping("search")
     public List<Search> search(Search search){
         List<Search> search1 = jianShowService.search(search);
-
+        //System.out.println("输出="+search1);
         return search1;
     }
 

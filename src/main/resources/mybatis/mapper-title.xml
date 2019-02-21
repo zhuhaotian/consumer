@@ -5,5 +5,15 @@
     <select id="getTitle" resultType="Title">
         select * from t_mall_title
     </select>
+    <!--登录成功 根据手机号 查询出用户的信息 保存到session-->
+    <select resultType="user" id="getUserByPhone">
+      select id,yh_mch yhMch,yh_mm yhMm,yh_shjh yhShjh from t_mall_user_account where yh_shjh=#{phone_no}
+    </select>
+
+    <!--查询手机号是否在黑名单中-->
+    <select id="selectPhoneState" resultType="user">
+
+        select state from t_mall_user_account where yh_shjh=#{phone_no}
+    </select>
 
 </mapper>

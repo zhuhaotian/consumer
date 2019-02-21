@@ -43,6 +43,8 @@ public class Info implements Serializable {
         private String banben;
         //价格
         private Integer sku_jg;
+        //促销价格
+        private Integer sku_cxjg;
         //服务
         private String fuwu;
 

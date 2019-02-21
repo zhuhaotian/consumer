@@ -45,7 +45,7 @@ public class SearchController {
     @RequestMapping("Searchtwo")
     public List Searchtwo(){
         List list =searchClient.Searchtwo();
-      //  System.out.println(list);
+       // System.out.println(list);
      return list;
     }
     @ResponseBody
@@ -80,7 +80,7 @@ public class SearchController {
              //System.out.println(img);
          }
         }
-        //System.out.println(list);
+      //  System.out.println(list);
       return list;
     }
     //新增评论
