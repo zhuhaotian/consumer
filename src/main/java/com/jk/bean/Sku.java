@@ -20,6 +20,6 @@ public class Sku implements Serializable {
     private String sku_mch;   //sku名字
     private Integer sku_xl;   //销量
     private String kcdz;  //库存地址
-
+    private String skuimg; //图片
 }
 

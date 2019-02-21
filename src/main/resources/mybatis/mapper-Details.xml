@@ -5,7 +5,7 @@
 
 
  <select id="querydetails" parameterType="Integer" resultType="info">
-  select si.sku_id,si.sku_jg as sku_jg,pv.shp_bb as banben,ps.shp_fuwu as fuwu,tmp.shp_tp
+  select si.sku_id,tmp.shp_mch as shp_mch,si.sku_cxjg as sku_jg,pv.shp_bb as banben,ps.shp_fuwu as fuwu,tmp.shp_tp
 
 from t_mall_product_sku_info si,t_mall_product_serve ps,t_mall_product_version pv,t_mall_product tmp
 

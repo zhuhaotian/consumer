@@ -48,5 +48,5 @@ public class Info implements Serializable {
 
         private String shp_tp;  //图片
 
-
+        private String shp_mch;  //名称
 }
