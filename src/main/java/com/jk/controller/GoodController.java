@@ -10,11 +10,13 @@ public class GoodController {
     @RequestMapping("toGoods")
     public String toGoods(){
 
-        return "goodshow";
+        return "shop";
     }
-    @RequestMapping("toshop")
+    /*@RequestMapping("toshop")
     public String toshop(){
 
         return "shop";
-    }
+    }*/
+
+
 }

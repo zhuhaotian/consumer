@@ -52,7 +52,7 @@ public class DetailsController {
     private DetailsService detailsService;
 
     @RequestMapping("detailsByCpId")
-    public String tojianshow(Integer shpid,ModelMap model){
+    public String detailsByCpId(Integer shpid,ModelMap model){
         model.addAttribute("shpid",shpid);
         return "details";
     }

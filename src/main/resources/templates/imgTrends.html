@@ -61,15 +61,20 @@
 			</div>
 		</div>
 		<div class="card">
-			<a href="/goods/toGoods">购物车<div class="num">0</div></a>
-
-			<div class="gobottom">
+			<!-- 显示 小购物车 的 悬浮 数量-->
+			<a href="/good/toGoods">购物车 <div class="num"></div></a>
+			<!--<div class="gobottom">
 				共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
 				共计￥<span>20000</span><br>
 				<button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
-			</div>
-		</div>
+			</div>-->
+			<!--小购物车  移入移开   -->
+			<!--<div class="card" style="height: 36px;">
+				<a href="">购物车<div class="num"></div></a>
+				<div class="cart_pro"></div>
+			</div>-->
 
+		</div>
 	</div>
 	<div class="menu">
 		<div class="nav">
@@ -82,8 +87,10 @@
 						</ul>
 					</div>
 				</div>
-				<ul id="uu">
-				</ul>
+				<div class="nav_mini">
+					<ul id="uu">
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -105,7 +112,40 @@
         getTitle();
 		queryUserExist();
 		onhideone();
+		onshowthree();     //小购物车  移入 移开  事件
+		onhidethree();
     })    //queryUserExist
+   //小购物车  移入 移开  事件
+	function onshowthree(){
+		$(".card").mouseover(function(){
+			$(".cart_pro").show();
+			$.ajax({
+				url:"/shoppingcart",
+				type:"post",
+				success:function(result){
+					// console.log("111111"+result)
+					var count = "";
+					$.each(result,function(index,data){
+						count+="<div class=\"one\" >";
+						count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+						count+="<span>"+data.sku_mch+"</span><br/>";
+						count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+						count+="</div>";
+					})
+					$(".cart_pro").html(count)
+				},
+				error:function(){
+					alert("失败了");
+				}
+			})
+		})
+
+	}
+	function onhidethree(){
+		$(".card").mouseout(function() {
+			$(".cart_pro").hide();
+		})
+	}
 
 	//查询有没有 用户登录
 	function queryUserExist(){
@@ -138,7 +178,8 @@
 					var a=arr[1].split("comjk1807");
 					$("#kk").html(a[0]);
 				}
-				if(arr[2].trim()==null){
+				//debugger;
+				if(arr[1]==null){
 					$("#kk").html("xxx");
 				}
             })
