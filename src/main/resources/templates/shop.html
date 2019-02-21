@@ -1,15 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="/zht/css/css.css">
-    <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
-    <script  type="text/javascript" src="/jquery-2.0.3.min.js"></script>
+    <script th:src="@{~/common/myJs.jsp}"></script>
     <link href="/zht5121/css/jquery.slideBox.css" rel="stylesheet" type="text/css"/>
     <script src="/zht5121/js/jquery.slideBox.js" type="text/javascript"></script>
-    <script src="/js/bootstrap3/js/bootstrap.js"></script>
 
 </head>
 <style type="text/css">
@@ -26,59 +24,139 @@
             url:"/details/getShop",
             type:"post",
             success:function(data){
+                console.log("-----------"+data)
                 var count='';
+                var countMoney=0;
+                var shulaing=0;
                if(data==null){
-                   alert("空空如也,快去购物")
+                   layer.msg("空空如也,快去购物")
                }
                $.each(data,function (index,obj) {
+
                    count +="<tr>";
-                   count +="<td><img src='/"+obj.shp_tp+"' alt=''></td>";
-                   count +="<td>sku_mch</td>";
+                   count += "<td class='col1'><input type='checkbox' value='"+obj.id+"' name='checkAll' onclick='jieSuanCheck()'><a href=''><img  src='"+obj.shp_tp+"' width='70' alt='图片维护中' /></a></td>"
+                   count +="<td>"+obj.sku_mch+"</td>";
+                   count +="<td>"+obj.skuJg+"</td>";
                    count +="<td>" +
-                       "                颜色：<span style='color:#ccc'>白色</span><br>" +
-                       "                尺码：<span style='color:#ccc'>L</span>" +
-                       "            </td>";
-                   count +="<td>"+obj.jg+"</td>";
-                   count +="<td>" +
-                       "                <button class='minus' onclick='addCount()'>-</button>" +
-                         "                <input id='text_box' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
-                         "                <button class='plus' onclick='addCount()'>+</button>'" +
+                       "                <button class='minus' onclick='jianCount("+obj.id+","+obj.tjshl+","+obj.skuJg+")'>-</button>" +
+                         "                <input id='text_box' min='' type='text' name='min' value='"+obj.tjshl+"' style='width:50px;text-align:center'>" +
+                         "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+","+obj.tjshl+")'>+</button>" +
                        "    </td>";
-                   count +="<td class='totalPrice'></td>"
-                   count +="<td>删除 </br>" +
+                   count +="<td class='totalPrice'>"+obj.hj+"</td>"
+                   count +="<td> <input type='button' class='btn btn-danger' onclick='deleteGoodss("+index+")' value='删除'> </br>" +
                        "                <a href='javascript:void(0)'>移动到我的关注</a>" +
                        "            </td>"
-                   count +="</tr>"
+                   count +="</tr>";
+
+                   countMoney+=parseInt(obj.hj);  //总价
+                   shulaing+=parseInt(obj.tjshl); //数量
+
                })
+                $(".num").html(shulaing);
+                $(".allPPrice").html(countMoney);
+                $("#tbody").html(count);
             },
             error:function(){
                 alert("失败了");
             },
         })
     }
-    function addCount(){
-        var nun=$("#text_box").val();
-        $(".plus").click(function(){
-            nun++;
-            $("#text_box").val(nun);
-            $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
+
+    //删除
+   /* function deleteGoodss(index){
+
+        $.ajax({
+            url:'/good/deleteGoodss',
+            type:'post',
+            data:{indexs:index},
+
+            success:function () {
+                layer.msg("删除成功!!!")
+            },error(){
+                layer.msg("代码错误,请查看控制台!!!")
+            }
 
         })
-          $(".minus").click(function(){
-              nun--;
-              $("#text_box").val(nun);
-              if($("#text_box").val()<=0){
-                  $("#text_box").val(0);
-              }
-              $(".totalPrice").html(($("#text_box").val()*$(".price").html()))
 
-          })
-        getAllPrice();
-      }
-     function getAllPrice() {
+    }*/
+    //减数量
+    function jianCount(id,tjshl,skuJg) {
+        if(tjshl>1){
+            $(".minus").click(function () {
+                tjshl--;
+                $("#text_box").val(tjshl);
+                $.ajax({
+                    url: "/details/jianCount",
+                    type: "POST",
+                    data: {tjshl: tjshl, id: id, skuJg: skuJg},
+                    success: function (result) {
+                        window.location.reload(true);
+                    },
+                    error: function () {
+                        alert("失败了");
+                    }
+                })
+            })
+        }else{
+            layer.msg("已到下线,请勿再次操作!!!")
+        }
+    }
+
+    function addCount(id,skuJg,tjshl){
+
+        $(".plus").click(function(){
+            tjshl++;
+            $("#text_box").val(tjshl);
+            $.ajax({
+                url:"/details/addCount",
+                type:"POST",
+                data:{tjshl:tjshl,id:id,skuJg:skuJg},
+                success:function(result){
+                    window.location.reload(true);
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            })
+
+        })
+    }
+
+    function getAllPrice() {
         var aa= $(".totalPrice").html();
         $(".allPPrice").html(aa)
      }
+
+     //结算
+    function jieSuanCheck(){
+        var arr=document.getElementsByName("checkAll");
+        var ids="";
+      //  alert(arr)
+        var count=0;
+        for (var i = 0; i <arr.length ; i++) {
+
+            if(arr[i].checked){
+                ids += ","+arr[i].value;
+                count++;
+            }
+        }
+        if(count>0){
+            $.ajax({
+                url:"/details/jieSuanCheckPrice",
+                type:"POST",
+                data:{ids:ids.substring(1)},
+                success:function(price){
+                    $(".anPrice").html(price);
+                },
+                error:function(){
+                    layer.msg("失败了");
+                }
+            })
+        }else{
+            $(".anPrice").html(0);
+        }
+    }
+
 
 
 </script>
@@ -108,22 +186,10 @@
             <a href="">玉兰油</a>
         </div>
     </div>
+    <!--小购物车  移入移开   -->
     <div class="card" style="height: 36px;">
-        <a href="">购物车<div class="num">0</div></a>
-
-        <!--购物车商品-->
-        <div class="cart_pro"  onmouseover="onshowthree()">
-            <h6>最新加入的商品</h6>
-
-            <div class="gobottom"  onmouseout="onhidethree()">
-                共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
-                共计￥<span>20000</span>
-                <button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
-
-
-            </div>
-        </div>
-
+        <a href="">购物车<div class="num"></div></a>
+      <div class="cart_pro"></div>
     </div>
 </div>
 
@@ -133,7 +199,6 @@
         <tr>
             <th>商品图片</th>
             <th>商品名称</th>
-            <th>商品属性</th>
             <th>商品价格</th>
             <th>商品数量</th>
             <th>实际价格</th>
@@ -142,34 +207,15 @@
         </thead>
         <tbody id="tbody">
 
-        <tr>
-            <td><img src="/images/icon_2.jpg" alt=""></td>
-            <td>商品名称</td>
-            <td>
-                颜色：<span style='color:#ccc'>白色</span><br>
-                尺码：<span style='color:#ccc'>L</span>
-            </td>
-            <td class="price">199.00</td>
-            <td>
-                <button class="minus" onclick="addCount()">-</button>
-                <!--<a href="javascript:void(0)" class="easyui-linkbutton" class="minus">-</a>-->
-                <input id="text_box" type="text" name="min" value="1" style="width:50px;text-align:center">
-               <!-- <a href="javascript:void(0)" class="easyui-linkbutton"  class="plus">+</a>-->
-                <button class="plus" onclick="addCount()">+</button>
-            </td>
-            <td class="totalPrice"></td>
-            <td>删除 </br>
-                <a href="javascript:void(0)">移动到我的关注</a>
-            </td>
-
-        </tr>
-
         </tbody>
     </table>
 </div>
 <div class="Cprice">
     <div class="y3 fl">总价:</div>
-    <div class="allPPrice">199.00</div>
+    <!--结算 价格  -->
+    <div class="allPPrice"></div>
+    <div class="y3 f2">结算价格:</div>
+    <div class="anPrice"></div>
     <div class="jiesuan">结算</div>
 </div>
 
@@ -231,31 +277,42 @@
         </div>
     </div>
 </div>
-<script>
+<script type="application/javascript">  //card
+$(function () {
+    onshowthree();
+    onhidethree();
+})
+
     function onshowthree(){
-        $(".cart_pro").show();
-        $.ajax({
-            url:"/shoppingcart",
-            type:"post",
-            success:function(result){
-                //  data.shp_tp.substring()
-                var count = "";
-                $.each(result   ,function(index,data){
-                    count+="<div class=\"one\" >";
-                    count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
-                    count+="<span>"+data.sku_mch+"</span><br/>";
-                    count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
-                    count+="</div>";
-                })
-                $(".cart_pro").html(count)
-            },
-            error:function(){
-                alert("失败了");
-            }
+        $(".card").mouseover(function(){
+            $(".cart_pro").show();
+            $.ajax({
+                url:"/shoppingcart",
+                type:"post",
+                success:function(result){
+                    // console.log("111111"+result)
+                    var count = "";
+                    $.each(result,function(index,data){
+                        count+="<div class=\"one\" >";
+                        count+="<img src="+data.shp_tp+" width='66px' height='66px'>";
+                        count+="<span>"+data.sku_mch+"</span><br/>";
+                        count+="<span><b>"+data.hj+"</b><a href='javascript:deleteaa("+data.Id+")'>删除</a></span><br/>";
+
+                        count+="</div>";
+                    })
+                    $(".cart_pro").html(count)
+                },
+                error:function(){
+                    layer.msg("失败了");
+                }
+            })
         })
+
     }
     function onhidethree(){
-        $(".cart_pro").hide();
+        $(".card").mouseout(function() {
+            $(".cart_pro").hide();
+        })
     }
 
 

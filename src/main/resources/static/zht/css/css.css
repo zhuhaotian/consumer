@@ -20,7 +20,7 @@ a{text-decoration:none;color: #5A5A5A;font-family: '微软雅黑';font-size: 12p
 .menu .nav .navs{width: 1210px;margin: auto;}
 .menu .nav .navs .left_nav{width: 200px;height: 44px;background: #b1191a;font-size: 18px;line-height: 44px;color: #fff;padding-left: 10px;float: left;position: relative;}
 .menu .nav .navs .left_nav .nav_mini{width: 100%;height: auto;position: absolute;left:0px;top: 44px;background: #c81623;}
-.menu .nav .navs .left_nav .nav_mini ul{width: 100%;}
+.menu .nav .navs .left_nav .nav_mini ul{width: 100%;height: 302px;}
 .menu .nav .navs .left_nav .nav_mini ul li{position:relative;width:189px;line-height: 24px;background: url(../images/icon_1.jpg) no-repeat 191px;}
 .menu .nav .navs .left_nav .nav_mini ul li .two_nav{width:400px;height: auto;overflow: hidden;position: absolute;left: 209px;top:0px;background: black;border: 1px solid #c81623;display: none}
 .menu .nav .navs .left_nav .nav_mini ul li .two_nav a{padding:  0 5px;}
