@@ -169,7 +169,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp+" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp+" ></div>"
                      html+="<div class='price'>"+"￥" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -189,7 +189,7 @@
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+","+result[i].sku_id+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src= "+result[i].sh_tp+" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+","+result[i].sku_id+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src= "+'/images/'+result[i].sh_tp+" ></div>"
                      html+="<div class='price'>"+"￥" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -212,7 +212,7 @@
              var html="";
              for (var i = 0; i < result.length; i++) {
                  html+="<div class='list'>"
-                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp+" ></div>"
+                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp+" ></div>"
                  html+="<div class='price'>" +"￥"+ result[i].jg + "</div>"
                  html+="<div >" + result[i].shp_mch + "</div>"
                  html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -263,7 +263,7 @@
              var html="";
              for (var i = 0; i < result.length; i++) {
                  html+="<div class='list'>"
-                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp +" ></div>"
+                 html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp +" ></div>"
                  html+="<div class='price'>" + result[i].jg + "</div>"
                  html+="<div >" + result[i].shp_mch + "</div>"
                  html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -371,12 +371,10 @@ function getDetails(id,sku_id){
              url:'/retrieve/search',
              data:{skuXl:param,flbh1:class1},
              success:function (result) {
-
                  var html="";
                  for (var i = 0; i < result.length; i++) {
-
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+esult[i].sh_tp+" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+esult[i].sh_tp+" ></div>"
                      html+="<div class='price'>" + result[i].sku_jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -396,7 +394,7 @@ function getDetails(id,sku_id){
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp+" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp+" ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -415,7 +413,7 @@ function getDetails(id,sku_id){
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp+" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp+" ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -435,7 +433,7 @@ function getDetails(id,sku_id){
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp +" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp +" ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -455,7 +453,7 @@ function getDetails(id,sku_id){
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp+"></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp+"></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"
@@ -476,7 +474,7 @@ function getDetails(id,sku_id){
                  var html="";
                  for (var i = 0; i < result.length; i++) {
                      html+="<div class='list'>"
-                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+result[i].sh_tp +" ></div>"
+                     html+="<div class='img' onclick='getDetails("+result[i].ppId+")' style='width:200px;height:180px;float:left'><img width='180' height='180'  src="+'/images/'+result[i].sh_tp +" ></div>"
                      html+="<div class='price'>" + result[i].jg + "</div>"
                      html+="<div >" + result[i].shp_mch + "</div>"
                      html+="<div >" + result[i].shxm_mch + "" + result[i].shxzh + " </div>"

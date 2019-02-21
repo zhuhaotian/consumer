@@ -63,11 +63,11 @@
 		<div class="card">
 			<a href="/goods/toGoods">购物车<div class="num">0</div></a>
 
-			<div class="gobottom">
+			<!--<div class="gobottom">
 				共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
 				共计￥<span>20000</span><br>
 				<button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
-			</div>
+			</div>-->
 		</div>
 
 	</div>
@@ -84,10 +84,26 @@
 				</div>
 				<ul id="uu">
 				</ul>
+
+			</div>
+			<div  style="text-align:right;">
+			<!--<embed src="//mp4.vjshi.com/2018-12-06/fffbe3a4695c38c2e5b8ae7e3bffeb41.mp4"
+				   name="cc_D2788D547C5813DC"
+				   allowfullscreen="true"
+				   allowscriptaccess="always"
+				   pluginspage="http://www.macromedia.com/go/getflashplayer"
+				   type="application/x-shockwave-flash"
+				   width="280"
+				   height="350"
+			>-->
+			<video id="imageId" controls loop  name="media" width="280" height="350">
+				<source preload="metadata"    src="" type="video/mp4">
+			</video>
 			</div>
 		</div>
-	</div>
 
+	</div>
+	<div class="div-inline">
 	<div id="demo1" class="slideBox" style="margin-left: 28%">
 		<ul class="items">
 			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/1.jpg"></a></li>
@@ -97,6 +113,7 @@
 			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/5.jpg"></a></li>
 		</ul>
 	</div>
+  <div>
 
 <script th:inline="javascript">
 
@@ -105,6 +122,7 @@
         getTitle();
 		queryUserExist();
 		onhideone();
+        video();
     })    //queryUserExist
 
 	//查询有没有 用户登录
@@ -237,14 +255,20 @@
       var a = $("#sku_mch").val();
       location.href="/es/esClient?sku_mch="+a;
     }
-
-
-
-
-
-
-
-
+    //视频
+    function  video() {
+		$.ajax({
+	      url:"/video",
+	      type:"post",
+		  data:{id:1},
+	      success:function(data){
+            $("#imageId").attr("src",data.videoname);
+          },
+		  error:function(){
+	        alert("失败了");
+		  }
+		})
+    }
 </script>
 </body>
 </html>

@@ -67,7 +67,8 @@
 <input id="aaaId" type="hidden" th:value="${lists}">
 <div class="Sbox">
     <div class="list" th:each="sku : ${lists}">
-        <div class="img"><img th:src="@{${sku.skuimg}}"/></div>
+        <span><strong th:text="${sku.id}" id="shpid"></strong></span>
+        <div class="img"><img  th:src="@{${sku.skuimg}}" onclick="addimg()"/></div>
         <div class="price" th:text="${sku.jg}">$</div>
         <div class="title" th:text="${sku.sku_mch}"></div>
     </div>
@@ -142,6 +143,10 @@
 </div>
 </body>
 <script>
+    function addimg() {
+       var aa =  $("#shpid").html();
+        alert(aa);
+    }
     (function(win) {
         seajs.use('//static.360buyimg.com/devfe/toolbar/1.0.0/js/main', function(Toolbar) {
             var adConfig = {};

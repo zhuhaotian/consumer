@@ -86,14 +86,6 @@ public class DetailsController {
         return null;
     }
 
-    //测试  Redis 工具类
-   // @RequestMapping("mm")
-   // @ResponseBody
-   // public String mm(){
-
-    //    redisTemplate.opsForValue().set("aaa","hello word",40, TimeUnit.MINUTES);
-      //  return "success";
-  //  }
 
     //查询redis
     @ResponseBody
