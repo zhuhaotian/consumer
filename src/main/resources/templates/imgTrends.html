@@ -39,7 +39,7 @@
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
 			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
-			<a href="/removeUser"><p th:text="${param.user==null?'登录':'退出登录'}"></p></a>
+			<a href="/removeUser"><p msg="qwew" th:text="${param.user==null?'登录':'退出登录'}"></p></a>
 		</g>
 	  </div>
 	</div>
@@ -84,21 +84,22 @@
 				</ul>
 			</div>
 			<div  style="text-align:right;">
-				<video id="imageId" controls loop  name="media" width="283" height="370">
-					<source preload="metadata"    src="" type="video/mp4">
+				<video id="imageId" controls   loop  name="media" width="333" height="275">
+					<source preload="metadata" autostart="true"   src="" type="video/mp4">
 				</video>
 			</div>
 		</div>
 	</div>
-	<div id="demo1" class="slideBox" style="margin-left: 27.5%">
+	<div id="demo1" class="slideBox" style="margin-left: 27.5%;width:590px;height:295px;">
 		<ul class="items" >
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/1.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/2.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/3.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/4.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/5.jpg"></a></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/16865/34/7457/34459/5c6bd235Ee853cb16/9a63a4fe1aa05dfc.jpg" alt="2.21-2.28海鲜轻食"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//img1.360buyimg.com/pop/jfs/t1/28113/33/7573/58179/5c6e1775Ecf9ae148/a1e18c942df79120.jpg"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/31390/40/2614/75624/5c6b7d2eE49319ddd/131d1788202e6a50.jpg" alt="2.21号解腻轻食节"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/11414/19/8501/85712/5c6e0ca3E9d70ed26/50902170c942217d.jpg" alt="2.22水饮"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//img1.360buyimg.com/da/jfs/t1/17493/26/4577/62049/5c32f231Ec9158009/b2fe3664e56753f1.jpg"></a></li>
 		</ul>
 	</div>
+
 
 <script th:inline="javascript">
 
@@ -197,7 +198,7 @@
             success:function(pageUtil){
                 var count=''
                 $.each(pageUtil,function (index,obj) {
-                    count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+                    count +="<li><a href="+obj.href+"><font size='4px'>"+obj.text+"</font></a></li>"
                 })
                 $("#uu").append(count)
             },
