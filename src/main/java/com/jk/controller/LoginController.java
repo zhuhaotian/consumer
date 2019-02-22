@@ -106,9 +106,10 @@ public class LoginController {
      */
     @RequestMapping("getRandomCode")
     @ResponseBody
-    public Result getRandomCode(QueryParam queryParam){
+    public Result getRandomCode(QueryParam queryParam,HttpSession session){
         Result result=new Result();
         User phoneState=titleService.selectPhoneState(queryParam.getPhone_no());
+        session.setAttribute("user111",phoneState);
         if(phoneState.getState()==1){  //正常
             //每次都从redis中取一下当前手机号 如果有值 说明是刷新界面多次获取验证码
             boolean ao=redisTemplate.hasKey(Constant.multiple_code+queryParam.getPhone_no());

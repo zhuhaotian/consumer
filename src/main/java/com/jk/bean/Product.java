@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Product {
+public class Product implements Serializable {
     private Integer Id;//(编号)           PKInteger
     private String shp_mch;//(商品名称)  String(100)
     private String shp_tp;//(商品图片)   String(100)

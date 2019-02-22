@@ -85,27 +85,15 @@
 				<ul id="uu">
 				</ul>
 			</div>
+			<div  style="text-align:right;">
+				<video id="imageId" controls loop  name="media" width="283" height="370">
+					<source preload="metadata"    src="" type="video/mp4">
+				</video>
+			</div>
 		</div>
-        <div  style="text-align:right;">
-            <!--<embed src="//mp4.vjshi.com/2018-12-06/fffbe3a4695c38c2e5b8ae7e3bffeb41.mp4"
-                   name="cc_D2788D547C5813DC"
-                   allowfullscreen="true"
-                   allowscriptaccess="always"
-                   pluginspage="http://www.macromedia.com/go/getflashplayer"
-                   type="application/x-shockwave-flash"
-                   width="280"
-                   height="350"
-            >-->
-            <video id="imageId" controls loop  name="media" width="280" height="350">
-                <source preload="metadata"    src="" type="video/mp4">
-            </video>
-        </div>
 	</div>
-
-	<div id="demo1" class="slideBox" style="margin-left: 34.7%">
+	<div id="demo1" class="slideBox" style="margin-left: 27.5%">
 		<ul class="items" >
-	<div class="div-inline">
-
 			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/1.jpg"></a></li>
 			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/2.jpg"></a></li>
 			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/3.jpg"></a></li>
@@ -123,15 +111,16 @@
 		onhideone();
 		onshowthree();     //小购物车  移入 移开  事件
 		onhidethree();
+        video();
 
     })    //queryUserExist
    //小购物车  移入 移开  事件
 	function onshowthree(){
 
 		$(".card").mouseover(function(){
-			$(".cart_pro").show();
+			$(".gobottom").show();
 			$.ajax({
-				url:"/shoppingcart",
+				url:"/details/getShop",
 				type:"post",
 				success:function(result){
 					// console.log(result)
@@ -146,10 +135,10 @@
     					aa += parseInt(data.tjshl);
 					})
 					$(".num").html(aa);
-					$(".cart_pro").html(count)
+					$(".gobottom").html(count)
 				},
 				error:function(){
-					alert("失败了");
+					//alert("失败了");
 				}
 			})
 		})
@@ -157,7 +146,7 @@
 	}
 	function onhidethree(){
 		$(".card").mouseout(function() {
-			$(".cart_pro").hide();
+			$(".gobottom").hide();
 		})
 	}
 
@@ -181,7 +170,6 @@
 	}
 	//统一 存成一个cookie
 	function asd(){
-
         if(document.cookie!=null){
             //之前是在服务器操作cookie  现在在浏览器操作cookie
             var str=document.cookie.split(";");
