@@ -24,4 +24,6 @@ public class Constant {
 
     public static final String multiple_code = "multiple_code_";  //判断手机号是不是多次获取验证码
 
+
+
 }
