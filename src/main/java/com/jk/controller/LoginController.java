@@ -67,15 +67,15 @@ public class LoginController {
 
     private String title="你好，邮箱发送成功";
 
-    @RequestMapping("queryloginuser")
+    @RequestMapping("getQuery")
     @ResponseBody
-    public String LoginUserByYhMchByYhMm(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+    public String getQuery(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         User userData = client.queryloginuser(user);
         if (userData == null) {
             return "0";   //用户名  密码不正确
         }else{
             session.setAttribute("user111",userData);
-            Cookie cookie = new Cookie(Constant.remember_pwd+userData.getId(),userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
+            Cookie cookie = new Cookie(Constant.remember_pwd,userData.getYhMch()+Constant.splitsperator+userData.getYhMm());
             cookie.setMaxAge(60*60*24*7);
             cookie.setPath("/");
             response.addCookie(cookie);
