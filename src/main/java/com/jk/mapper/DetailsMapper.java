@@ -48,6 +48,8 @@ public interface DetailsMapper {
 
     Double jieSuanCheckPrice(@Param("ids")String ids);
 
+    void deletesShopCar(String ids);
+
     @Select("select * from t_mall_shoppingcar")
     List<ShopCar> getShopCar2();
 
