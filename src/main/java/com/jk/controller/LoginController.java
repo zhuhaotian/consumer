@@ -71,6 +71,7 @@ public class LoginController {
     @ResponseBody
     public String getQuery(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         User userData = client.queryloginuser(user);
+        System.err.println("userData"+userData);
         if (userData == null) {
             return "0";   //用户名  密码不正确
         }else{

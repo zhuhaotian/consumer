@@ -1,6 +1,5 @@
 package com.jk.service;
 
-import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
 import com.jk.bean.User;
@@ -13,11 +12,8 @@ import java.util.List;
 public interface DetailsService {
 
     List querydetails(Integer shpid);
-
-    
      //添加购物车
      void insertGoods(ShopCar shopCar, HttpServletResponse response, HttpServletRequest request, HttpSession session);
-
 
     List queryimgdetails(Integer shpid);
 

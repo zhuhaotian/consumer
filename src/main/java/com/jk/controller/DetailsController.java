@@ -10,20 +10,11 @@
  */
 package com.jk.controller;
 
-import com.alibaba.fastjson.JSONObject;
-
-import com.alibaba.fastjson.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import com.jk.utils.Constant;
-import org.apache.http.HttpRequest;
-import org.apache.http.protocol.HTTP;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -273,7 +264,7 @@ public class DetailsController {
                         list = detailsService.getShopCar(user);
                         //再将数据缓存至redis中
                         redisTemplate.opsForValue().set(Constant.userKey+user.getId(),list,30,TimeUnit.MINUTES);
-                    }
+                     }
                     }
             }else{
                 //cookie为空   直接去mysql查询
@@ -329,10 +320,11 @@ public class DetailsController {
                 System.out.println(list);
                 setCookie(response,3600, Constant.uuid);
                 redisTemplate.opsForValue().set(Constant.uuid,list,30,TimeUnit.MINUTES);
-            }else {
+            }else {    //用户已登录
                 for (Cookie cookie : cookies) {
                     if(redisTemplate.hasKey(cookie.getValue())) {
-                        list = redisTemplate.opsForValue().get(cookie.getValue() + user.getId());
+                        list = redisTemplate.opsForValue().get(Constant.userKey + user.getId());
+                        System.err.println(list+"list");
                         ShopCar car = list.get(index);
                         list.remove(car);
                         redisTemplate.delete(cookie.getValue()+user.getId());

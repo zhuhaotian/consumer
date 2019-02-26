@@ -1,24 +1,18 @@
 package com.jk.service.impl;
 
-import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.mapper.DetailsMapper;
 import com.jk.service.DetailsService;
-import com.jk.utils.Constant;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class DetailsServiceImpl implements DetailsService {
@@ -186,6 +180,7 @@ public class DetailsServiceImpl implements DetailsService {
     public ShopCar getShop(ShopCar sh) {
         return detailsMapper.getShop(sh.getShp_id());
     }
+
 
     @Override
     public Sku querySkuById(Integer skuId) {

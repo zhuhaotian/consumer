@@ -30,7 +30,7 @@ public interface DetailsMapper {
 
     void updateShopCar(ShopCar next);
 
-    List<ShopCar> getShopCar(Integer id);
+    List<ShopCar> getShopCar(@Param("id")Integer id);
 
     @Update("update t_mall_shoppingcar set tjshl = #{tjshl} where id = #{id}")
     void updateTjshl(ShopCar next);
