@@ -307,6 +307,7 @@ public class DetailsController {
     public String deleteShopCar(Integer index, HttpServletResponse response, HttpSession session, HttpServletRequest request){
         User user = (User)session.getAttribute("user111");
         List<ShopCar> list=null;
+        List seleteList=null;
         Cookie[] cookies = request.getCookies();
             if(user==null){
                 for (Cookie cookie : cookies) {
@@ -321,23 +322,17 @@ public class DetailsController {
                 redisTemplate.opsForValue().set(Constant.uuid,list,30,TimeUnit.MINUTES);
             }else {    //用户已登录
                 for (Cookie cookie : cookies) {
-                    if(redisTemplate.hasKey(cookie.getValue())) {
+                    if(redisTemplate.hasKey(cookie.getValue()+user.getId())) {
                         list = redisTemplate.opsForValue().get(Constant.userKey + user.getId());
-
-                        ShopCar car = list.get(index);
-
-                        seleteList=new ArrayList();
-
-                        if(!car.equals(list.iterator())){
-
-                            seleteList.add(list);
-
-                        }
-                    }
+                        redisTemplate.delete(cookie.getValue()+user.getId());
+                    }}
+                if(list!=null){
+                    ShopCar car = list.get(index);
+                    list.remove(car);
+                    detailsService.deletesShopCar2(car.getId());
                 }
-                 list.remove(list);
-                redisTemplate.delete(Constant.userKey+user.getId());
-                redisTemplate.opsForValue().set(Constant.userKey+user.getId(),seleteList,60,TimeUnit.MINUTES);
+                setCookie(response,3600, Constant.userKey + user.getId());
+                redisTemplate.opsForValue().set(Constant.userKey + user.getId(), list, 30, TimeUnit.MINUTES);
             }
 
         return "1";
