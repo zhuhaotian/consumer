@@ -248,36 +248,25 @@ public class DetailsController {
             //如果cookie不为空
             if(cookies !=null){
                 //循环遍历判断cookies对应的Key是否存在
-                List<ShopCar> list2=null;
                 for (Cookie cookie : cookies) {
                         //如果cookie中存在key    判断redis中是否存在
-                        if(redisTemplate.hasKey(cookie.getName())){
-                         list2=redisTemplate.opsForValue().get(cookie.getName());
-
+                        if(redisTemplate.hasKey(cookie.getValue())){
+                         List<ShopCar> list2=redisTemplate.opsForValue().get(cookie.getValue());
                             for (ShopCar shopCar : list2) {
                                 shopCar.setYh_id(user.getId());
                                 shopCar.setHj(shopCar.getSkuJg()*shopCar.getTjshl());
                             }
-                        }}
-                         //ShopCar car2= detailsService.getShopCar33(list2);
-                       //  if(car2==null){
-                           //  detailsService.addShopCar2(list2);
-                        // }else{
-                          //   detailsService.updateShop(list2);
-                       //  }
-                         if(list2!=null){
                          detailsService.addShopCar2(list2);
                          list=  detailsService.getShopCar(user);
-                         redisTemplate.delete(Constant.userKey+user.getId());
                          redisTemplate.opsForValue().set(Constant.userKey+user.getId(),list,30,TimeUnit.MINUTES);
-                      }else {
+                    }else{
                         //cookie为空   直接去mysql查询
                         list = detailsService.getShopCar(user);
                         //再将数据缓存至redis中
                         redisTemplate.opsForValue().set(Constant.userKey+user.getId(),list,30,TimeUnit.MINUTES);
-                         }
-                         }
-            else{
+                     }
+                    }
+            }else{
                 //cookie为空   直接去mysql查询
                 list = detailsService.getShopCar(user);
                 //再将数据缓存至redis中
@@ -328,23 +317,27 @@ public class DetailsController {
                         redisTemplate.delete(cookie.getValue());
                     }
                 }
-                if(list!=null) {
-                    setCookie(response, 3600, Constant.uuid);
-                    redisTemplate.opsForValue().set(Constant.uuid, list, 30, TimeUnit.MINUTES);
-                }
+                setCookie(response,3600, Constant.uuid);
+                redisTemplate.opsForValue().set(Constant.uuid,list,30,TimeUnit.MINUTES);
             }else {    //用户已登录
                 for (Cookie cookie : cookies) {
-                    if(redisTemplate.hasKey(cookie.getValue()+user.getId())) {
+                    if(redisTemplate.hasKey(cookie.getValue())) {
                         list = redisTemplate.opsForValue().get(Constant.userKey + user.getId());
-                        redisTemplate.delete(cookie.getValue()+user.getId());
-                    }}
-                     if(list!=null){
-                         ShopCar car = list.get(index);
-                         list.remove(car);
-                         detailsService.deletesShopCar2(car.getId());
-                     }
-                    setCookie(response,3600, Constant.userKey + user.getId());
-                    redisTemplate.opsForValue().set(Constant.userKey + user.getId(), list, 30, TimeUnit.MINUTES);
+
+                        ShopCar car = list.get(index);
+
+                        seleteList=new ArrayList();
+
+                        if(!car.equals(list.iterator())){
+
+                            seleteList.add(list);
+
+                        }
+                    }
+                }
+                 list.remove(list);
+                redisTemplate.delete(Constant.userKey+user.getId());
+                redisTemplate.opsForValue().set(Constant.userKey+user.getId(),seleteList,60,TimeUnit.MINUTES);
             }
 
         return "1";
