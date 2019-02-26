@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -8,6 +7,7 @@
     <script th:src="@{~/common/myJs.jsp}"></script>
     <link href="/zht5121/css/jquery.slideBox.css" rel="stylesheet" type="text/css"/>
     <script src="/zht5121/js/jquery.slideBox.js" type="text/javascript"></script>
+
 
 </head>
 <style type="text/css">
@@ -19,6 +19,7 @@
        getShop();
         getAllPrice();
     })
+    var StopId = null;
     function getShop() {
         $.ajax({
             url:"/details/getShop",
@@ -63,22 +64,19 @@
     }
 
     //删除
-   /* function deleteGoodss(index){
-
+  function deleteGoodss(id){
         $.ajax({
-            url:'/good/deleteGoodss',
-            type:'post',
-            data:{indexs:index},
-
+            url:'/details/deleteCar',
+            data:{index:id},
             success:function () {
-                layer.msg("删除成功!!!")
-            },error(){
+                window.location.reload(true);
+            },error:function(){
                 layer.msg("代码错误,请查看控制台!!!")
             }
 
         })
 
-    }*/
+    }
     //减数量
     function jianCount(id,tjshl,skuJg) {
         if(tjshl>1){
@@ -128,11 +126,13 @@
      }
 
      //结算
+    var priceID =  null;
     function jieSuanCheck(){
         var arr=document.getElementsByName("checkAll");
         var ids="";
       //  alert(arr)
         var count=0;
+
         for (var i = 0; i <arr.length ; i++) {
 
             if(arr[i].checked){
@@ -146,19 +146,50 @@
                 type:"POST",
                 data:{ids:ids.substring(1)},
                 success:function(price){
-                    $(".anPrice").html(price);
+                    priceID += price;
+                    //$(".anPrice").html(price);
+                    $("#jgId").html(price);
+
                 },
                 error:function(){
                     layer.msg("失败了");
                 }
             })
         }else{
-            $(".anPrice").html(0);
+            //$(".anPrice").html(0);
+            $("#jgId").html(0);
         }
     }
+    function getPriceZHIFU(){
+        var array = $("input[name='checkAll']:checked");
+        if (array.length>0) {
+            var ids = "";
+            for(var i = 0;i< array.length;i++){
+                ids += array[i].value + ",";
+            }
+            ids = ids.substring(0,ids.length-1);
+            //alert(ids);
+            location.href="/alipay/zhifu?jg="+priceID;
+            //删除,非同步删除,支付成功失败都删除
+            $.ajax({
+                url:"/details/deletesShopCar",
+                type:"POST",
+                data:{ids:ids},
+                success:function(price){
+                    priceID += price;
+                    //$(".anPrice").html(price);
+                    $("#jgId").html(price);
 
+                },
+                error:function(){
+                    layer.msg("失败了");
+                }
+            })
+        }else{
+            layer.msg("未选择商品!");
+        }
 
-
+    }
 </script>
 <body>
 <div class="top">
@@ -177,7 +208,7 @@
     <div class="search_on">
         <div class="se">
             <input type="text" name="search" class="lf">
-            <input type="submit" class="clik" value="搜索" style="height: 32px;">
+            <input type="submit" class="clik" value="搜索" style="height:32px;">
         </div>
         <div class="se">
             <a href="">取暖神奇</a>
@@ -215,8 +246,8 @@
     <!--结算 价格  -->
     <div class="allPPrice"></div>
     <div class="y3 f2">结算价格:</div>
-    <div class="anPrice"></div>
-    <div class="jiesuan">结算</div>
+    <div class="anPrice"><h5 id="jgId"></h5></div>
+    <div class="jiesuan" onclick="getPriceZHIFU()">结算</div>
 </div>
 
 <div class="footer">
@@ -281,6 +312,7 @@
 $(function () {
     onshowthree();
     onhidethree();
+
 })
 
     function onshowthree(){
@@ -314,9 +346,6 @@ $(function () {
             $(".cart_pro").hide();
         })
     }
-
-
-
 
 
 

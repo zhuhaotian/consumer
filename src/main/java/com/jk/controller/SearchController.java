@@ -1,9 +1,6 @@
 package com.jk.controller;
 
-import com.jk.bean.Class2;
-import com.jk.bean.Comment;
-import com.jk.bean.Product;
-import com.jk.bean.ShopCar;
+import com.jk.bean.*;
 import com.jk.client.SearchClient;
 import com.jk.service.SearchService;
 import com.jk.utils.Constant;
@@ -96,9 +93,10 @@ public class SearchController {
     //查询购物车
     @ResponseBody
     @RequestMapping("shoppingcart")
-    public List shoppingcart(){
+    public List shoppingcart(HttpSession session){
         List<ShopCar> list =null;
-        if(redisTemplate.hasKey(Constant.cart)){
+        User user= (User)session.getAttribute("user111");
+        if(redisTemplate.hasKey(Constant.userKey+user.getId())){
             list= redisTemplate.opsForValue().get(Constant.cart);
             System.out.println("在redis中查询");
         }else{

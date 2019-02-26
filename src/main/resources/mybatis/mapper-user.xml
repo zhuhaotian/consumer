@@ -6,4 +6,9 @@
 <insert id="registertwo">
    INSERT into t_mall_user_account(Id,yh_mch,yh_mm) VALUES(#{id},#{yhMch},#{yhMm})
 </insert>
+
+   <select id="queryloginuser" resultType="com.jk.bean.User">
+      select id,yh_mch yhMch,yh_mm yhMm from t_mall_user_account where yh_mch = #{yhMch} and yh_mm = #{yhMm}
+  </select>
+
 </mapper>

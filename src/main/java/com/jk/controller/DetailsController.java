@@ -10,12 +10,18 @@
  */
 package com.jk.controller;
 
+import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jk.bean.Info;
 import com.jk.bean.ShopCar;
 import com.jk.bean.Sku;
 import com.jk.bean.User;
 import com.jk.service.DetailsService;
 import com.jk.utils.Constant;
+import org.apache.http.HttpRequest;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -239,11 +245,9 @@ public class DetailsController {
             if(cookies!=null){
              //循环遍历判断cookies对应的Key是否存在
                 for (Cookie cookie : cookies) {
-                    if(cookie.getName().equals(Constant.uuid)){
                         //如果cookie中存在key 查看Redis是否也存在key
-                        if(redisTemplate.hasKey(Constant.uuid)){
-                            list = redisTemplate.opsForValue().get(Constant.uuid);
-                        }
+                        if(redisTemplate.hasKey(cookie.getName())){
+                            list = redisTemplate.opsForValue().get(cookie.getName());
                     }
                 }
             }
@@ -254,11 +258,16 @@ public class DetailsController {
             if(cookies !=null){
                 //循环遍历判断cookies对应的Key是否存在
                 for (Cookie cookie : cookies) {
-                    if(cookie.getName().equals(Constant.userKey+user.getId())){
                         //如果cookie中存在key    判断redis中是否存在
-                        if(redisTemplate.hasKey(Constant.userKey+user.getId())){
-                            list=redisTemplate.opsForValue().get(Constant.userKey+user.getId());
-                        }
+                        if(redisTemplate.hasKey(cookie.getValue())){
+                         List<ShopCar> list2=redisTemplate.opsForValue().get(cookie.getValue());
+                            for (ShopCar shopCar : list2) {
+                                shopCar.setYh_id(user.getId());
+                                shopCar.setHj(shopCar.getSkuJg()*shopCar.getTjshl());
+                            }
+                         detailsService.addShopCar2(list2);
+                         list=  detailsService.getShopCar(user);
+                         redisTemplate.opsForValue().set(Constant.userKey+user.getId(),list,30,TimeUnit.MINUTES);
                     }else{
                         //cookie为空   直接去mysql查询
                         list = detailsService.getShopCar(user);
@@ -278,7 +287,6 @@ public class DetailsController {
                 car.setHj(car.getTjshl()*car.getSkuJg());
             }
         }
-        System.out.println(list);
         return list;
     }
 
@@ -295,12 +303,58 @@ public class DetailsController {
         return "1";
     }
 
-    //结算
+    //获取选中价格
     @ResponseBody
     @RequestMapping("jieSuanCheckPrice")
     public Double jieSuanCheckPrice(String ids){
 
         return detailsService.jieSuanCheckPrice(ids);
+    }
+    //删除
+    @ResponseBody
+    @RequestMapping("deleteCar")
+    public String deleteShopCar(Integer index, HttpServletResponse response, HttpSession session, HttpServletRequest request){
+        User user = (User)session.getAttribute("user111");
+        List<ShopCar> list=null;
+        Cookie[] cookies = request.getCookies();
+            if(user==null){
+                for (Cookie cookie : cookies) {
+                    if(redisTemplate.hasKey(cookie.getValue())){
+                        list = redisTemplate.opsForValue().get(cookie.getValue());
+                        ShopCar car = list.get(index);
+                        list.remove(car);
+                        redisTemplate.delete(cookie.getValue());
+                    }
+                }
+                System.out.println(list);
+                setCookie(response,3600, Constant.uuid);
+                redisTemplate.opsForValue().set(Constant.uuid,list,30,TimeUnit.MINUTES);
+            }else {
+                for (Cookie cookie : cookies) {
+                    if(redisTemplate.hasKey(cookie.getValue())) {
+                        list = redisTemplate.opsForValue().get(cookie.getValue() + user.getId());
+                        ShopCar car = list.get(index);
+                        list.remove(car);
+                        redisTemplate.delete(cookie.getValue()+user.getId());
+                    }
+                }
+                    setCookie(response,3600, Constant.userKey + user.getId());
+                    redisTemplate.opsForValue().set(Constant.userKey + user.getId(), list, 30, TimeUnit.MINUTES);
+            }
+
+        return "1";
+    }
+
+    /**
+     * 根据ID删除购物车的商品
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deletesShopCar")
+    public String deletesShopCar(String ids){
+        detailsService.deletesShopCar(ids);
+        return "1";
     }
 
 }

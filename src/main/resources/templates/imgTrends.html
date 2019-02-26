@@ -38,16 +38,16 @@
 			<a href="">用户注册</a>
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
-			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk">xxx</font></a>
-			<a href="/removeUser"><p th:text="${param.user==null?'登录':'退出登录'}"></p></a>
+			<a id="aass">欢迎,<font size="4px" color="#dc143c" id="kk" th:text="${session.user111.yhMch}">xxx</font></a>
+			<a href="/removeUser"><p msg="qwew" th:text="${param.user==null?'登录':'退出登录'}"></p></a>
 		</g>
 	  </div>
 	</div>
 	<div class="top_img">
 		<img src="./images/top_img.jpg" alt="">
 	</div>
-	<div class="search">
-		<div class="logo"><img style="width:100px" src="./images/33.gif" alt=""></div>
+	<div class="search" style="margin-left: 5%">
+		<div class="logo"><img style="width:100px;margin-left:0%" src="./images/33.gif" alt=""></div>
 		<div class="search_on">
 			<div class="se">
 				<input type="text"  id="sku_mch" class="lf">
@@ -60,18 +60,21 @@
 				<a href="">玉兰油</a>
 			</div>
 		</div>
-		<div class="card">
-			<a href="/goods/toGoods">购物车<div class="num">0</div></a>
-
-			<div class="gobottom">
+			<!-- 显示 小购物车 的 悬浮 数量-->
+			<!--<a href="/good/toGoods">购物车 <div class="num"></div></a>-->
+			<!--<div class="gobottom">
 				共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
 				共计￥<span>20000</span><br>
 				<button class="goprice" onclick="window.location.href='/good/toshop'">去购物车</button>
+			</div>-->
+			<!--小购物车  移入移开   -->
+			<div class="card" style="height: 36px;">
+				<a href="/good/toGoods">购物车<div class="num"></div></a>
+				<div class="cart_pro" style="display: block;width:252px"></div>
 			</div>
-		</div>
 
 	</div>
-	<div class="menu">
+	<div class="menu" style="margin-left: 1%">
 		<div class="nav">
 			<div class="navs">
 				<div class="left_nav">
@@ -87,18 +90,18 @@
 			</div>
 			<div  style="text-align:right;">
 				<video id="imageId" controls loop  name="media" width="283" height="370">
-					<source preload="metadata"    src="" type="video/mp4">
+					<source preload="metadata" src="" type="video/mp4">
 				</video>
 			</div>
 		</div>
 	</div>
-	<div id="demo1" class="slideBox" style="margin-left: 27.5%">
+	<div id="demo1" class="slideBox" style="margin-left: 28%">
 		<ul class="items" >
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/1.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/2.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/3.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/4.jpg"></a></li>
-			<li><a href="http://www.jq22.com/" ><img src="/zht5121/img/5.jpg"></a></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/16865/34/7457/34459/5c6bd235Ee853cb16/9a63a4fe1aa05dfc.jpg" alt="2.21-2.28海鲜轻食"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//img1.360buyimg.com/pop/jfs/t1/28113/33/7573/58179/5c6e1775Ecf9ae148/a1e18c942df79120.jpg"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/31390/40/2614/75624/5c6b7d2eE49319ddd/131d1788202e6a50.jpg" alt="2.21号解腻轻食节"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//m.360buyimg.com/babel/jfs/t1/11414/19/8501/85712/5c6e0ca3E9d70ed26/50902170c942217d.jpg" alt="2.22水饮"></li>
+			<li style="width: 590px; height: 295px;"><img class="focus_item_img" src="//img1.360buyimg.com/da/jfs/t1/17493/26/4577/62049/5c32f231Ec9158009/b2fe3664e56753f1.jpg"></a></li>
 		</ul>
 	</div>
 
@@ -118,7 +121,7 @@
 	function onshowthree(){
 
 		$(".card").mouseover(function(){
-			$(".gobottom").show();
+			$(".cart_pro").show();
 			$.ajax({
 				url:"/details/getShop",
 				type:"post",
@@ -135,7 +138,7 @@
     					aa += parseInt(data.tjshl);
 					})
 					$(".num").html(aa);
-					$(".gobottom").html(count)
+					$(".cart_pro").html(count)
 				},
 				error:function(){
 					//alert("失败了");
@@ -146,7 +149,7 @@
 	}
 	function onhidethree(){
 		$(".card").mouseout(function() {
-			$(".gobottom").hide();
+			$(".cart_pro").hide();
 		})
 	}
 
@@ -159,6 +162,7 @@
 			success:function(result){
 				if(result==0){   //用户未登录   为空
 					var a=document.cookie.split("=");
+
 					$("#kk").html(a[0]);
 					$("[msg='qwew']").html('登录')
 				}else{
@@ -173,10 +177,11 @@
         if(document.cookie!=null){
             //之前是在服务器操作cookie  现在在浏览器操作cookie
             var str=document.cookie.split(";");
-          //  console.log(str);   //获去当前cookie的  cookie值
+           // console.log("===>"+str);   //获去当前cookie的  cookie值
             $.each(str,function (i,obj) {
                 var arr=obj.split("=");
-				if (arr[0].trim()=="remember_pwd" && arr[0] !=null) {
+
+				if (arr[0]=="remember_pwd"+[[${param}]] && arr[1] !=null) {
 					var a=arr[1].split("comjk1807");
 					$("#kk").html(a[0]);
 				}
@@ -199,7 +204,7 @@
             success:function(pageUtil){
                 var count=''
                 $.each(pageUtil,function (index,obj) {
-                    count +="<li><a href='/tit/toshow?name="+obj.href+"'><font size='4px'>"+obj.text+"</font></a></li>"
+                    count +="<li><a href="+obj.href+"><font size='4px'>"+obj.text+"</font></a></li>"
                 })
                 $("#uu").append(count)
             },
