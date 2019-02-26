@@ -44,7 +44,7 @@
                          "                <button class='plus' onclick='addCount("+obj.id+","+obj.skuJg+","+obj.tjshl+")'>+</button>" +
                        "    </td>";
                    count +="<td class='totalPrice'>"+obj.hj+"</td>"
-                   count +="<td> <input type='button' class='btn btn-danger' onclick='deleteGoodss("+index+")' value='删除'> </br>" +
+                   count +="<td> <input type='button' class='btn btn-danger' onclick='deleteGoodss("+obj.id+")' value='删除'> </br>" +
                        "                <a href='javascript:void(0)'>移动到我的关注</a>" +
                        "            </td>"
                    count +="</tr>";
@@ -65,10 +65,9 @@
 
     //删除
   function deleteGoodss(id){
-        alert(id)
         $.ajax({
-            url:'/details/deleteCar',
-            data:{index:id},
+            url:'/details/deletesShopCar',
+            data:{ids:id},
             success:function () {
                 window.location.reload(true);
             },error:function(){
@@ -176,10 +175,7 @@
                 url:"/details/deletesShopCar",
                 type:"POST",
                 data:{ids:ids},
-                success:function(price){
-                    priceID += price;
-                    //$(".anPrice").html(price);
-                    $("#jgId").html(price);
+                success:function(result){
 
                 },
                 error:function(){
