@@ -39,4 +39,8 @@ public interface DetailsService {
     Double jieSuanCheckPrice(String ids);
 
     void deletesShopCar(String ids);
+
+    void addShopCar2(List<ShopCar> list2);
+
+    List<ShopCar> getShopCar2();
 }

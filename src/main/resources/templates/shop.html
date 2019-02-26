@@ -64,22 +64,19 @@
     }
 
     //删除
-   /* function deleteGoodss(index){
-
+  function deleteGoodss(id){
         $.ajax({
-            url:'/good/deleteGoodss',
-            type:'post',
-            data:{indexs:index},
-
+            url:'/details/deleteCar',
+            data:{index:id},
             success:function () {
-                layer.msg("删除成功!!!")
-            },error(){
+                window.location.reload(true);
+            },error:function(){
                 layer.msg("代码错误,请查看控制台!!!")
             }
 
         })
 
-    }*/
+    }
     //减数量
     function jianCount(id,tjshl,skuJg) {
         if(tjshl>1){

@@ -141,4 +141,14 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
 <delete id="deletesShopCar" parameterType="string">
  delete from t_mall_shoppingcar where id in (${ids})
 </delete>
+
+ <!--void addShopCar2(List<ShopCar> list2);-->
+  <insert id="addShopCar2">
+         insert into t_mall_shoppingcar
+        (sku_mch,sku_jg,tjshl,hj,yh_id,shp_id,chjshj,sku_id,shp_tp,shfxz,kcdz)
+        values
+        <foreach collection="list2" item="item" index="index" separator=",">
+            (#{item.sku_mch},#{item.skuJg},#{item.tjshl},#{item.hj},#{item.yh_id},#{item.shp_id},SYSDATE(),#{item.sku_id},#{item.shp_tp},#{item.shfxz},#{item.kcdz})
+        </foreach>
+  </insert>
 </mapper>
