@@ -224,6 +224,22 @@ public class DetailsServiceImpl implements DetailsService {
     }
 
     @Override
+    public ShopCar getShopCar33(List<ShopCar> list2) {
+        return null;
+    }
+
+    @Override
+    public void updateShop(List<ShopCar> list2) {
+
+    }
+
+    @Override
+    public void deletesShopCar2(Integer id) {
+        detailsMapper.deletesShopCar2(id);
+    }
+
+
+    @Override
     public void deletesShopCar(String ids) {
         detailsMapper.deletesShopCar(ids);
     }

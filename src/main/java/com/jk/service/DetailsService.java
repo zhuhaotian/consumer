@@ -39,4 +39,11 @@ public interface DetailsService {
     void addShopCar2(List<ShopCar> list2);
 
     List<ShopCar> getShopCar2();
+
+    ShopCar getShopCar33(List<ShopCar> list2);
+
+    void updateShop(List<ShopCar> list2);
+
+
+    void deletesShopCar2(Integer id);
 }

@@ -3,6 +3,7 @@ package com.jk.mapper;
 import com.jk.bean.ShopCar;
 import com.jk.bean.User;
 import com.jk.bean.Sku;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -54,4 +55,7 @@ public interface DetailsMapper {
     List<ShopCar> getShopCar2();
 
     void addShopCar2(@Param("list2") List<ShopCar> list2);
+
+    @Delete("delete from t_mall_shoppingcar where id = #{id} ")
+    void deletesShopCar2(@Param("yh_id") Integer id);
 }
