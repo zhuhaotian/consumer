@@ -47,4 +47,6 @@ public interface DetailsMapper {
     void addCount(@Param("id") Integer id,@Param("hj") Double hj ,@Param("tjshl") Integer tjshl);
 
     Double jieSuanCheckPrice(@Param("ids")String ids);
+
+    void deletesShopCar(String ids);
 }

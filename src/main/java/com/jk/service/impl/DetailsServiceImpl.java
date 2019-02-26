@@ -218,4 +218,8 @@ public class DetailsServiceImpl implements DetailsService {
         return price;
     }
 
+    @Override
+    public void deletesShopCar(String ids) {
+        detailsMapper.deletesShopCar(ids);
+    }
 }

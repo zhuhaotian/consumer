@@ -303,4 +303,16 @@ public class DetailsController {
         return detailsService.jieSuanCheckPrice(ids);
     }
 
+    /**
+     * 根据ID删除购物车的商品
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deletesShopCar")
+    public String deletesShopCar(String ids){
+        detailsService.deletesShopCar(ids);
+        return "1";
+    }
+
 }
