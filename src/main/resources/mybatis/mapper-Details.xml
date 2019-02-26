@@ -139,7 +139,7 @@ where si.shp_fw = ps.shp_id and si.shp_bb = pv.shp_id and ps.shp_id=tmp.Id and s
             ms.id in (${ids})
  </select>
 <delete id="deletesShopCar" parameterType="string">
- delete from t_mall_shoppingcar where id in (${ids})
+ delete from t_mall_shoppingcar where id in (${_parameter})
 </delete>
 
  <!--void addShopCar2(List<ShopCar> list2);-->

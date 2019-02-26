@@ -51,7 +51,6 @@ public interface DetailsMapper {
 
     void deletesShopCar(String ids);
 
-    @Select("select * from t_mall_shoppingcar")
     List<ShopCar> getShopCar2();
 
     void addShopCar2(@Param("list2") List<ShopCar> list2);
